@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { formatAuthErrorMessage } from "@/lib/auth/format-auth-error";
+import { resolvePostAuthPath } from "@/lib/auth/post-auth-path";
 import { nextPathSchema, signUpSchema } from "@/lib/validations/auth";
 
 const signupPayloadSchema = signUpSchema.extend({
@@ -58,7 +59,7 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     ok: true,
-    next: parsed.data.next,
+    next: resolvePostAuthPath(parsed.data.next, "buyer"),
     requiresEmailConfirmation: !data.session,
     user: data.user
       ? {

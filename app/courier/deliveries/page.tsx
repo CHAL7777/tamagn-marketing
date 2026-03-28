@@ -5,6 +5,16 @@ import { createClient } from "@/lib/supabase/server";
 import { CourierDeliveryActions } from "@/components/courier/CourierDeliveryActions";
 import { OrderStatus } from "@/components/OrderStatus";
 
+type DeliveryAssignmentRow = {
+  order_id: string;
+  status: string;
+  created_at: string;
+  orders:
+    | { id: string; status: string; total: string }
+    | { id: string; status: string; total: string }[]
+    | null;
+};
+
 export default async function CourierDeliveriesPage() {
   const supabase = await createClient();
   const {
@@ -41,7 +51,8 @@ export default async function CourierDeliveriesPage() {
         .order("created_at", { ascending: false })
     : { data: [] as never[] };
 
-  const assignmentRows = assignments ?? [];
+  const assignmentRows: DeliveryAssignmentRow[] =
+    (assignments as DeliveryAssignmentRow[] | null) ?? [];
   const inTransitCount = assignmentRows.filter((assignment) =>
     ["collected", "in_transit"].includes(
       Array.isArray(assignment.orders) ? assignment.orders[0]?.status ?? "" : assignment.orders?.status ?? ""
@@ -76,7 +87,7 @@ export default async function CourierDeliveriesPage() {
           <h2 className="text-xl font-bold tracking-[-0.03em]">My deliveries</h2>
         </div>
         <ul className="divide-y divide-border/70">
-        {assignmentRows.map((a) => {
+          {assignmentRows.map((a) => {
             const raw = a.orders as
               | { id: string; status: string; total: string }
               | { id: string; status: string; total: string }[]
@@ -103,8 +114,7 @@ export default async function CourierDeliveriesPage() {
                 </div>
               </li>
             );
-          }
-        )}
+          })}
         </ul>
         {assignmentRows.length === 0 ? (
           <div className="px-6 py-10 text-center text-sm text-secondary">

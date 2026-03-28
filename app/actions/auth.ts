@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { formatAuthErrorMessage } from "@/lib/auth/format-auth-error";
+import { resolvePostAuthPath } from "@/lib/auth/post-auth-path";
 import { isEmailNotConfirmedError } from "@/lib/auth/sign-in-errors";
 import {
   parseResendConfirmationForm,
@@ -34,7 +35,7 @@ export async function signInWithEmail(
   const { email, password, next } = parsed.data;
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
     if (isEmailNotConfirmedError(error)) {
       return {
@@ -50,8 +51,14 @@ export async function signInWithEmail(
     };
   }
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", data.user.id)
+    .maybeSingle();
+
   revalidatePath("/", "layout");
-  redirect(next);
+  redirect(resolvePostAuthPath(next, profile?.role));
 }
 
 export async function resendSignupConfirmation(
@@ -136,7 +143,7 @@ export async function signUpWithEmail(
 
   revalidatePath("/", "layout");
   if (data.session) {
-    redirect("/buyer/dashboard");
+    redirect(resolvePostAuthPath(next, "buyer"));
   }
 
   return {

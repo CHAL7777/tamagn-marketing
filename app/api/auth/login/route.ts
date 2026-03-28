@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { formatAuthErrorMessage } from "@/lib/auth/format-auth-error";
+import { resolvePostAuthPath } from "@/lib/auth/post-auth-path";
 import { isEmailNotConfirmedError } from "@/lib/auth/sign-in-errors";
 import { nextPathSchema, signInSchema } from "@/lib/validations/auth";
 
@@ -62,7 +63,7 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     ok: true,
-    next: parsed.data.next,
+    next: resolvePostAuthPath(parsed.data.next, profile?.role),
     user: {
       id: data.user.id,
       email: data.user.email ?? parsed.data.email,

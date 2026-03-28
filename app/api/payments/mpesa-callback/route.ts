@@ -1,5 +1,9 @@
-import { NextResponse } from "next/server";
 import { parseStkCallbackResult } from "@/lib/mpesa";
+import {
+  acknowledgeMpesaCallback,
+  ensureMpesaCallbackAuthorized,
+  readMpesaCallbackJson,
+} from "@/lib/mpesa-callback";
 import { recordStkCallbackForEscrow } from "@/lib/escrow";
 import { recordStkCallbackForPromotion } from "@/lib/escrow-promotions";
 
@@ -8,31 +12,19 @@ import { recordStkCallbackForPromotion } from "@/lib/escrow-promotions";
  * Optional: set MPESA_CALLBACK_SECRET and send the same value in header `x-mpesa-callback-secret`.
  */
 export async function POST(request: Request) {
-  const secret = process.env.MPESA_CALLBACK_SECRET?.trim();
-  if (secret) {
-    const sent = request.headers.get("x-mpesa-callback-secret");
-    if (sent !== secret) {
-      return NextResponse.json({ ResultCode: 1, ResultDesc: "Unauthorized" }, { status: 401 });
-    }
-  }
+  const unauthorized = ensureMpesaCallbackAuthorized(request);
+  if (unauthorized) return unauthorized;
 
-  let raw: unknown;
-  try {
-    raw = await request.json();
-  } catch {
-    return NextResponse.json({ ResultCode: 1, ResultDesc: "Bad JSON" });
-  }
+  const parsedBody = await readMpesaCallbackJson(request);
+  if (!parsedBody.ok) return parsedBody.response;
 
-  const parsed = parseStkCallbackResult(raw);
+  const parsed = parseStkCallbackResult(parsedBody.raw);
   if (!parsed.checkoutRequestId) {
-    return NextResponse.json({ ResultCode: 0, ResultDesc: "Ignored" });
+    return acknowledgeMpesaCallback("Ignored");
   }
 
   await recordStkCallbackForEscrow(parsed);
   await recordStkCallbackForPromotion(parsed);
 
-  return NextResponse.json({
-    ResultCode: 0,
-    ResultDesc: "Success",
-  });
+  return acknowledgeMpesaCallback();
 }

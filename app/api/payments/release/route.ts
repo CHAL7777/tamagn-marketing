@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { createAdminClient } from "@/lib/supabase/admin";
-import { initiateB2CPayout } from "@/lib/mpesa";
-import { orderHasActiveDispute } from "@/lib/disputes";
-import { resolveOrderPayoutTarget } from "@/lib/payout-target";
+import { requestEscrowRelease } from "@/lib/mpesa-payouts";
 
 /**
  * Release escrow to merchant (B2C) after buyer confirmed delivery.
@@ -36,17 +33,7 @@ export async function POST(request: Request) {
     .eq("id", user.id)
     .maybeSingle();
 
-  let admin;
-  try {
-    admin = createAdminClient();
-  } catch {
-    return NextResponse.json(
-      { ok: false, error: "Server configuration" },
-      { status: 500 }
-    );
-  }
-
-  const { data: order } = await admin
+  const { data: order } = await supabase
     .from("orders")
     .select(
       "id, buyer_id, merchant_id, service_listing_id, status, escrow_released, subtotal"
@@ -71,50 +58,18 @@ export async function POST(request: Request) {
     );
   }
 
-  if (await orderHasActiveDispute(admin, orderId)) {
-    return NextResponse.json(
-      { ok: false, error: "Escrow frozen: active dispute" },
-      { status: 409 }
-    );
-  }
-
-  const target = await resolveOrderPayoutTarget(admin, order);
-  if (target.kind === "none") {
-    return NextResponse.json(
-      { ok: false, error: target.reason },
-      { status: 400 }
-    );
-  }
-  const partyB = target.partyB;
-
-  const payoutAmount = Math.max(0, Number(order.subtotal));
-
-  const result = await initiateB2CPayout({
-    partyB,
-    amount: payoutAmount,
-    remarks: `Order ${orderId}`,
-  });
-
+  const result = await requestEscrowRelease(orderId);
   if (!result.ok) {
     return NextResponse.json(
       { ok: false, error: result.error, data: result.raw },
-      { status: 502 }
+      { status: result.error === "Escrow frozen: active dispute" ? 409 : 502 }
     );
   }
 
-  await admin
-    .from("orders")
-    .update({ escrow_released: true })
-    .eq("id", orderId);
-
-  await admin.from("escrow_events").insert({
-    order_id: orderId,
-    event_type:
-      target.kind === "service_provider"
-        ? "released_to_service_provider"
-        : "released_to_merchant",
-    meta: { raw: result.raw },
+  return NextResponse.json({
+    ok: true,
+    pending: true,
+    originatorConversationId: result.originatorConversationId,
+    data: result.data,
   });
-
-  return NextResponse.json({ ok: true, data: result.raw });
 }

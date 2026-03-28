@@ -158,8 +158,17 @@ export async function initiateStkPush(
 }
 
 export type B2CResult =
-  | { ok: true; raw: unknown }
-  | { ok: false; error: string; raw?: unknown };
+  | {
+      ok: true;
+      raw: unknown;
+      originatorConversationId: string;
+    }
+  | {
+      ok: false;
+      error: string;
+      raw?: unknown;
+      originatorConversationId?: string;
+    };
 
 /**
  * B2C business payment (e.g. escrow payout to seller). Server-only.
@@ -210,9 +219,14 @@ export async function initiateB2CPayout(
 
     const raw = (await res.json()) as unknown;
     if (!res.ok) {
-      return { ok: false, error: `B2C HTTP ${res.status}`, raw };
+      return {
+        ok: false,
+        error: `B2C HTTP ${res.status}`,
+        raw,
+        originatorConversationId: originatorId,
+      };
     }
-    return { ok: true, raw };
+    return { ok: true, raw, originatorConversationId: originatorId };
   } catch (e) {
     const message = e instanceof Error ? e.message : "B2C error";
     return { ok: false, error: message };
