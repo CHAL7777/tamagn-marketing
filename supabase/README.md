@@ -6,9 +6,20 @@
 4. Set `SUPABASE_SERVICE_ROLE_KEY` in `.env.local` for server routes that call `createAdminClient()` (M-Pesa callback, admin APIs).
 5. Optional: run [`seed.sql`](./seed.sql) for baseline categories.
 6. Optional: set `MPESA_CALLBACK_SECRET` and configure your tunnel/proxy to send header `x-mpesa-callback-secret` so random callers cannot hit the callback URL.
+7. For a click-through demo dataset with auth users, products, service listings, and orders in multiple workflow states, run `npm run seed:demo`.
 
 The first user you promote to `admin` must be updated manually in SQL:
 
 ```sql
 UPDATE public.profiles SET role = 'admin' WHERE id = '<auth-user-uuid>';
 ```
+
+`npm run seed:demo` creates these confirmed users by default:
+
+- `admin@tamagn.demo`
+- `buyer@tamagn.demo`
+- `merchant@tamagn.demo`
+- `courier@tamagn.demo`
+- `provider@tamagn.demo`
+
+It uses `DEMO_USER_PASSWORD` from `.env.local` when present, otherwise falls back to `TamagnDemo123!`.

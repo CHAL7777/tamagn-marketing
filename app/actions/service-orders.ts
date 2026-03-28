@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { getUser } from "@/lib/auth";
+import { getServiceProviderNextStatus } from "@/lib/orders/workflow";
 
 async function assertOwnsServiceOrder(
   supabase: Awaited<ReturnType<typeof createClient>>,
@@ -43,14 +44,13 @@ export async function serviceProviderMarkDelivered(orderId: string) {
   const supabase = await createClient();
 
   const order = await assertOwnsServiceOrder(supabase, user.id, orderId);
-  if (order.status !== "paid_escrow") {
-    throw new Error("Order not in escrow for fulfillment");
-  }
+  const transition = getServiceProviderNextStatus(order.status);
+  if (!transition.ok) throw new Error(transition.error);
 
-  await supabase.from("orders").update({ status: "delivered" }).eq("id", orderId);
+  await supabase.from("orders").update({ status: transition.next }).eq("id", orderId);
   await supabase.from("order_status_history").insert({
     order_id: orderId,
-    status: "delivered",
+    status: transition.next,
     note: "Service provider marked work complete",
     created_by: user.id,
   });

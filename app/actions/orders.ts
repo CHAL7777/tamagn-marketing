@@ -3,17 +3,19 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { getUser } from "@/lib/auth";
+import { orderHasActiveDispute } from "@/lib/disputes";
+import {
+  canBuyerConfirmDelivery,
+  canOpenDispute,
+  canSubmitReview,
+  getCourierNextStatus,
+  getMerchantNextStatus,
+} from "@/lib/orders/workflow";
 import {
   recomputeMerchantTrust,
   recomputeServiceProviderTrust,
 } from "@/lib/reputation";
 import { tryAutoReleaseEscrow } from "@/lib/escrow-release";
-
-const MERCHANT_FLOW: Record<string, string> = {
-  paid_escrow: "merchant_confirmed",
-  merchant_confirmed: "pickup_scheduled",
-  pickup_scheduled: "collected",
-};
 
 export async function merchantAdvanceOrder(orderId: string) {
   const user = await getUser();
@@ -34,18 +36,43 @@ export async function merchantAdvanceOrder(orderId: string) {
     .maybeSingle();
   if (!merch || merch.owner_id !== user.id) throw new Error("Forbidden");
 
-  const next = MERCHANT_FLOW[order.status];
-  if (!next) throw new Error("Invalid transition");
+  const { data: assignment } = await supabase
+    .from("delivery_assignments")
+    .select("id")
+    .eq("order_id", orderId)
+    .maybeSingle();
+
+  const transition = getMerchantNextStatus(order.status, Boolean(assignment));
+  if (!transition.ok) throw new Error(transition.error);
+
+  const next = transition.next;
 
   await supabase.from("orders").update({ status: next }).eq("id", orderId);
   await supabase.from("order_status_history").insert({
     order_id: orderId,
     status: next,
-    note: "Merchant update",
+    note:
+      next === "merchant_confirmed"
+        ? "Merchant confirmed order"
+        : next === "pickup_scheduled"
+          ? "Courier pickup scheduled"
+          : "Order collected for delivery",
     created_by: user.id,
   });
 
+  if (assignment?.id && next === "collected") {
+    await supabase
+      .from("delivery_assignments")
+      .update({ status: "collected" })
+      .eq("id", assignment.id);
+    await supabase.from("delivery_events").insert({
+      assignment_id: assignment.id,
+      event_type: "collected",
+    });
+  }
+
   revalidatePath("/merchant/orders");
+  revalidatePath("/courier/deliveries");
   revalidatePath(`/buyer/order/${orderId}`);
 }
 
@@ -72,25 +99,16 @@ export async function courierAdvanceDelivery(
     .maybeSingle();
   if (!da) throw new Error("No assignment");
 
-  const flow: Record<string, string> = {
-    collected: "in_transit",
-    in_transit: "delivered",
-  };
-
   const { data: order } = await supabase
     .from("orders")
     .select("status")
     .eq("id", orderId)
     .single();
 
-  const next = flow[order?.status ?? ""] ?? order?.status;
-  if (!next || next === order?.status) {
-    await supabase.from("delivery_events").insert({
-      assignment_id: da.id,
-      event_type: eventHint || "update",
-    });
-    return;
-  }
+  const transition = getCourierNextStatus(order?.status ?? "");
+  if (!transition.ok) throw new Error(transition.error);
+
+  const next = transition.next;
 
   await supabase.from("orders").update({ status: next }).eq("id", orderId);
   await supabase.from("order_status_history").insert({
@@ -99,12 +117,17 @@ export async function courierAdvanceDelivery(
     note: `Courier: ${eventHint}`,
     created_by: user.id,
   });
+  await supabase
+    .from("delivery_assignments")
+    .update({ status: next })
+    .eq("id", da.id);
   await supabase.from("delivery_events").insert({
     assignment_id: da.id,
     event_type: next,
   });
 
   revalidatePath("/buyer/orders");
+  revalidatePath("/courier/deliveries");
   revalidatePath(`/buyer/order/${orderId}`);
 }
 
@@ -119,7 +142,7 @@ export async function buyerConfirmDelivery(orderId: string) {
     .eq("id", orderId)
     .maybeSingle();
   if (!order || order.buyer_id !== user.id) throw new Error("Forbidden");
-  if (order.status !== "delivered") throw new Error("Not delivered yet");
+  if (!canBuyerConfirmDelivery(order.status)) throw new Error("Not delivered yet");
 
   await supabase
     .from("orders")
@@ -166,6 +189,12 @@ export async function openDispute(orderId: string, evidence: string) {
     .eq("id", orderId)
     .maybeSingle();
   if (!order || order.buyer_id !== user.id) throw new Error("Forbidden");
+  if (!canOpenDispute(order.status)) {
+    throw new Error("Order is not eligible for a dispute yet");
+  }
+  if (await orderHasActiveDispute(supabase, orderId)) {
+    throw new Error("An active dispute already exists for this order");
+  }
 
   await supabase.from("disputes").insert({
     order_id: orderId,
@@ -200,7 +229,12 @@ export async function submitReview(
     .eq("id", orderId)
     .maybeSingle();
   if (!order || order.buyer_id !== user.id) throw new Error("Forbidden");
-  if (order.status !== "completed") throw new Error("Order not completed");
+  if (!canSubmitReview(order.status)) throw new Error("Order not completed");
+
+  const safeRating = Math.trunc(rating);
+  if (!Number.isInteger(safeRating) || safeRating < 1 || safeRating > 5) {
+    throw new Error("Rating must be between 1 and 5");
+  }
 
   let serviceProviderId: string | null = null;
   if (order.service_listing_id) {
@@ -217,8 +251,8 @@ export async function submitReview(
     reviewer_id: user.id,
     merchant_id: order.merchant_id,
     service_provider_id: serviceProviderId,
-    rating,
-    body: body || null,
+    rating: safeRating,
+    body: body.trim() || null,
   });
 
   if (order.merchant_id) {

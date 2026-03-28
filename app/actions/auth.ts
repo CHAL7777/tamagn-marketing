@@ -3,12 +3,21 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { formatAuthErrorMessage } from "@/lib/auth/format-auth-error";
+import { isEmailNotConfirmedError } from "@/lib/auth/sign-in-errors";
 import {
+  parseResendConfirmationForm,
   parseSignInForm,
   parseSignUpForm,
 } from "@/lib/validations/auth";
 
-export type AuthFormState = { error?: string; ok?: boolean } | null;
+/** Shared shape for auth-related server actions (sign-in, sign-up, resend, merchant apply). */
+export type AuthFormState = {
+  error?: string;
+  ok?: boolean;
+  info?: string;
+  resendForEmail?: string;
+} | null;
 
 export async function signInWithEmail(
   _prev: AuthFormState,
@@ -26,10 +35,62 @@ export async function signInWithEmail(
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) return { error: error.message };
+  if (error) {
+    if (isEmailNotConfirmedError(error)) {
+      return {
+        error:
+          "This account is not confirmed yet. Open the link in the email we sent you, or resend the confirmation email below.",
+        resendForEmail: email,
+      };
+    }
+    return {
+      error: formatAuthErrorMessage(error, {
+        suggestLocalDemo: process.env.NODE_ENV === "development",
+      }),
+    };
+  }
 
   revalidatePath("/", "layout");
   redirect(next);
+}
+
+export async function resendSignupConfirmation(
+  _prev: AuthFormState,
+  formData: FormData
+): Promise<AuthFormState> {
+  const parsed = parseResendConfirmationForm(formData);
+  if (!parsed.success) {
+    const msg = parsed.error.flatten().fieldErrors;
+    const first =
+      msg.email?.[0] ?? msg.next?.[0] ?? "Invalid input";
+    return { error: first };
+  }
+
+  const { email, next } = parsed.data;
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, "");
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.resend({
+    type: "signup",
+    email,
+    options: appUrl
+      ? {
+          emailRedirectTo: `${appUrl}/login?next=${encodeURIComponent(next)}`,
+        }
+      : undefined,
+  });
+  if (error) {
+    return {
+      error: formatAuthErrorMessage(error, {
+        suggestLocalDemo: process.env.NODE_ENV === "development",
+      }),
+    };
+  }
+
+  return {
+    ok: true,
+    info: "If that email is registered, we sent a new confirmation link. Check your inbox and spam folder.",
+  };
 }
 
 export async function signUpWithEmail(
@@ -40,28 +101,47 @@ export async function signUpWithEmail(
   if (!parsed.success) {
     const msg = parsed.error.flatten().fieldErrors;
     const first =
-      msg.email?.[0] ?? msg.password?.[0] ?? msg.full_name?.[0] ?? "Invalid input";
+      msg.email?.[0] ??
+      msg.password?.[0] ??
+      msg.full_name?.[0] ??
+      msg.next?.[0] ??
+      "Invalid input";
     return { error: first };
   }
 
-  const { email, password, full_name: fullName } = parsed.data;
+  const { email, password, full_name: fullName, next } = parsed.data;
+
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, "");
 
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { full_name: fullName || undefined } },
+    options: {
+      data: { full_name: fullName || undefined },
+      ...(appUrl
+        ? {
+            emailRedirectTo: `${appUrl}/login?next=${encodeURIComponent(next)}`,
+          }
+        : {}),
+    },
   });
-  if (error) return { error: error.message };
+  if (error) {
+    return {
+      error: formatAuthErrorMessage(error, {
+        suggestLocalDemo: process.env.NODE_ENV === "development",
+      }),
+    };
+  }
 
   revalidatePath("/", "layout");
   if (data.session) {
     redirect("/buyer/dashboard");
   }
+
   return {
     ok: true,
-    error:
-      "Check your email to confirm your account, then sign in.",
+    info: "Check your email to confirm your account, then sign in here.",
   };
 }
 

@@ -8,8 +8,14 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="page-shell flex flex-1 items-center py-10 md:py-14">
-      <div className="grid w-full gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+    <div className="page-shell flex flex-1 flex-col py-8 md:py-14">
+      <Link
+        href="/"
+        className="mb-6 inline-flex items-center gap-2 self-start rounded-full bg-surface-container-low px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary transition hover:bg-surface-container-highest lg:hidden"
+      >
+        ታማኝ — Back to home
+      </Link>
+      <div className="grid w-full flex-1 items-center gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <aside className="section-shell relative hidden overflow-hidden lg:flex lg:min-h-[720px] lg:flex-col lg:justify-between">
           <div className="absolute -left-16 top-16 size-56 rounded-full bg-primary/10 blur-3xl" />
           <div className="absolute -bottom-16 right-0 size-56 rounded-full bg-tertiary-container/10 blur-3xl" />

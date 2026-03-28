@@ -1,9 +1,21 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, BriefcaseBusiness } from "lucide-react";
+import { getCategories } from "@/lib/queries/products";
 import { getServiceListings } from "@/lib/queries/services";
+import { cn } from "@/lib/utils";
 
-export default async function ServicesMarketplacePage() {
-  const listings = await getServiceListings();
+type Search = { category?: string };
+
+export default async function ServicesMarketplacePage({
+  searchParams,
+}: {
+  searchParams: Promise<Search>;
+}) {
+  const sp = await searchParams;
+  const [categories, listings] = await Promise.all([
+    getCategories("service"),
+    getServiceListings(sp.category),
+  ]);
 
   return (
     <main className="page-shell pb-24 pt-8">
@@ -13,7 +25,7 @@ export default async function ServicesMarketplacePage() {
             <BriefcaseBusiness className="size-4 text-primary" />
             Verified service marketplace
           </span>
-          <h1 className="mt-4 text-4xl font-extrabold tracking-[-0.06em] md:text-6xl">
+          <h1 className="mt-4 font-headline text-4xl font-extrabold tracking-[-0.06em] md:text-6xl">
             Find service providers with visible trust and quote workflows.
           </h1>
           <p className="mt-4 max-w-2xl text-sm leading-8 text-secondary">
@@ -34,6 +46,34 @@ export default async function ServicesMarketplacePage() {
         </div>
       </section>
 
+      <div className="chip-scroll mt-8 gap-3">
+        <Link
+          href="/services"
+          className={cn(
+            "shrink-0 rounded-full px-4 py-2.5 text-sm font-semibold transition",
+            !sp.category
+              ? "bg-primary text-on-primary shadow-[0_18px_36px_rgba(1,110,0,0.16)]"
+              : "bg-surface-container-lowest text-secondary shadow-[0_12px_28px_rgba(26,28,28,0.04)] hover:bg-surface-container-highest"
+          )}
+        >
+          All services
+        </Link>
+        {categories.map((c) => (
+          <Link
+            key={c.id}
+            href={`/services?category=${encodeURIComponent(c.slug)}`}
+            className={cn(
+              "shrink-0 rounded-full px-4 py-2.5 text-sm font-semibold transition",
+              sp.category === c.slug
+                ? "bg-primary text-on-primary shadow-[0_18px_36px_rgba(1,110,0,0.16)]"
+                : "bg-surface-container-lowest text-secondary shadow-[0_12px_28px_rgba(26,28,28,0.04)] hover:bg-surface-container-highest"
+            )}
+          >
+            {c.name}
+          </Link>
+        ))}
+      </div>
+
       <ul className="mt-8 grid gap-5 lg:grid-cols-2">
         {listings.map((row) => {
           const sp = Array.isArray(row.service_providers)
@@ -43,7 +83,7 @@ export default async function ServicesMarketplacePage() {
             <li key={row.id}>
               <Link
                 href={`/services/${row.id}`}
-                className="editorial-card block p-6 transition hover:-translate-y-1"
+                className="editorial-card group block border border-transparent p-6 transition duration-300 hover:-translate-y-1 hover:border-primary/15 hover:shadow-[0_24px_56px_rgba(1,110,0,0.08)]"
               >
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <h2 className="text-2xl font-bold tracking-[-0.04em]">{row.title}</h2>
@@ -65,9 +105,9 @@ export default async function ServicesMarketplacePage() {
                     : "Request quote"}
                   {row.prepaid_escrow ? " · Prepaid escrow available" : ""}
                 </p>
-                <span className="eyebrow-link mt-6">
+                <span className="eyebrow-link mt-6 transition group-hover:gap-3">
                   View service
-                  <ArrowRight className="size-4" />
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
                 </span>
               </Link>
             </li>
@@ -75,11 +115,26 @@ export default async function ServicesMarketplacePage() {
         })}
       </ul>
       {listings.length === 0 ? (
-        <div className="editorial-card mt-8 p-8 text-center">
-          <p className="text-lg font-semibold">No services listed yet.</p>
-          <p className="mt-2 text-sm text-secondary">
-            Providers can add listings from their service dashboard.
+        <div className="editorial-card mt-10 border border-dashed border-outline-variant/40 bg-surface-container-low/30 p-10 text-center">
+          <p className="font-headline text-xl font-bold tracking-[-0.03em]">
+            {sp.category
+              ? "No services in this category yet."
+              : "No services listed yet."}
           </p>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-secondary">
+            {sp.category
+              ? "Try another category or browse all services."
+              : "Providers can publish listings from their service dashboard."}
+          </p>
+          {sp.category ? (
+            <Link
+              href="/services"
+              className="eyebrow-link mt-6 inline-flex justify-center"
+            >
+              View all services
+              <ArrowRight className="size-4" />
+            </Link>
+          ) : null}
         </div>
       ) : null}
     </main>

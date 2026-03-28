@@ -10,6 +10,7 @@ import {
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/actions/auth";
+import { MobileNav } from "@/components/MobileNav";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 
@@ -64,7 +65,8 @@ export async function SiteHeader() {
             <HeaderLink href="/categories">Categories</HeaderLink>
           </nav>
 
-          <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex flex-1 items-center justify-end gap-2 md:gap-3 lg:flex-none">
+            <MobileNav />
             <span className="hidden items-center gap-2 rounded-full bg-surface-container-low px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary xl:inline-flex">
               <ShieldCheck className="size-4 text-primary" />
               Escrow protected

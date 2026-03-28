@@ -98,14 +98,21 @@ export async function createProductOrder(formData: FormData): Promise<void> {
     quantity,
     unit_price: String(product.price),
   });
-  if (ie) redirect(`/checkout?productId=${productId}`);
+  if (ie) {
+    await supabase.from("orders").delete().eq("id", order.id);
+    redirect(`/checkout?productId=${productId}`);
+  }
 
-  await supabase.from("order_status_history").insert({
+  const { error: he } = await supabase.from("order_status_history").insert({
     order_id: order.id,
     status: "awaiting_payment",
     note: "Checkout started",
     created_by: user.id,
   });
+  if (he) {
+    await supabase.from("orders").delete().eq("id", order.id);
+    redirect(`/checkout?productId=${productId}`);
+  }
 
   revalidatePath("/buyer/orders");
   redirect(`/buyer/order/${order.id}?pay=1`);

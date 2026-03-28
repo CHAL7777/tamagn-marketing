@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  parseResendConfirmationForm,
   parseSignInForm,
   parseSignUpForm,
   signInSchema,
@@ -27,6 +28,24 @@ describe("signInSchema", () => {
     });
     expect(r.success).toBe(false);
   });
+
+  it("rejects protocol-relative next (open redirect)", () => {
+    const r = signInSchema.safeParse({
+      email: "a@b.co",
+      password: "x",
+      next: "//evil.com/phish",
+    });
+    expect(r.success).toBe(false);
+  });
+
+  it("rejects next with backslash", () => {
+    const r = signInSchema.safeParse({
+      email: "a@b.co",
+      password: "x",
+      next: "/\\host",
+    });
+    expect(r.success).toBe(false);
+  });
 });
 
 describe("parseSignInForm", () => {
@@ -47,5 +66,15 @@ describe("parseSignUpForm", () => {
     fd.set("password", "12345");
     const r = parseSignUpForm(fd);
     expect(r.success).toBe(false);
+  });
+});
+
+describe("parseResendConfirmationForm", () => {
+  it("accepts email and next", () => {
+    const fd = new FormData();
+    fd.set("email", "u@test.com");
+    fd.set("next", "/buyer/orders");
+    const r = parseResendConfirmationForm(fd);
+    expect(r.success).toBe(true);
   });
 });

@@ -299,4 +299,18 @@ html {
   .eyebrow-link {
     @apply inline-flex items-center gap-2 text-sm font-semibold text-primary transition hover:text-primary/80;
   }
+
+  .chip-scroll {
+    @apply -mx-1 flex max-w-full gap-2 overflow-x-auto pb-1 pt-0.5;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .chip-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .focus-ring-inset {
+    @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/15;
+  }
 }

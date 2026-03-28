@@ -30,7 +30,7 @@ export function ProductCard({
         {imageUrl ? (
           <Image
             src={imageUrl}
-            alt=""
+            alt={title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width:768px) 100vw, 33vw"

@@ -1,4 +1,9 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import {
+  canAssignCourier,
+  deliveryAssignmentStatusForOrder,
+  nextStatusAfterCourierAssignment,
+} from "@/lib/orders/workflow";
 
 export type AssignCourierResult =
   | { ok: true; assignmentId: string }
@@ -12,6 +17,20 @@ export async function assignCourierToOrder(
   orderId: string,
   courierUserId: string
 ): Promise<AssignCourierResult> {
+  const { data: order } = await admin
+    .from("orders")
+    .select("id, order_type, status")
+    .eq("id", orderId)
+    .maybeSingle();
+
+  if (!order) {
+    return { ok: false, error: "Order not found" };
+  }
+
+  if (!canAssignCourier(order.order_type, order.status)) {
+    return { ok: false, error: "Order is not ready for courier assignment" };
+  }
+
   let { data: courier } = await admin
     .from("couriers")
     .select("id")
@@ -33,7 +52,11 @@ export async function assignCourierToOrder(
   const { data: da, error: ae } = await admin
     .from("delivery_assignments")
     .upsert(
-      { order_id: orderId, courier_id: courier.id, status: "assigned" },
+      {
+        order_id: orderId,
+        courier_id: courier.id,
+        status: deliveryAssignmentStatusForOrder(order.status),
+      },
       { onConflict: "order_id" }
     )
     .select("id")
@@ -47,6 +70,16 @@ export async function assignCourierToOrder(
     assignment_id: da.id,
     event_type: "assigned",
   });
+
+  const nextOrderStatus = nextStatusAfterCourierAssignment(order.status);
+  if (nextOrderStatus !== order.status) {
+    await admin.from("orders").update({ status: nextOrderStatus }).eq("id", orderId);
+    await admin.from("order_status_history").insert({
+      order_id: orderId,
+      status: nextOrderStatus,
+      note: "Courier assigned",
+    });
+  }
 
   return { ok: true, assignmentId: da.id };
 }

@@ -1,13 +1,26 @@
 import { createClient } from "@/lib/supabase/server";
 
-export async function getServiceListings() {
+export async function getServiceListings(categorySlug?: string) {
   const supabase = await createClient();
-  const { data, error } = await supabase
+  let categoryId: string | undefined;
+  if (categorySlug) {
+    const { data: cat } = await supabase
+      .from("categories")
+      .select("id")
+      .eq("slug", categorySlug)
+      .eq("kind", "service")
+      .maybeSingle();
+    categoryId = cat?.id;
+  }
+
+  let q = supabase
     .from("service_listings")
     .select(
       "id, title, description, price_min, price_max, prepaid_escrow, service_providers ( id, business_name, trust_score )"
     )
     .order("created_at", { ascending: false });
+  if (categoryId) q = q.eq("category_id", categoryId);
+  const { data, error } = await q;
   if (error) throw new Error(error.message);
   return data ?? [];
 }

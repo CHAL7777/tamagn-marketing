@@ -50,12 +50,16 @@ export async function createPrepaidServiceOrder(formData: FormData): Promise<voi
 
   if (oe || !order) redirect(`/services/${listingId}`);
 
-  await supabase.from("order_status_history").insert({
+  const { error: he } = await supabase.from("order_status_history").insert({
     order_id: order.id,
     status: "awaiting_payment",
     note: "Prepaid service checkout",
     created_by: user.id,
   });
+  if (he) {
+    await supabase.from("orders").delete().eq("id", order.id);
+    redirect(`/services/${listingId}`);
+  }
 
   revalidatePath("/buyer/orders");
   redirect(`/buyer/order/${order.id}?pay=1`);

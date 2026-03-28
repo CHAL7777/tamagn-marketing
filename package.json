@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
+    "seed:demo": "node --env-file=.env.local scripts/seed-demo.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },

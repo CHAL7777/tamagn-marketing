@@ -59,7 +59,7 @@ export default async function ProductsPage({
             <SlidersHorizontal className="size-4 text-primary" />
             Filter by category, price, trust, and distance
           </span>
-          <h1 className="max-w-4xl text-4xl font-extrabold tracking-[-0.06em] md:text-6xl">
+          <h1 className="max-w-4xl font-headline text-4xl font-extrabold tracking-[-0.06em] md:text-6xl">
             Discover trusted local products from verified Ethiopian merchants.
           </h1>
           <p className="max-w-2xl text-base leading-8 text-secondary">
@@ -99,7 +99,7 @@ export default async function ProductsPage({
         method="get"
         action="/products"
       >
-        <label className="relative block">
+        <label className="relative block sm:col-span-2 lg:col-span-1">
           <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-secondary" />
           <input
             name="q"
@@ -140,17 +140,20 @@ export default async function ProductsPage({
         {sp.km ? <input type="hidden" name="km" value={sp.km} /> : null}
         <button
           type="submit"
-          className={cn(buttonVariants({ variant: "default" }), "w-full md:w-auto")}
+          className={cn(
+            buttonVariants({ variant: "default" }),
+            "sm:col-span-2 lg:col-span-1 lg:w-auto lg:justify-self-start"
+          )}
         >
           Apply
         </button>
       </form>
 
-      <div className="mt-6 flex flex-wrap gap-3">
+      <div className="chip-scroll mt-6 gap-3">
         <Link
           href="/products"
           className={cn(
-            "rounded-full px-4 py-2 text-sm font-semibold transition",
+            "shrink-0 rounded-full px-4 py-2.5 text-sm font-semibold transition",
             !sp.category
               ? "bg-primary text-on-primary shadow-[0_18px_36px_rgba(1,110,0,0.16)]"
               : "bg-surface-container-lowest text-secondary shadow-[0_12px_28px_rgba(26,28,28,0.04)] hover:bg-surface-container-highest"
@@ -165,7 +168,7 @@ export default async function ProductsPage({
               sp.q ? `&q=${encodeURIComponent(sp.q)}` : ""
             }`}
             className={cn(
-              "rounded-full px-4 py-2 text-sm font-semibold transition",
+              "shrink-0 rounded-full px-4 py-2.5 text-sm font-semibold transition",
               sp.category === c.slug
                 ? "bg-primary text-on-primary shadow-[0_18px_36px_rgba(1,110,0,0.16)]"
                 : "bg-surface-container-lowest text-secondary shadow-[0_12px_28px_rgba(26,28,28,0.04)] hover:bg-surface-container-highest"
@@ -176,7 +179,7 @@ export default async function ProductsPage({
         ))}
       </div>
 
-      <ul className="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      <ul className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {products.map((p) => {
           const img = publicStorageUrl(
             "product-images",
@@ -184,7 +187,10 @@ export default async function ProductsPage({
           );
           return (
             <li key={p.id}>
-              <Link href={`/products/${p.id}`}>
+              <Link
+                href={`/products/${p.id}`}
+                className="block rounded-[2rem] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
+              >
                 <ProductCard
                   title={p.title}
                   price={Number(p.price)}
@@ -202,10 +208,12 @@ export default async function ProductsPage({
         })}
       </ul>
       {products.length === 0 ? (
-        <div className="editorial-card mt-8 p-8 text-center">
-          <p className="text-lg font-semibold">No products match these filters.</p>
-          <p className="mt-2 text-sm text-secondary">
-            Adjust the price range, change category, or search a broader term.
+        <div className="editorial-card mt-10 border border-dashed border-outline-variant/40 bg-surface-container-low/30 p-10 text-center">
+          <p className="font-headline text-xl font-bold tracking-[-0.03em]">
+            No products match these filters.
+          </p>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-secondary">
+            Adjust the price range, pick another category, or try a broader search.
           </p>
         </div>
       ) : null}
