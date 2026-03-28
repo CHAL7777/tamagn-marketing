@@ -19,7 +19,7 @@ export function OrderActions({ orderId, status }: Props) {
 
   if (status === "delivered") {
     return (
-      <div className="mt-8 space-y-4">
+      <div className="space-y-4">
         <Button
           type="button"
           disabled={pending}
@@ -28,19 +28,25 @@ export function OrderActions({ orderId, status }: Props) {
           Confirm delivery received
         </Button>
         <form
-          className="space-y-2"
+          className="rounded-[1.5rem] bg-surface-container-low p-4"
           action={(fd) => {
             const ev = String(fd.get("evidence") ?? "");
             start(() => openDispute(orderId, ev));
           }}
         >
-          <p className="text-sm font-medium">Report a problem</p>
+          <p className="text-sm font-medium text-foreground">Report a problem</p>
           <input
             name="evidence"
             placeholder="Evidence URL or note"
-            className="w-full rounded border px-2 py-1 text-sm"
+            className="tamagn-field mt-3"
           />
-          <Button type="submit" variant="destructive" size="sm" disabled={pending}>
+          <Button
+            type="submit"
+            variant="destructive"
+            size="sm"
+            disabled={pending}
+            className="mt-3"
+          >
             Open dispute
           </Button>
         </form>
@@ -51,7 +57,7 @@ export function OrderActions({ orderId, status }: Props) {
   if (status === "completed") {
     return (
       <form
-        className="mt-8 space-y-2 rounded-lg border p-4"
+        className="space-y-3 rounded-[1.5rem] bg-surface-container-low p-5"
         action={(fd) => {
           const rating = Number(fd.get("rating") ?? 5);
           const body = String(fd.get("body") ?? "");
@@ -59,7 +65,7 @@ export function OrderActions({ orderId, status }: Props) {
         }}
       >
         <p className="text-sm font-medium">Rate this order</p>
-        <select name="rating" className="rounded border px-2 py-1 text-sm">
+        <select name="rating" className="tamagn-select">
           {[5, 4, 3, 2, 1].map((n) => (
             <option key={n} value={n}>
               {n} stars
@@ -70,7 +76,7 @@ export function OrderActions({ orderId, status }: Props) {
           name="body"
           rows={2}
           placeholder="Review (optional)"
-          className="w-full rounded border px-2 py-1 text-sm"
+          className="tamagn-textarea"
         />
         <Button type="submit" size="sm" disabled={pending}>
           Submit review

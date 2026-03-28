@@ -86,6 +86,12 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Never commit consumer secrets, bearer tokens, `SecurityCredential`, or Postman collections that contain real keys. Rotate anything that was shared or checked into git.
 
+Copy **`.env.example`** → **`.env.local`** and fill values. Set **`NEXT_PUBLIC_APP_URL`** in production to your canonical origin (used for `metadataBase` and Open Graph).
+
+### Next.js 16 note
+
+If the build logs mention **middleware → proxy**, that is a forward-looking rename in Next 16; this repo still uses `middleware.ts` for Supabase session refresh until you migrate using the official guide.
+
 ## shadcn + React Bits (MCP)
 
 - `components.json` registers **`@react-bits`**: `https://reactbits.dev/r/{name}.json`.

@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { submitMerchantApplication, type AuthFormState } from "@/app/actions/auth";
+import { submitMerchantApplication } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 
 export function MerchantApplyForm() {

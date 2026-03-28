@@ -1,12 +1,18 @@
 import type { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
-import { Geist } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/SiteHeader";
 
-const geist = Geist({
+const bodyFont = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-app-body",
+  display: "swap",
+});
+
+const headlineFont = Manrope({
+  subsets: ["latin"],
+  variable: "--font-app-headline",
   display: "swap",
 });
 
@@ -52,10 +58,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("h-full", "font-sans", geist.variable)}>
+    <html
+      lang="en"
+      className={cn("h-full scroll-smooth", bodyFont.variable, headlineFont.variable)}
+    >
       <body
         className={cn(
-          "flex min-h-screen flex-col antialiased bg-background text-foreground"
+          "flex min-h-screen flex-col bg-background font-body text-foreground antialiased"
         )}
       >
         <SiteHeader />

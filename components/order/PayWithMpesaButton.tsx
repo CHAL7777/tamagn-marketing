@@ -40,7 +40,7 @@ export function PayWithMpesaButton({ orderId }: Props) {
       <Button type="button" onClick={pay} disabled={loading}>
         {loading ? "Sending STK…" : "Pay with M-Pesa"}
       </Button>
-      {msg ? <p className="text-sm text-muted-foreground">{msg}</p> : null}
+      {msg ? <p className="text-sm leading-6 text-secondary">{msg}</p> : null}
     </div>
   );
 }

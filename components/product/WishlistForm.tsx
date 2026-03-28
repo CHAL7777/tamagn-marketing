@@ -2,7 +2,8 @@ import Link from "next/link";
 import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { addToWishlistForm } from "@/app/actions/wishlist";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 
 type Props = { productId: string };

@@ -2,7 +2,8 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
-import { signInWithEmail, type AuthFormState } from "@/app/actions/auth";
+import { ArrowRight, ShieldCheck } from "lucide-react";
+import { signInWithEmail } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 
 type Props = { nextPath?: string };
@@ -12,19 +13,26 @@ export function LoginForm({ nextPath = "/" }: Props) {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold tracking-tight">Sign in</h1>
-      <p className="mt-1 text-sm text-muted-foreground">
-        Access your ታማኝ account
+      <span className="tamagn-chip bg-primary-fixed text-on-primary-fixed">
+        <ShieldCheck className="size-4" />
+        Secure account access
+      </span>
+      <h1 className="mt-6 text-4xl font-extrabold tracking-[-0.06em]">
+        Welcome back
+      </h1>
+      <p className="mt-3 text-sm leading-7 text-secondary">
+        Sign in with the email tied to your buyer, merchant, service-provider,
+        courier, or admin profile.
       </p>
-      <form className="mt-8 space-y-4" action={formAction}>
+      <form className="mt-8 space-y-5" action={formAction}>
         <input type="hidden" name="next" value={nextPath} />
         {state?.error ? (
-          <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+          <p className="rounded-[1.25rem] bg-error-container px-4 py-3 text-sm text-destructive">
             {state.error}
           </p>
         ) : null}
         <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-medium">
+          <label htmlFor="email" className="text-[11px] font-bold uppercase tracking-[0.18em] text-secondary">
             Email
           </label>
           <input
@@ -33,11 +41,11 @@ export function LoginForm({ nextPath = "/" }: Props) {
             type="email"
             required
             autoComplete="email"
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="tamagn-field"
           />
         </div>
         <div className="space-y-2">
-          <label htmlFor="password" className="text-sm font-medium">
+          <label htmlFor="password" className="text-[11px] font-bold uppercase tracking-[0.18em] text-secondary">
             Password
           </label>
           <input
@@ -46,16 +54,17 @@ export function LoginForm({ nextPath = "/" }: Props) {
             type="password"
             required
             autoComplete="current-password"
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="tamagn-field"
           />
         </div>
-        <Button type="submit" className="w-full" disabled={pending}>
+        <Button type="submit" className="w-full" size="lg" disabled={pending}>
           {pending ? "Signing in…" : "Sign in"}
+          {!pending ? <ArrowRight className="size-4" /> : null}
         </Button>
       </form>
-      <p className="mt-6 text-center text-sm text-muted-foreground">
+      <p className="mt-8 text-center text-sm text-secondary">
         No account?{" "}
-        <Link href="/signup" className="font-medium text-primary underline">
+        <Link href="/signup" className="font-semibold text-primary underline-offset-4 hover:underline">
           Create one
         </Link>
       </p>

@@ -3,6 +3,7 @@ import { haversineKm } from "@/lib/geo";
 
 export type ProductListFilters = {
   categorySlug?: string;
+  query?: string;
   minPrice?: number;
   maxPrice?: number;
   buyerLat?: number;
@@ -38,11 +39,17 @@ export async function getProducts(filters: ProductListFilters = {}) {
   let q = supabase
     .from("products")
     .select(
-      "id, title, description, price, stock, featured_image_path, sold_count, category_id, merchant_id, merchants ( id, business_name, trust_score, latitude, longitude )"
+      "id, title, description, price, stock, featured_image_path, sold_count, category_id, merchant_id, merchants ( id, business_name, trust_score, latitude, longitude, location_label, verification_badge )"
     )
     .eq("status", "active");
 
   if (categoryId) q = q.eq("category_id", categoryId);
+  if (filters.query?.trim()) {
+    const term = filters.query.trim().replace(/[,%]/g, " ");
+    if (term.trim()) {
+      q = q.or(`title.ilike.%${term}%,description.ilike.%${term}%`);
+    }
+  }
   if (filters.minPrice != null) q = q.gte("price", filters.minPrice);
   if (filters.maxPrice != null) q = q.lte("price", filters.maxPrice);
 
@@ -65,7 +72,10 @@ export async function getProducts(filters: ProductListFilters = {}) {
       trust_score: string;
       latitude: number | null;
       longitude: number | null;
+      location_label: string | null;
+      verification_badge: boolean;
     } | null;
+    distance_km?: number | null;
   };
 
   const raw = (data ?? []) as unknown as Record<string, unknown>[];
@@ -83,16 +93,23 @@ export async function getProducts(filters: ProductListFilters = {}) {
     filters.buyerLng != null &&
     filters.maxDistanceKm != null
   ) {
-    rows = rows.filter((r) => {
+    rows = rows.map((r) => {
       const m = r.merchants;
-      if (!m?.latitude || !m?.longitude) return true;
+      if (m?.latitude == null || m?.longitude == null) {
+        return { ...r, distance_km: null };
+      }
       const d = haversineKm(
         filters.buyerLat!,
         filters.buyerLng!,
         m.latitude,
         m.longitude
       );
-      return d <= filters.maxDistanceKm!;
+      return { ...r, distance_km: d };
+    });
+
+    rows = rows.filter((r) => {
+      if (r.distance_km == null) return true;
+      return r.distance_km <= filters.maxDistanceKm!;
     });
   }
 

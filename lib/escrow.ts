@@ -119,10 +119,12 @@ export function canReleaseEscrow(current: EscrowState): boolean {
   return current === "in_escrow";
 }
 
-export async function holdFunds(_orderId: string) {
+export async function holdFunds(orderId: string) {
+  void orderId;
   return { ok: true as const };
 }
 
-export async function releaseFunds(_orderId: string) {
+export async function releaseFunds(orderId: string) {
+  void orderId;
   return { ok: true as const };
 }

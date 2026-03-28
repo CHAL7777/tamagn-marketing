@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 
 type Props = {

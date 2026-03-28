@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getProfile, getUser } from "@/lib/auth";
 import { MerchantApplyForm } from "@/components/auth/MerchantApplyForm";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 
 export default async function ChooseRolePage() {
