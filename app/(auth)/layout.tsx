@@ -1,19 +1,27 @@
 import Link from "next/link";
 import { BadgeCheck, ShieldCheck, Wallet } from "lucide-react";
 import type { ComponentType } from "react";
+import { MaterialIconImage } from "@/components/marketing/MaterialIconImage";
+import { getCurrentLocale } from "@/lib/i18n/server";
+import { getDictionary } from "@/lib/i18n/translations";
 
-export default function AuthLayout({
+const featureIcons = [BadgeCheck, Wallet, ShieldCheck] as const;
+
+export default async function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getCurrentLocale();
+  const dictionary = getDictionary(locale);
+
   return (
     <div className="page-shell flex flex-1 flex-col py-8 md:py-14">
       <Link
         href="/"
         className="mb-6 inline-flex items-center gap-2 self-start rounded-full bg-surface-container-low px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-secondary transition hover:bg-surface-container-highest lg:hidden"
       >
-        ታማኝ — Back to home
+        {dictionary.common.appName} - {dictionary.authLayout.backHome}
       </Link>
       <div className="grid w-full flex-1 items-center gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <aside className="section-shell relative hidden overflow-hidden lg:flex lg:min-h-[720px] lg:flex-col lg:justify-between">
@@ -22,36 +30,38 @@ export default function AuthLayout({
           <div className="relative space-y-6">
             <Link href="/" className="inline-flex items-center gap-3">
               <span className="rounded-full bg-primary-fixed px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-on-primary-fixed">
-                The digital guardian
+                {dictionary.authLayout.badge}
               </span>
             </Link>
             <div>
               <h1 className="max-w-lg text-5xl font-extrabold tracking-[-0.07em]">
-                Sign in to trusted local commerce.
+                {dictionary.authLayout.title}
               </h1>
               <p className="mt-5 max-w-md text-base leading-8 text-secondary">
-                Tamagn combines verified merchant onboarding, escrow-protected
-                M-Pesa payments, and delivery coordination in one platform for
-                Ethiopia.
+                {dictionary.authLayout.body}
               </p>
             </div>
           </div>
+          <div
+            className="relative flex flex-wrap items-center justify-center gap-6 rounded-[1.75rem] border border-outline-variant/20 bg-surface-container-low/40 py-6"
+            aria-hidden
+          >
+            <MaterialIconImage icon="verifiedUser" alt="" size={56} className="opacity-85" />
+            <MaterialIconImage icon="storefront" alt="" size={56} className="opacity-85" />
+            <MaterialIconImage icon="localShipping" alt="" size={56} className="opacity-85" />
+          </div>
           <div className="relative grid gap-4">
-            <FeatureItem
-              icon={BadgeCheck}
-              title="Verified onboarding"
-              body="Merchants and service providers are approved before they become visible."
-            />
-            <FeatureItem
-              icon={Wallet}
-              title="Escrow-first payments"
-              body="Funds stay protected until the transaction has been fulfilled successfully."
-            />
-            <FeatureItem
-              icon={ShieldCheck}
-              title="Platform accountability"
-              body="Order tracking, disputes, and logistics stay inside the same system."
-            />
+            {dictionary.authLayout.features.map((feature, index) => {
+              const Icon = featureIcons[index] ?? BadgeCheck;
+              return (
+                <FeatureItem
+                  key={feature.title}
+                  icon={Icon}
+                  title={feature.title}
+                  body={feature.body}
+                />
+              );
+            })}
           </div>
         </aside>
 

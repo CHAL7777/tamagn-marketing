@@ -7,25 +7,53 @@ import { signUpWithEmail } from "@/app/actions/auth";
 import { DemoAccountsHint } from "@/components/auth/DemoAccountsHint";
 import { Button } from "@/components/ui/button";
 
-type Props = { nextPath?: string };
+type Props = {
+  nextPath?: string;
+  labels: {
+    badge: string;
+    title: string;
+    body: string;
+    fullName: string;
+    optional: string;
+    email: string;
+    password: string;
+    passwordHint: string;
+    createAccount: string;
+    creating: string;
+    alreadyHaveAccount: string;
+    signIn: string;
+  };
+  demoHintLabels: {
+    summary: string;
+    intro: string;
+    stepSeed: string;
+    stepLogin: string;
+    roles: string;
+  };
+  loginLabel: string;
+};
 
-export function SignupForm({ nextPath = "/" }: Props) {
+export function SignupForm({
+  nextPath = "/",
+  labels,
+  demoHintLabels,
+  loginLabel,
+}: Props) {
   const [state, formAction, pending] = useActionState(signUpWithEmail, null);
 
   return (
     <div>
       <span className="tamagn-chip bg-surface-container-low text-secondary">
         <BadgeCheck className="size-4 text-primary" />
-        Buyer onboarding
+        {labels.badge}
       </span>
       <h1 className="mt-6 font-headline text-4xl font-extrabold tracking-[-0.06em]">
-        Create your Tamagn account
+        {labels.title}
       </h1>
       <p className="mt-3 text-sm leading-7 text-secondary">
-        Buyer accounts start here. Merchant and service-provider access is
-        granted after approval inside the platform.
+        {labels.body}
       </p>
-      <DemoAccountsHint />
+      <DemoAccountsHint labels={demoHintLabels} />
       <form className="mt-8 space-y-5" action={formAction}>
         <input type="hidden" name="next" value={nextPath} />
         {state?.error ? (
@@ -49,7 +77,8 @@ export function SignupForm({ nextPath = "/" }: Props) {
             htmlFor="full_name"
             className="text-[11px] font-bold uppercase tracking-[0.18em] text-secondary"
           >
-            Full name <span className="font-normal text-muted-foreground">(optional)</span>
+            {labels.fullName}{" "}
+            <span className="font-normal text-muted-foreground">({labels.optional})</span>
           </label>
           <input
             id="full_name"
@@ -65,7 +94,7 @@ export function SignupForm({ nextPath = "/" }: Props) {
             htmlFor="email"
             className="text-[11px] font-bold uppercase tracking-[0.18em] text-secondary"
           >
-            Email
+            {labels.email}
           </label>
           <input
             id="email"
@@ -82,7 +111,7 @@ export function SignupForm({ nextPath = "/" }: Props) {
             htmlFor="password"
             className="text-[11px] font-bold uppercase tracking-[0.18em] text-secondary"
           >
-            Password
+            {labels.password}
           </label>
           <input
             id="password"
@@ -96,16 +125,16 @@ export function SignupForm({ nextPath = "/" }: Props) {
             aria-describedby="password-hint"
           />
           <p id="password-hint" className="text-xs text-secondary">
-            At least 6 characters (max 128).
+            {labels.passwordHint}
           </p>
         </div>
         <Button type="submit" className="w-full" size="lg" disabled={pending}>
-          {pending ? "Creating…" : "Create account"}
+          {pending ? labels.creating : labels.createAccount}
           {!pending ? <ArrowRight className="size-4" /> : null}
         </Button>
       </form>
       <p className="mt-8 text-center text-sm text-secondary">
-        Already have an account?{" "}
+        {labels.alreadyHaveAccount}{" "}
         <Link
           href={
             nextPath && nextPath !== "/"
@@ -114,7 +143,7 @@ export function SignupForm({ nextPath = "/" }: Props) {
           }
           className="font-semibold text-primary underline-offset-4 hover:underline"
         >
-          Sign in
+          {loginLabel}
         </Link>
       </p>
     </div>

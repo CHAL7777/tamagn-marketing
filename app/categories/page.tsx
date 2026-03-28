@@ -37,6 +37,12 @@ import type { LucideIcon } from "lucide-react";
 import { getCategories } from "@/lib/queries/products";
 import { CategoryExploreCard } from "@/components/CategoryExploreCard";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { getCurrentLocale } from "@/lib/i18n/server";
+import {
+  getDictionary,
+  numberLocale,
+  translateCategoryLabel,
+} from "@/lib/i18n/translations";
 import { cn } from "@/lib/utils";
 
 const PRODUCT_ICONS: LucideIcon[] = [
@@ -84,8 +90,13 @@ function iconFor(index: number, icons: LucideIcon[]) {
 }
 
 export default async function CategoriesPage() {
-  const productCats = await getCategories("product");
-  const serviceCats = await getCategories("service");
+  const locale = await getCurrentLocale();
+  const dictionary = getDictionary(locale);
+  const countFormat = new Intl.NumberFormat(numberLocale(locale));
+  const [productCats, serviceCats] = await Promise.all([
+    getCategories("product"),
+    getCategories("service"),
+  ]);
 
   return (
     <main className="page-shell pb-24 pt-8 md:pt-10">
@@ -96,45 +107,48 @@ export default async function CategoriesPage() {
           <div className="space-y-5">
             <span className="tamagn-chip bg-primary-fixed text-on-primary-fixed">
               <Layers className="size-4" />
-              Browse by category
+              {dictionary.categories.badge}
             </span>
             <h1 className="max-w-3xl font-headline text-4xl font-extrabold tracking-[-0.06em] text-foreground md:text-6xl">
-              Every aisle of local commerce, organized for discovery.
+              {dictionary.categories.title}
             </h1>
             <p className="max-w-2xl text-base leading-8 text-secondary md:text-lg">
-              Jump into product categories for physical goods, or service categories for
-              providers you can book and pay with the same escrow-backed trust model.
+              {dictionary.categories.description}
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Link
                 href="/products"
                 className={cn(buttonVariants({ variant: "default", size: "lg" }))}
               >
-                Shop products
+                {dictionary.categories.shopProducts}
                 <ArrowRight className="size-4" />
               </Link>
               <Link
                 href="/services"
                 className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
               >
-                Find services
+                {dictionary.categories.findServices}
               </Link>
             </div>
           </div>
           <div className="glass-panel rounded-[1.75rem] p-6 md:p-7">
-            <p className="section-kicker">At a glance</p>
+            <p className="section-kicker">{dictionary.categories.atAGlance}</p>
             <div className="mt-4 grid grid-cols-2 gap-4">
               <div>
                 <p className="text-4xl font-black tracking-[-0.05em] text-primary">
-                  {productCats.length}
+                  {countFormat.format(productCats.length)}
                 </p>
-                <p className="mt-1 text-sm font-medium text-secondary">Product categories</p>
+                <p className="mt-1 text-sm font-medium text-secondary">
+                  {dictionary.categories.productCategories}
+                </p>
               </div>
               <div>
                 <p className="text-4xl font-black tracking-[-0.05em] text-tertiary-container">
-                  {serviceCats.length}
+                  {countFormat.format(serviceCats.length)}
                 </p>
-                <p className="mt-1 text-sm font-medium text-secondary">Service categories</p>
+                <p className="mt-1 text-sm font-medium text-secondary">
+                  {dictionary.categories.serviceCategories}
+                </p>
               </div>
             </div>
           </div>
@@ -144,13 +158,13 @@ export default async function CategoriesPage() {
       <section className="mt-14">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="section-kicker">Products</p>
+            <p className="section-kicker">{dictionary.categories.productsKicker}</p>
             <h2 className="mt-2 font-headline text-3xl font-bold tracking-[-0.05em] md:text-4xl">
-              Goods from verified merchants
+              {dictionary.categories.productsTitle}
             </h2>
           </div>
           <Link href="/products" className="eyebrow-link">
-            View all products
+            {dictionary.categories.viewAllProducts}
             <ArrowRight className="size-4" />
           </Link>
         </div>
@@ -158,18 +172,19 @@ export default async function CategoriesPage() {
           {productCats.map((c, i) => (
             <li key={c.id}>
               <CategoryExploreCard
-                name={c.name}
+                name={translateCategoryLabel(c.slug, c.name, locale)}
                 href={`/products?category=${encodeURIComponent(c.slug)}`}
                 icon={iconFor(i, PRODUCT_ICONS)}
                 accent="product"
+                typeLabel={dictionary.categories.productsKicker}
+                browseLabel={dictionary.products.view}
               />
             </li>
           ))}
         </ul>
         {productCats.length === 0 ? (
           <p className="mt-6 rounded-2xl bg-surface-container-low px-5 py-4 text-sm text-secondary">
-            No product categories yet. Run <code className="text-foreground">supabase/seed.sql</code>{" "}
-            or add categories in the dashboard.
+            {dictionary.categories.noProductCategories}
           </p>
         ) : null}
       </section>
@@ -177,13 +192,13 @@ export default async function CategoriesPage() {
       <section className="mt-16">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="section-kicker">Services</p>
+            <p className="section-kicker">{dictionary.categories.servicesKicker}</p>
             <h2 className="mt-2 font-headline text-3xl font-bold tracking-[-0.05em] md:text-4xl">
-              Book trusted local providers
+              {dictionary.categories.servicesTitle}
             </h2>
           </div>
           <Link href="/services" className="eyebrow-link">
-            View all services
+            {dictionary.categories.viewAllServices}
             <ArrowRight className="size-4" />
           </Link>
         </div>
@@ -191,17 +206,19 @@ export default async function CategoriesPage() {
           {serviceCats.map((c, i) => (
             <li key={c.id}>
               <CategoryExploreCard
-                name={c.name}
+                name={translateCategoryLabel(c.slug, c.name, locale)}
                 href={`/services?category=${encodeURIComponent(c.slug)}`}
                 icon={iconFor(i, SERVICE_ICONS)}
                 accent="service"
+                typeLabel={dictionary.categories.servicesKicker}
+                browseLabel={dictionary.services.viewService}
               />
             </li>
           ))}
         </ul>
         {serviceCats.length === 0 ? (
           <p className="mt-6 rounded-2xl bg-surface-container-low px-5 py-4 text-sm text-secondary">
-            No service categories yet. Seed the database or add categories for providers.
+            {dictionary.categories.noServiceCategories}
           </p>
         ) : null}
       </section>

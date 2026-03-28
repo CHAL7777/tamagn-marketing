@@ -12,9 +12,37 @@ import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 
-type Props = { nextPath?: string };
+type Props = {
+  nextPath?: string;
+  labels: {
+    badge: string;
+    title: string;
+    body: string;
+    email: string;
+    password: string;
+    signIn: string;
+    signingIn: string;
+    noAccount: string;
+    createOne: string;
+    resendHint: string;
+    resendEmail: string;
+    sending: string;
+    resendConfirmation: string;
+  };
+  demoHintLabels: {
+    summary: string;
+    intro: string;
+    stepSeed: string;
+    stepLogin: string;
+    roles: string;
+  };
+};
 
-export function LoginForm({ nextPath = "/" }: Props) {
+export function LoginForm({
+  nextPath = "/",
+  labels,
+  demoHintLabels,
+}: Props) {
   const [signInState, signInAction, signInPending] = useActionState(
     signInWithEmail,
     null
@@ -31,16 +59,15 @@ export function LoginForm({ nextPath = "/" }: Props) {
     <div>
       <span className="tamagn-chip bg-primary-fixed text-on-primary-fixed">
         <ShieldCheck className="size-4" />
-        Secure account access
+        {labels.badge}
       </span>
       <h1 className="mt-6 font-headline text-4xl font-extrabold tracking-[-0.06em]">
-        Welcome back
+        {labels.title}
       </h1>
       <p className="mt-3 text-sm leading-7 text-secondary">
-        Sign in with the email tied to your buyer, merchant, service-provider,
-        courier, or admin profile.
+        {labels.body}
       </p>
-      <DemoAccountsHint />
+      <DemoAccountsHint labels={demoHintLabels} />
 
       {resendState?.ok && resendState.info ? (
         <p
@@ -63,7 +90,7 @@ export function LoginForm({ nextPath = "/" }: Props) {
         ) : null}
         <div className="space-y-2">
           <label htmlFor="email" className="text-[11px] font-bold uppercase tracking-[0.18em] text-secondary">
-            Email
+            {labels.email}
           </label>
           <input
             id="email"
@@ -78,7 +105,7 @@ export function LoginForm({ nextPath = "/" }: Props) {
         </div>
         <div className="space-y-2">
           <label htmlFor="password" className="text-[11px] font-bold uppercase tracking-[0.18em] text-secondary">
-            Password
+            {labels.password}
           </label>
           <input
             id="password"
@@ -91,7 +118,7 @@ export function LoginForm({ nextPath = "/" }: Props) {
           />
         </div>
         <Button type="submit" className="w-full" size="lg" disabled={signInPending}>
-          {signInPending ? "Signing in…" : "Sign in"}
+          {signInPending ? labels.signingIn : labels.signIn}
           {!signInPending ? <ArrowRight className="size-4" /> : null}
         </Button>
       </form>
@@ -100,11 +127,10 @@ export function LoginForm({ nextPath = "/" }: Props) {
         <form className="mt-4 space-y-3" action={resendAction}>
           <input type="hidden" name="next" value={nextPath} />
           <p className="text-xs leading-5 text-secondary">
-            Didn&apos;t get the email? Send another confirmation link (you can fix the
-            address if there was a typo).
+            {labels.resendHint}
           </p>
           <label className="sr-only" htmlFor="resend-email">
-            Email for confirmation
+            {labels.resendEmail}
           </label>
           <input
             id="resend-email"
@@ -124,7 +150,7 @@ export function LoginForm({ nextPath = "/" }: Props) {
             )}
           >
             <Mail className="size-4" />
-            {resendPending ? "Sending…" : "Resend confirmation email"}
+            {resendPending ? labels.sending : labels.resendConfirmation}
           </button>
           {resendState?.error ? (
             <p role="alert" className="text-sm text-destructive">
@@ -135,7 +161,7 @@ export function LoginForm({ nextPath = "/" }: Props) {
       ) : null}
 
       <p className="mt-8 text-center text-sm text-secondary">
-        No account?{" "}
+        {labels.noAccount}{" "}
         <Link
           href={
             nextPath && nextPath !== "/"
@@ -144,7 +170,7 @@ export function LoginForm({ nextPath = "/" }: Props) {
           }
           className="font-semibold text-primary underline-offset-4 hover:underline"
         >
-          Create one
+          {labels.createOne}
         </Link>
       </p>
     </div>

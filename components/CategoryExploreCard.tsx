@@ -8,9 +8,18 @@ type Props = {
   href: string;
   icon: LucideIcon;
   accent: "product" | "service";
+  typeLabel: string;
+  browseLabel: string;
 };
 
-export function CategoryExploreCard({ name, href, icon: Icon, accent }: Props) {
+export function CategoryExploreCard({
+  name,
+  href,
+  icon: Icon,
+  accent,
+  typeLabel,
+  browseLabel,
+}: Props) {
   return (
     <Link
       href={href}
@@ -29,14 +38,12 @@ export function CategoryExploreCard({ name, href, icon: Icon, accent }: Props) {
       >
         <Icon className="size-6" strokeWidth={1.75} />
       </span>
-      <span className="section-kicker text-[10px]">
-        {accent === "product" ? "Product" : "Service"}
-      </span>
+      <span className="section-kicker text-[10px]">{typeLabel}</span>
       <h3 className="mt-2 font-headline text-lg font-bold leading-snug tracking-[-0.03em] text-foreground">
         {name}
       </h3>
       <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary opacity-90 transition group-hover:opacity-100">
-        Browse
+        {browseLabel}
         <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </span>
     </Link>

@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: var(--font-app-body);
+  --font-sans: var(--font-app-body), var(--font-app-ethiopic);
 }
 
 html {
@@ -13,11 +13,11 @@ html {
 }
 
 @theme inline {
-  --font-body: var(--font-app-body);
-  --font-heading: var(--font-app-headline);
-  --font-headline: var(--font-app-headline);
-  --font-label: var(--font-app-body);
-  --font-sans: var(--font-app-body);
+  --font-body: var(--font-app-body), var(--font-app-ethiopic);
+  --font-heading: var(--font-app-headline), var(--font-app-ethiopic);
+  --font-headline: var(--font-app-headline), var(--font-app-ethiopic);
+  --font-label: var(--font-app-body), var(--font-app-ethiopic);
+  --font-sans: var(--font-app-body), var(--font-app-ethiopic);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -141,6 +141,7 @@ html {
   --panel-shadow: 0 18px 48px rgb(26 28 28 / 0.06);
   --success-gradient: linear-gradient(135deg, #016e00 0%, #00be00 100%);
   --trust-gradient: linear-gradient(135deg, rgb(255 255 255 / 0.76), rgb(255 255 255 / 0.58));
+  --surface-overlay: linear-gradient(180deg, rgb(255 255 255 / 0.24), transparent 18%);
 }
 
 .dark {
@@ -197,6 +198,7 @@ html {
   --ambient-shadow: 0 30px 80px rgb(0 0 0 / 0.36);
   --panel-shadow: 0 18px 48px rgb(0 0 0 / 0.24);
   --trust-gradient: linear-gradient(135deg, rgb(32 35 35 / 0.8), rgb(32 35 35 / 0.66));
+  --surface-overlay: linear-gradient(180deg, rgb(0 0 0 / 0.34), transparent 20%);
 }
 
 @layer base {
@@ -218,7 +220,7 @@ html {
     background-image:
       radial-gradient(circle at 12% 12%, var(--hero-glow-primary), transparent 28%),
       radial-gradient(circle at 88% 10%, var(--hero-glow-tertiary), transparent 24%),
-      linear-gradient(180deg, rgb(255 255 255 / 0.24), transparent 18%);
+      var(--surface-overlay);
   }
 
   h1,

@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
-import { Inter, Manrope } from "next/font/google";
+import { Inter, Manrope, Noto_Sans_Ethiopic } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/SiteHeader";
+import { getCurrentLocale, getCurrentTheme } from "@/lib/i18n/server";
+import { localeHtmlLang } from "@/lib/i18n/translations";
 
 const bodyFont = Inter({
   subsets: ["latin"],
@@ -13,6 +15,12 @@ const bodyFont = Inter({
 const headlineFont = Manrope({
   subsets: ["latin"],
   variable: "--font-app-headline",
+  display: "swap",
+});
+
+const ethiopicFont = Noto_Sans_Ethiopic({
+  weight: ["400", "500", "700"],
+  variable: "--font-app-ethiopic",
   display: "swap",
 });
 
@@ -52,15 +60,26 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [locale, theme] = await Promise.all([
+    getCurrentLocale(),
+    getCurrentTheme(),
+  ]);
+
   return (
     <html
-      lang="en"
-      className={cn("h-full scroll-smooth", bodyFont.variable, headlineFont.variable)}
+      lang={localeHtmlLang(locale)}
+      className={cn(
+        "h-full scroll-smooth",
+        bodyFont.variable,
+        headlineFont.variable,
+        ethiopicFont.variable,
+        theme === "dark" && "dark"
+      )}
     >
       <body
         className={cn(

@@ -4,6 +4,12 @@ import { publicStorageUrl } from "@/lib/storage-url";
 import { ProductCard } from "@/components/ProductCard";
 import { ArrowRight, Search, SlidersHorizontal } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button-variants";
+import { getCurrentLocale } from "@/lib/i18n/server";
+import {
+  getDictionary,
+  numberLocale,
+  translateCategoryLabel,
+} from "@/lib/i18n/translations";
 import { cn } from "@/lib/utils";
 
 type Search = {
@@ -22,7 +28,9 @@ export default async function ProductsPage({
 }: {
   searchParams: Promise<Search>;
 }) {
-  const sp = await searchParams;
+  const [sp, locale] = await Promise.all([searchParams, getCurrentLocale()]);
+  const dictionary = getDictionary(locale);
+  const countFormat = new Intl.NumberFormat(numberLocale(locale));
   const buyerLat = sp.lat ? Number(sp.lat) : undefined;
   const buyerLng = sp.lng ? Number(sp.lng) : undefined;
 
@@ -57,29 +65,23 @@ export default async function ProductsPage({
         <div className="space-y-4">
           <span className="tamagn-chip bg-surface-container-low text-secondary">
             <SlidersHorizontal className="size-4 text-primary" />
-            Filter by category, price, trust, and distance
+            {dictionary.products.filterChip}
           </span>
           <h1 className="max-w-4xl font-headline text-4xl font-extrabold tracking-[-0.06em] md:text-6xl">
-            Discover trusted local products from verified Ethiopian merchants.
+            {dictionary.products.title}
           </h1>
-          <p className="max-w-2xl text-base leading-8 text-secondary">
-            Browse active listings, narrow by budget, and optionally pass{" "}
-            <code className="rounded-full bg-surface-container-low px-2 py-1 text-xs text-foreground">
-              ?lat=&amp;lng=&amp;km=
-            </code>{" "}
-            to prioritize nearby sellers and shorter delivery routes.
-          </p>
+          <p className="max-w-2xl text-base leading-8 text-secondary">{dictionary.products.description}</p>
         </div>
         <div className="section-shell bg-surface-container-lowest">
-          <p className="section-kicker">Catalog status</p>
+          <p className="section-kicker">{dictionary.products.catalogStatus}</p>
           <p className="mt-3 text-3xl font-black tracking-[-0.05em] text-foreground">
-            {products.length}
+            {countFormat.format(products.length)}
           </p>
           <p className="mt-2 text-sm text-secondary">
-            active results for the current filter set
+            {dictionary.products.activeResults}
           </p>
           <Link href="/services" className="eyebrow-link mt-6">
-            Prefer booking a service?
+            {dictionary.products.preferService}
             <ArrowRight className="size-4" />
           </Link>
         </div>
@@ -104,7 +106,7 @@ export default async function ProductsPage({
           <input
             name="q"
             defaultValue={sp.q}
-            placeholder="Search for products or sellers"
+            placeholder={dictionary.products.searchPlaceholder}
             className="tamagn-field pl-11"
           />
         </label>
@@ -112,14 +114,14 @@ export default async function ProductsPage({
           name="min"
           type="number"
           defaultValue={sp.min}
-          placeholder="Min ETB"
+          placeholder={dictionary.products.minPlaceholder}
           className="tamagn-field"
         />
         <input
           name="max"
           type="number"
           defaultValue={sp.max}
-          placeholder="Max ETB"
+          placeholder={dictionary.products.maxPlaceholder}
           className="tamagn-field"
         />
         <select
@@ -127,10 +129,10 @@ export default async function ProductsPage({
           defaultValue={sp.sort ?? "popular"}
           className="tamagn-select"
         >
-          <option value="popular">Most popular</option>
-          <option value="rating">Top trust score</option>
-          <option value="price_asc">Price low to high</option>
-          <option value="price_desc">Price high to low</option>
+          <option value="popular">{dictionary.products.sortPopular}</option>
+          <option value="rating">{dictionary.products.sortRating}</option>
+          <option value="price_asc">{dictionary.products.sortPriceAsc}</option>
+          <option value="price_desc">{dictionary.products.sortPriceDesc}</option>
         </select>
         {sp.category ? (
           <input type="hidden" name="category" value={sp.category} />
@@ -145,7 +147,7 @@ export default async function ProductsPage({
             "sm:col-span-2 lg:col-span-1 lg:w-auto lg:justify-self-start"
           )}
         >
-          Apply
+          {dictionary.products.apply}
         </button>
       </form>
 
@@ -159,7 +161,7 @@ export default async function ProductsPage({
               : "bg-surface-container-lowest text-secondary shadow-[0_12px_28px_rgba(26,28,28,0.04)] hover:bg-surface-container-highest"
           )}
         >
-          All
+          {dictionary.products.all}
         </Link>
         {categories.map((c) => (
           <Link
@@ -174,7 +176,7 @@ export default async function ProductsPage({
                 : "bg-surface-container-lowest text-secondary shadow-[0_12px_28px_rgba(26,28,28,0.04)] hover:bg-surface-container-highest"
             )}
           >
-            {c.name}
+            {translateCategoryLabel(c.slug, c.name, locale)}
           </Link>
         ))}
       </div>
@@ -192,6 +194,7 @@ export default async function ProductsPage({
                 className="block rounded-[2rem] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
               >
                 <ProductCard
+                  locale={locale}
                   title={p.title}
                   price={Number(p.price)}
                   imageUrl={img}
@@ -201,6 +204,13 @@ export default async function ProductsPage({
                   locationLabel={p.merchants?.location_label}
                   distanceKm={p.distance_km ?? null}
                   soldCount={p.sold_count}
+                  labels={{
+                    verified: dictionary.products.verified,
+                    kmAway: dictionary.products.kmAway,
+                    sold: dictionary.products.sold,
+                    price: dictionary.products.price,
+                    view: dictionary.products.view,
+                  }}
                 />
               </Link>
             </li>
@@ -210,10 +220,10 @@ export default async function ProductsPage({
       {products.length === 0 ? (
         <div className="editorial-card mt-10 border border-dashed border-outline-variant/40 bg-surface-container-low/30 p-10 text-center">
           <p className="font-headline text-xl font-bold tracking-[-0.03em]">
-            No products match these filters.
+            {dictionary.products.noResultsTitle}
           </p>
           <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-secondary">
-            Adjust the price range, pick another category, or try a broader search.
+            {dictionary.products.noResultsBody}
           </p>
         </div>
       ) : null}
