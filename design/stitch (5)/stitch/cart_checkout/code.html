@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="light" lang="am"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary-fixed-dim": "#45e335",
+            "on-primary": "#ffffff",
+            "error-container": "#ffdad6",
+            "surface-dim": "#dadada",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed": "#1b1c1c",
+            "on-background": "#1a1c1c",
+            "on-secondary-fixed-variant": "#474746",
+            "primary": "#016e00",
+            "on-secondary-container": "#636262",
+            "inverse-on-surface": "#f1f1f1",
+            "surface-container-high": "#e8e8e8",
+            "error": "#ba1a1a",
+            "on-tertiary-container": "#5b2e00",
+            "on-primary-container": "#014400",
+            "surface": "#f9f9f9",
+            "primary-container": "#00be00",
+            "secondary-container": "#e2dfde",
+            "surface-bright": "#f9f9f9",
+            "tertiary-fixed": "#ffdcc3",
+            "inverse-surface": "#2f3131",
+            "surface-variant": "#e2e2e2",
+            "on-surface-variant": "#3d4a38",
+            "surface-tint": "#016e00",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#e5e2e1",
+            "primary-fixed": "#77ff61",
+            "surface-container-low": "#f3f3f3",
+            "on-tertiary": "#ffffff",
+            "outline": "#6d7b66",
+            "on-primary-fixed-variant": "#015300",
+            "inverse-primary": "#45e335",
+            "on-error": "#ffffff",
+            "on-surface": "#1a1c1c",
+            "tertiary": "#904d00",
+            "on-tertiary-fixed-variant": "#6e3900",
+            "tertiary-container": "#f68700",
+            "on-primary-fixed": "#002200",
+            "on-tertiary-fixed": "#2f1500",
+            "background": "#f9f9f9",
+            "secondary": "#5f5e5e",
+            "outline-variant": "#bccbb2",
+            "secondary-fixed-dim": "#c8c6c5",
+            "surface-container-highest": "#e2e2e2",
+            "surface-container": "#eeeeee",
+            "tertiary-fixed-dim": "#ffb77d",
+            "surface-container-lowest": "#ffffff"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-effect {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar Strategy: Transactional Focus (Back Button instead of full Nav) -->
+<nav class="docked full-width top-0 sticky z-50 bg-surface/80 backdrop-blur-xl no-border bg-surface-container-low">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-green-50 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-on-surface">arrow_back</span>
+</button>
+<h1 class="text-2xl font-black text-green-800 tracking-tighter font-headline">ታማኝ</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-700" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+<span class="text-label-sm font-bold text-green-800 uppercase tracking-wider">Escrow Active</span>
+</div>
+</div>
+</nav>
+<main class="max-w-screen-xl mx-auto px-4 py-8 md:py-12">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+<!-- Left Column: Cart Content -->
+<div class="lg:col-span-7 space-y-8">
+<section>
+<div class="flex items-end justify-between mb-6">
+<h2 class="text-headline-sm font-headline font-bold text-on-surface">Review Your Order</h2>
+<span class="text-secondary font-medium">3 Items</span>
+</div>
+<!-- Itemized List -->
+<div class="space-y-4">
+<!-- Item 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex gap-5 items-center transition-all hover:bg-surface-bright">
+<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up of fresh organic red tomatoes and green vegetables in a rustic wooden basket on a white table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjFs9zFF-y49OQBh6iyWrotE0qFjt4FoaOTokMjSlK-BfeuWkD81Y4XookipIIAZzpZCS_jePXcpceWVpG-nk07Sf9IgDecu5b6mMGQ-9LvabknUU67ct_slatBxMPhgcGRnwaH3zxmnoTlna3s2XnAFJQ6oWiEAuk4tCI2GV6yonBqmLghzwFaZlGCTDTy9Blmiw0IG3Xaxl1nhGmL0No56Ta9gVF_SslLsSewXwO2uckTW3TakRaXAsZbgE8LyffLP_IvwPFy84"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-lg text-on-surface">Fresh Market Bundle</h3>
+<span class="font-headline font-extrabold text-on-surface">ETB 450.00</span>
+</div>
+<p class="text-secondary text-sm mb-3">Organic Selection • 2.5 kg</p>
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-surface-container-low rounded-full px-3 py-1 gap-4">
+<button class="text-primary hover:text-on-primary-container transition-colors"><span class="material-symbols-outlined text-sm">remove</span></button>
+<span class="font-bold text-on-surface">1</span>
+<button class="text-primary hover:text-on-primary-container transition-colors"><span class="material-symbols-outlined text-sm">add</span></button>
+</div>
+<button class="text-error text-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">delete_outline</span>
+                    Remove
+                  </button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex gap-5 items-center transition-all hover:bg-surface-bright">
+<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Traditional Ethiopian coffee beans in a small clay bowl with a few roasted beans scattered around on a dark wooden surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQueI-YyI2blP_smYIgXoz-0ioCIqjIAYre1pRSPlyRRHr9uYTY-l4W3GzhxRqqHiJgUrJFWtJVDdkWisXSjAJnepDb4lpJNy10ADipv12NizHG6XqcGY8stE13mYoFxneszfOn4fasnIJhVKsjxvggNK5vXWsVKFSOSRwZfuEd-In_GJ49rCqMd1BwGnoj5WukAvbTTKQ4hTtQeBrE1Vqh20MTd87zOoT3SuRjg0NonjQXnEHWVjWiLVjTCBjrdn_5HO1NSuKjPI"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-lg text-on-surface">Yirgacheffe Coffee</h3>
+<span class="font-headline font-extrabold text-on-surface">ETB 820.00</span>
+</div>
+<p class="text-secondary text-sm mb-3">Premium Roast • 500g</p>
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-surface-container-low rounded-full px-3 py-1 gap-4">
+<button class="text-primary hover:text-on-primary-container transition-colors"><span class="material-symbols-outlined text-sm">remove</span></button>
+<span class="font-bold text-on-surface">2</span>
+<button class="text-primary hover:text-on-primary-container transition-colors"><span class="material-symbols-outlined text-sm">add</span></button>
+</div>
+<button class="text-error text-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">delete_outline</span>
+                    Remove
+                  </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Status Flow (Visual Indicator) -->
+<section class="bg-surface-container-low p-6 rounded-xl">
+<div class="flex justify-between relative">
+<!-- Connector Line -->
+<div class="absolute top-5 left-8 right-8 h-0.5 bg-outline-variant/30"></div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface">Review</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container ring-4 ring-background">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-primary">Payment</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2 opacity-40">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-secondary">Delivery</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2 opacity-40">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-secondary">Release</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Payment & Summary -->
+<div class="lg:col-span-5">
+<div class="sticky top-24 space-y-6">
+<!-- M-Pesa Payment Card -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] shadow-2xl shadow-on-surface/5 overflow-hidden relative">
+<!-- Decorative Gradient Background Element -->
+<div class="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-8">
+<div class="bg-[#00be00] p-2 rounded-lg">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">smartphone</span>
+</div>
+<h3 class="font-headline font-extrabold text-xl">M-Pesa Payment</h3>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-bold uppercase tracking-widest text-secondary mb-2 ml-1">Phone Number</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="text-on-surface font-bold">+251</span>
+</div>
+<input class="w-full bg-surface-container-high border-none rounded-xl py-4 pl-16 pr-4 focus:ring-2 focus:ring-primary/40 font-headline font-bold text-lg placeholder:text-outline-variant transition-all" placeholder="911 234 567" type="tel"/>
+</div>
+</div>
+<div class="pt-4">
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm font-bold text-on-surface">Payable Total</span>
+<span class="text-2xl font-black text-on-surface">ETB 1,325.00</span>
+</div>
+<p class="text-[11px] text-secondary font-medium leading-relaxed mb-6">You will receive a prompt on your phone to authorize the transaction via M-Pesa.</p>
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-white py-5 rounded-2xl font-headline font-bold text-lg shadow-xl shadow-primary/30 hover:shadow-primary/40 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                    Pay with M-Pesa
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Escrow Notice (The "Tamagn" Signature) -->
+<div class="bg-primary-container/10 border-2 border-primary-fixed/30 p-5 rounded-2xl flex gap-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<div>
+<p class="text-sm font-bold text-on-primary-container leading-tight mb-1">ታማኝ Escrow Protection</p>
+<p class="text-xs text-on-primary-fixed-variant leading-relaxed">Your payment is securely held until delivery is confirmed. If you don't receive your order, we guarantee a full refund.</p>
+</div>
+</div>
+<!-- Cost Breakdown -->
+<div class="px-2 space-y-3">
+<div class="flex justify-between text-sm font-medium">
+<span class="text-secondary">Subtotal</span>
+<span class="text-on-surface">ETB 1,270.00</span>
+</div>
+<div class="flex justify-between text-sm font-medium">
+<span class="text-secondary">Delivery Fee</span>
+<span class="text-on-surface">ETB 45.00</span>
+</div>
+<div class="flex justify-between text-sm font-medium">
+<span class="text-secondary">Platform Fee (Escrow)</span>
+<span class="text-on-surface">ETB 10.00</span>
+</div>
+<div class="pt-3 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="font-headline font-bold text-on-surface">Total Amount</span>
+<span class="font-headline font-black text-xl text-primary">ETB 1,325.00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB suppressed as per rules for Checkout screen -->
+<!-- Bottom Nav Suppressed for transactional focus as per Shell Visibility rules -->
+<!-- Header remains as the only navigation anchor -->
+</body></html>

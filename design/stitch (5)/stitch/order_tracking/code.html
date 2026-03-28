@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ታማኝ - Order Tracking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#45e335",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dadada",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-background": "#1a1c1c",
+                        "on-secondary-fixed-variant": "#474746",
+                        "primary": "#016e00",
+                        "on-secondary-container": "#636262",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-container-high": "#e8e8e8",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#5b2e00",
+                        "on-primary-container": "#014400",
+                        "surface": "#f9f9f9",
+                        "primary-container": "#00be00",
+                        "secondary-container": "#e2dfde",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-fixed": "#ffdcc3",
+                        "inverse-surface": "#2f3131",
+                        "surface-variant": "#e2e2e2",
+                        "on-surface-variant": "#3d4a38",
+                        "surface-tint": "#016e00",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#e5e2e1",
+                        "primary-fixed": "#77ff61",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#6d7b66",
+                        "on-primary-fixed-variant": "#015300",
+                        "inverse-primary": "#45e335",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "tertiary": "#904d00",
+                        "on-tertiary-fixed-variant": "#6e3900",
+                        "tertiary-container": "#f68700",
+                        "on-primary-fixed": "#002200",
+                        "on-tertiary-fixed": "#2f1500",
+                        "background": "#f9f9f9",
+                        "secondary": "#5f5e5e",
+                        "outline-variant": "#bccbb2",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container": "#eeeeee",
+                        "tertiary-fixed-dim": "#ffb77d",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Top AppBar -->
+<header class="docked full-width top-0 sticky z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl no-border bg-surface-container-low dark:bg-surface-container-high">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-green-50 transition-colors active:scale-95">
+<span class="material-symbols-outlined text-slate-500">arrow_back</span>
+</button>
+<h1 class="text-2xl font-black text-green-800 dark:text-green-500 tracking-tighter">ታማኝ</h1>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-green-700 dark:text-green-400">notifications</span>
+</div>
+</div>
+</header>
+<main class="max-w-screen-2xl mx-auto pb-32">
+<!-- Hero Tracking Status -->
+<section class="px-6 py-8">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 bg-primary-container text-on-primary-container text-xs font-bold rounded-full uppercase tracking-wider">In Transit</span>
+<span class="text-secondary font-medium text-sm">#TMN-882910</span>
+</div>
+<h2 class="font-headline font-extrabold text-3xl text-on-surface tracking-tight">Arriving in 12 mins</h2>
+<p class="text-on-surface-variant text-sm">Your order from <span class="font-bold text-on-surface">Abyssinia Gourmet</span> is on its way.</p>
+</div>
+<!-- Custom Progress Bar -->
+<div class="mt-8 relative">
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container w-[70%] rounded-full"></div>
+</div>
+<div class="absolute -top-1 left-[70%] -translate-x-1/2">
+<div class="w-4 h-4 bg-primary border-4 border-white rounded-full shadow-lg"></div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout for Map and Info -->
+<section class="px-6 grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Live Map Card -->
+<div class="md:col-span-8 bg-surface-container-lowest rounded-[2rem] overflow-hidden shadow-sm relative min-h-[400px]">
+<img class="w-full h-full object-cover" data-alt="Modern minimalist city map UI showing a vehicle icon moving along a green highlighted route in a busy urban district" data-location="Addis Ababa" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqBBa1uKG1iQDIIicme3KSrhJmK3PQYBWqTBvu5ofMcy1w-jbMx_8GCJL7a4VKZUwYzEXX4GN50hsfD_nJL5Blq2CZDIsePlaFeTI_yjD-XwXXAHb7pc_-jVJcVJUNkBxD4G_FxNRZhexvlW3n7MRtMIewSg110eUE4Hsvo3OD2uICWvKrNaUbtI05uivFkFDBrNQsQYNkolYppe7cr8BpCAysVUbS5o1Fh5sql-RXRP1xOrW9FgXgVQ4dtGS_UXpukq5Zxc1oUXI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+<!-- Floating Map Controls -->
+<div class="absolute top-6 right-6 flex flex-col gap-2">
+<button class="w-12 h-12 bg-white rounded-2xl shadow-lg flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+<button class="w-12 h-12 bg-white rounded-2xl shadow-lg flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined">layers</span>
+</button>
+</div>
+<!-- Courier Info Floating Glass Card -->
+<div class="absolute bottom-6 left-6 right-6 glass-effect bg-white/70 rounded-2xl p-4 flex items-center justify-between shadow-xl">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img class="w-12 h-12 rounded-xl object-cover" data-alt="Professional delivery person portrait, friendly expression, wearing a clean uniform, outdoor daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVLfkP7fp9mjbqg2LCK6Qq0XjoUuZe3VJg_aZeJca1YPWxW3FEu_wuSbg19fHajsFe0vc_kag9fyvVgMOMsnsVsd2pFqeLwNn-wTKi9LLFtJwVCWdqylJ1QW_CG-aivVroUSOnbuTWuWzHEAgEhMrtEztLh9wmNM6eKWNOP95zaTl6W_AvGcK3IymVkpzXMZHv2CZxRzrtF_1tjoUygRzycuF8xqJJCRhMR2djFKEXwPCFKgBJTZSndKNv38QzD40C7EqBN3BLmZY"/>
+<div class="absolute -bottom-1 -right-1 bg-primary-fixed w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
+<span class="material-symbols-outlined text-[12px] text-on-primary-fixed font-bold">verified</span>
+</div>
+</div>
+<div>
+<p class="text-xs font-bold text-secondary uppercase tracking-widest">Courier</p>
+<h4 class="font-headline font-bold text-on-surface">Dawit Melaku</h4>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="w-11 h-11 bg-surface-container-lowest rounded-xl flex items-center justify-center text-primary shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<button class="w-11 h-11 bg-primary-container rounded-xl flex items-center justify-center text-on-primary-container shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined">call</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Timeline Card -->
+<div class="md:col-span-4 bg-surface-container-lowest rounded-[2rem] p-8 shadow-sm">
+<h3 class="font-headline font-bold text-xl mb-8">Order Journey</h3>
+<div class="space-y-0 relative">
+<!-- Vertical Line -->
+<div class="absolute left-4 top-2 bottom-2 w-0.5 bg-surface-container-high"></div>
+<!-- Timeline Item 1 -->
+<div class="relative pl-12 pb-10">
+<div class="absolute left-1.5 top-1 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[12px] font-bold">check</span>
+</div>
+<p class="text-xs font-bold text-primary uppercase tracking-widest">11:05 AM</p>
+<h4 class="font-bold text-on-surface">Order Placed</h4>
+<p class="text-sm text-on-surface-variant">We've received your request.</p>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative pl-12 pb-10">
+<div class="absolute left-1.5 top-1 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[12px] font-bold">check</span>
+</div>
+<p class="text-xs font-bold text-primary uppercase tracking-widest">11:12 AM</p>
+<h4 class="font-bold text-on-surface">Confirmed</h4>
+<p class="text-sm text-on-surface-variant">Abyssinia Gourmet is preparing.</p>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative pl-12 pb-10">
+<div class="absolute left-1.5 top-1 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[12px] font-bold">check</span>
+</div>
+<p class="text-xs font-bold text-primary uppercase tracking-widest">11:30 AM</p>
+<h4 class="font-bold text-on-surface">Picked Up</h4>
+<p class="text-sm text-on-surface-variant">Dawit has collected your order.</p>
+</div>
+<!-- Timeline Item 4 (Active) -->
+<div class="relative pl-12 pb-10">
+<div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-primary-container flex items-center justify-center ring-4 ring-surface-container-low">
+<span class="material-symbols-outlined text-on-primary-container text-sm animate-pulse">local_shipping</span>
+</div>
+<p class="text-xs font-bold text-primary uppercase tracking-widest">Current</p>
+<h4 class="font-bold text-on-surface">In Transit</h4>
+<p class="text-sm text-on-surface-variant">On the way to your location.</p>
+</div>
+<!-- Timeline Item 5 (Pending) -->
+<div class="relative pl-12">
+<div class="absolute left-1.5 top-1 w-5 h-5 rounded-full bg-surface-container-high flex items-center justify-center">
+</div>
+<p class="text-xs font-bold text-secondary uppercase tracking-widest">Estimated 11:55 AM</p>
+<h4 class="font-bold text-secondary">Delivered</h4>
+<p class="text-sm text-on-secondary-container">Package handed over to you.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Order Summary Section -->
+<section class="px-6 mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container-low rounded-[2rem] p-8">
+<h3 class="font-headline font-bold text-lg mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">shopping_bag</span>
+                    Order Summary
+                </h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-4">
+<span class="w-8 h-8 bg-surface-container-highest rounded-lg flex items-center justify-center font-bold text-xs">2×</span>
+<span class="font-medium">Special Beyaynetu</span>
+</div>
+<span class="font-bold">ETB 450</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-4">
+<span class="w-8 h-8 bg-surface-container-highest rounded-lg flex items-center justify-center font-bold text-xs">1×</span>
+<span class="font-medium">Avocado Juice</span>
+</div>
+<span class="font-bold">ETB 120</span>
+</div>
+<div class="pt-4 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="font-bold text-on-surface-variant">Total Paid</span>
+<span class="font-headline font-black text-xl text-primary">ETB 570</span>
+</div>
+</div>
+</div>
+<!-- Delivery Address Card -->
+<div class="bg-surface-container-low rounded-[2rem] p-8">
+<h3 class="font-headline font-bold text-lg mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+                    Delivery To
+                </h3>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined">home</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Home - Bole Medhanialem</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Suite 402, Morning Star Mall Area,<br/>Addis Ababa, Ethiopia</p>
+<button class="mt-4 text-sm font-bold text-primary flex items-center gap-1 hover:underline">
+                            Edit Instructions <span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Help Section -->
+<section class="px-6 mt-8">
+<div class="bg-tertiary-container/10 border-2 border-dashed border-tertiary-container/20 rounded-[2rem] p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 bg-tertiary-container rounded-full flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-3xl">support_agent</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-tertiary-container">Need help with your order?</h4>
+<p class="text-sm text-on-tertiary-container/80">Our support team is available 24/7 for you.</p>
+</div>
+</div>
+<button class="px-8 py-4 bg-tertiary-container text-on-tertiary-container font-bold rounded-2xl hover:brightness-95 transition-all active:scale-95 whitespace-nowrap">
+                    Contact Support
+                </button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 rounded-t-[2rem] bg-white/90 dark:bg-slate-950/90 backdrop-blur-lg shadow-2xl flex justify-around items-center px-4 pb-6 pt-3">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-100 rounded-2xl px-5 py-2 scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined fill-icon">receipt_long</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

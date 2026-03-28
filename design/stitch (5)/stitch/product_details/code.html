@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="light" lang="am"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ታማኝ - Product Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#45e335",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dadada",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-background": "#1a1c1c",
+                        "on-secondary-fixed-variant": "#474746",
+                        "primary": "#016e00",
+                        "on-secondary-container": "#636262",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-container-high": "#e8e8e8",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#5b2e00",
+                        "on-primary-container": "#014400",
+                        "surface": "#f9f9f9",
+                        "primary-container": "#00be00",
+                        "secondary-container": "#e2dfde",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-fixed": "#ffdcc3",
+                        "inverse-surface": "#2f3131",
+                        "surface-variant": "#e2e2e2",
+                        "on-surface-variant": "#3d4a38",
+                        "surface-tint": "#016e00",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#e5e2e1",
+                        "primary-fixed": "#77ff61",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#6d7b66",
+                        "on-primary-fixed-variant": "#015300",
+                        "inverse-primary": "#45e335",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "tertiary": "#904d00",
+                        "on-tertiary-fixed-variant": "#6e3900",
+                        "tertiary-container": "#f68700",
+                        "on-primary-fixed": "#002200",
+                        "on-tertiary-fixed": "#2f1500",
+                        "background": "#f9f9f9",
+                        "secondary": "#5f5e5e",
+                        "outline-variant": "#bccbb2",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container": "#eeeeee",
+                        "tertiary-fixed-dim": "#ffb77d",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        ::-webkit-scrollbar { width: 0px; height: 0px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top AppBar (From Shared Components) -->
+<header class="docked full-width top-0 sticky z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl no-border bg-surface-container-low dark:bg-surface-container-high">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors">
+<span class="material-symbols-outlined text-green-700 dark:text-green-400" data-icon="arrow_back">arrow_back</span>
+</button>
+<span class="text-2xl font-black text-green-800 dark:text-green-500 tracking-tighter">ታማኝ</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-green-50 transition-colors">
+<span class="material-symbols-outlined text-green-700" data-icon="share">share</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-green-50 transition-colors">
+<span class="material-symbols-outlined text-green-700" data-icon="favorite">favorite</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-screen-2xl mx-auto pb-32">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:px-8">
+<!-- Left Column: Image Gallery (Asymmetric Layout) -->
+<div class="lg:col-span-7 space-y-4">
+<div class="relative aspect-[4/5] md:aspect-square w-full overflow-hidden lg:rounded-3xl bg-surface-container-low">
+<img alt="Product Main View" class="w-full h-full object-cover" data-alt="high-end red leather sneakers displayed on a clean minimalist concrete pedestal with soft studio lighting and deep shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBszY2GXB42THSN1K9DceQsp9tHcfk1EmAHe-ikValZk_bUhR7XylJxU1gqOlWloTcBNq2T0SFMIJL4ctBCfqNmnXMpeGrE1MOuHay8b-JUY7Zi9DSO5gOMwxuIKOsjg_8JA4VlNZauJZBg7McyLVwbAF_Mmh-9P-vK80SuFjbgjSbCyCvmoWULQi1ctD4CTkgz_f8yQ6ynNTdN9VOC4xD4r9HvoRL3bYeQ4SDV0GzvdOOgtAXvY9wvzHp09ki9nc3t-aqldZC2oDc"/>
+<div class="absolute top-4 left-4">
+<span class="bg-primary/90 text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase backdrop-blur-md">
+                            Top Rated
+                        </span>
+</div>
+</div>
+<div class="flex gap-4 overflow-x-auto px-6 lg:px-0 pb-2 scrollbar-hide">
+<div class="flex-shrink-0 w-24 h-24 rounded-2xl overflow-hidden ring-2 ring-primary">
+<img class="w-full h-full object-cover" data-alt="detail shot of shoe stitching" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeVbk0QbPu_Ap58fK4Wn-1iFc_X-Qv6oETsCzmlwNPwzsCigl3LgilBbtV3jKITctWYtMoB5Cf5ghidCGqeUNHqKmDiy6nk_TSreQqQNFGemykjBeU5FCq_QJMdUw7MyXxRqn8EK0BJ9w2F41SThBfw6k1ZHaquGh3xlR7crjU5k25fSymhaxSFdE4Wk0wGqfN-GbzUb2UchIw5CTaWoWjua3uyoOPbJVEtf5jbKDwNFX8m_Z6MtDCxSQe-_ZEuTAUdBGt3Xdt5XM"/>
+</div>
+<div class="flex-shrink-0 w-24 h-24 rounded-2xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="side profile of modern athletic shoe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKFSx7LNxt9rAGyNfCU_-LkpbiqcVuvW9BvsrJpjBrvBJdNbWGbKL3r8ROITQ9isbvsSkBwKbEcinjcn-tOb64ck1DPCzWYBpHrjqYqv9nRm6DtVDfeesEWUYXXgbu1vkqxHDPDoDiulTJxuYFcxcdBYRpg1Q5A1dyR7X39B2nbYX9htUYjEspB8bJ1KVU1GXl5mit3jEw9gDYTJC1h6xXEHLk6cGdrH_iWoRAGTNdKvB8Td5sfUR0pqO6GxC7QDQ3a1sumtK0fqg"/>
+</div>
+<div class="flex-shrink-0 w-24 h-24 rounded-2xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="sole design of luxury sneaker" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDCTHolhkXM6bJ7i-oPscR9VvIDDrwrPoYyjhFo0LqJpoJpM0o7Fka2zVZHVp-I_JzrPKM_B4CsISnfIhdeuCs7LDhRAo9DVo9G79z05bPFszArTM8BdH3y9b96BMA0AxI9VNA2y-d35Nep2UmgmhHszfypZdiYDyf6tCgOSwh6e_x_vPMyrnt0eoseW22_UcBpJ8SkRhP7TEitrZ8gUkrudcehickGDjUkne4yVtA9dgIr9c188AU_dHSx4YIfOB8FdH-vjNEXhc"/>
+</div>
+<div class="flex-shrink-0 w-24 h-24 rounded-2xl overflow-hidden bg-surface-container relative">
+<img class="w-full h-full object-cover opacity-50" data-alt="wide shot of multiple shoes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSI6IKf5EDmme_dSHUnVYahPtNayXj0XRguERTCPkHQj_aZ-5mufrlwI7KX7OVjf1_L73TkdO0op7H4MLbEtARcB2nXBoWkHHBonpeoduMhZJeZTI5zH0emBv0J5nn_ytoAd2HlkpX0Yv325lJl9hESAVSdhIHrOGTX6p8pKqLNMKbrFRClpzeCPcVlKba4TRlld0d0C0t1tN7Q42Y4Xa7sVgBV5QQWumpTB8L5sB5Hlafw0FCivUigvuJldKnta8e3tvyA7Ouss0"/>
+<div class="absolute inset-0 flex items-center justify-center font-bold text-on-surface">+3</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Info & Actions -->
+<div class="lg:col-span-5 px-6 lg:px-0 space-y-8">
+<!-- Product Header -->
+<div class="space-y-2">
+<div class="flex items-center gap-2 text-primary font-semibold text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="verified">verified</span>
+<span>Authentic Product</span>
+</div>
+<h1 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface leading-tight">
+                        Premium Urban Velocity v2
+                    </h1>
+<div class="flex items-center gap-4">
+<div class="text-3xl font-black text-on-surface">
+<span class="text-sm font-medium mr-1">ETB</span>3,450
+                        </div>
+<span class="text-secondary line-through text-lg">4,200</span>
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded text-xs font-bold">-18%</span>
+</div>
+</div>
+<!-- Merchant Card (Trust Anchor) -->
+<div class="bg-surface-container-lowest p-6 rounded-[2rem] space-y-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a professional merchant smiling gently with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIjIylx8lf58VMVmpNx5iHLBHnV7D6Z75F9Vqp1OXdBjKNVsVQIRB6IKSGjPYqILbPXSf7ir5xfo7OHaenD--VFu94MshAR7Iyt8mP8g8_CITzRlsWj12BjebZDG7qOggGUqIouzt62QmCE4gYqZLq5O0LOJjUpS1czwwuRT0m4gLNfF7UQ2S_PoYGYwHQVN3gM4G6nslIwvKhqu8cGqQVvKIAlcphR_cnb2bh5WXnT8-F0zHek0HUW33h11kQ15YSHPEyVkIItcM"/>
+</div>
+<div>
+<h3 class="font-bold text-lg">Abebe's Premium Boutique</h3>
+<div class="flex items-center gap-1 text-primary text-sm font-semibold">
+<span class="material-symbols-outlined text-[16px] filled-icon" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>4.9 (240+ Sales)</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-[10px] uppercase tracking-widest text-secondary font-bold">Trust Score</div>
+<div class="text-2xl font-black text-primary">98%</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 pt-2">
+<div class="bg-surface-container-low p-3 rounded-2xl flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="speed">speed</span>
+<div class="text-[11px] leading-tight font-medium">Fast Responder</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded-2xl flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="verified_user">verified_user</span>
+<div class="text-[11px] leading-tight font-medium">Verified Seller</div>
+</div>
+</div>
+</div>
+<!-- Delivery & Logistics -->
+<div class="space-y-4">
+<h4 class="font-headline font-bold text-lg">Delivery Information</h4>
+<div class="bg-surface-container-low p-4 rounded-2xl flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-tertiary" data-icon="local_shipping">local_shipping</span>
+</div>
+<div class="flex-1">
+<div class="font-bold text-sm">Doorstep Delivery</div>
+<div class="text-xs text-secondary mt-0.5">Estimated Arrival: 24 - 48 Hours</div>
+<div class="text-xs font-semibold text-primary mt-1">Addis Ababa &amp; Surrounding</div>
+</div>
+<div class="text-right">
+<div class="text-sm font-bold">ETB 150</div>
+</div>
+</div>
+</div>
+<!-- Product Attributes (Bento Style) -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 rounded-2xl">
+<label class="text-[10px] uppercase tracking-widest font-bold text-secondary">Size (EU)</label>
+<select class="w-full bg-transparent border-none p-0 mt-1 font-bold focus:ring-0 text-on-surface">
+<option>42 - Standard</option>
+<option>43 - Large</option>
+<option>44 - X-Large</option>
+</select>
+</div>
+<div class="bg-surface-container-low p-4 rounded-2xl">
+<label class="text-[10px] uppercase tracking-widest font-bold text-secondary">Color</label>
+<div class="flex items-center gap-2 mt-1">
+<div class="w-5 h-5 rounded-full bg-[#ba1a1a] ring-2 ring-white"></div>
+<span class="font-bold text-sm">Crimson Red</span>
+</div>
+</div>
+</div>
+<!-- Action Buttons (Sticky on Mobile via Bottom Bar logic) -->
+<div class="hidden lg:grid grid-cols-2 gap-4 pt-4">
+<button class="bg-secondary-container text-on-secondary-container py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-outline-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+                        Add to Cart
+                    </button>
+<button class="bg-gradient-to-br from-tertiary to-tertiary-container text-white py-4 rounded-2xl font-bold shadow-lg shadow-tertiary/20 hover:scale-[1.02] transition-transform">
+                        Buy Now
+                    </button>
+</div>
+</div>
+</div>
+<!-- Reviews Section (Editorial Style) -->
+<section class="mt-20 px-6 lg:px-8 border-t border-surface-container-high pt-16">
+<div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+<div>
+<h2 class="font-headline text-3xl font-extrabold tracking-tight">Community Trust</h2>
+<p class="text-secondary mt-2">Verified feedback from our Ethiopian shopping community.</p>
+</div>
+<div class="flex items-center gap-4 bg-surface-container p-4 rounded-2xl">
+<div class="text-4xl font-black text-on-surface">4.8</div>
+<div class="h-10 w-px bg-outline-variant/30"></div>
+<div class="space-y-1">
+<div class="flex text-tertiary text-xs">
+<span class="material-symbols-outlined text-[14px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[14px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[14px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[14px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[14px]">star_half</span>
+</div>
+<div class="text-[10px] font-bold uppercase text-secondary tracking-widest">156 Reviews</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Review 1 -->
+<div class="bg-surface-container-low p-8 rounded-[2.5rem] space-y-6">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed-dim text-on-primary-container font-bold flex items-center justify-center">K</div>
+<div>
+<div class="font-bold text-sm">Kebede T.</div>
+<div class="text-[10px] text-secondary font-semibold">Addis Ababa • 2 days ago</div>
+</div>
+</div>
+<div class="bg-primary-fixed/30 text-primary-fixed-dim px-2 py-0.5 rounded text-[10px] font-bold">VERIFIED</div>
+</div>
+<p class="text-sm leading-relaxed font-medium italic">"The quality is better than what I expected. The delivery was very fast, within 3 hours of my order. Very reliable service."</p>
+<div class="flex gap-2">
+<div class="w-16 h-16 rounded-xl overflow-hidden grayscale hover:grayscale-0 transition-all cursor-zoom-in">
+<img class="w-full h-full object-cover" data-alt="user photo of sneakers on carpet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4XBw32-3Jln8SZVadq_wBwHioHo95b3Np0zl1jinSrWRm7SsykNKZung8JDipBjV0a-YpVjXH5Fw9wD5X0jk71WuZz_BXsOqQa640P6_9VpNc1H97d8c0HiCUvH9pGOP-aMHWR9Bo81pIUyFOz3XKemVlDPCiJoeCbHED3SBYBfWGgf2J1UtWI_oA5_sP1yaX6NMhIFTrkIzUXyaEIoH-xG6Khgw6vjKVXefF1cyAgpCYNZm0Gw_twUqPaDJthKCULiD90ahAqvw"/>
+</div>
+</div>
+</div>
+<!-- Review 2 -->
+<div class="bg-surface-container-low p-8 rounded-[2.5rem] space-y-6">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed font-bold flex items-center justify-center">S</div>
+<div>
+<div class="font-bold text-sm">Selamawit G.</div>
+<div class="text-[10px] text-secondary font-semibold">Nazret • 1 week ago</div>
+</div>
+</div>
+<div class="bg-primary-fixed/30 text-primary-fixed-dim px-2 py-0.5 rounded text-[10px] font-bold">VERIFIED</div>
+</div>
+<p class="text-sm leading-relaxed font-medium italic">"Great color and very comfortable. Abebe's boutique always provides genuine items. Highly recommend to everyone in the group."</p>
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined text-[18px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<!-- Review 3 -->
+<div class="bg-surface-container-low p-8 rounded-[2.5rem] space-y-6">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-bold flex items-center justify-center">M</div>
+<div>
+<div class="font-bold text-sm">Mohammed A.</div>
+<div class="text-[10px] text-secondary font-semibold">Dire Dawa • 2 weeks ago</div>
+</div>
+</div>
+<div class="bg-primary-fixed/30 text-primary-fixed-dim px-2 py-0.5 rounded text-[10px] font-bold">VERIFIED</div>
+</div>
+<p class="text-sm leading-relaxed font-medium italic">"Fits perfectly. The Trust Score on this app really helped me decide to buy from this merchant. No regrets at all."</p>
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined text-[18px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px] filled-icon" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]">star</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Mobile Action Bar (Fixed at bottom) -->
+<div class="lg:hidden fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-xl px-6 py-4 pb-10 flex items-center gap-4 z-[60] shadow-[0_-10px_40px_rgba(0,0,0,0.08)]">
+<button class="w-14 h-14 flex items-center justify-center bg-secondary-container rounded-2xl text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="flex-1 h-14 bg-gradient-to-br from-tertiary to-tertiary-container text-white font-black text-lg rounded-2xl shadow-xl shadow-tertiary/20">
+            Buy Now
+        </button>
+</div>
+<!-- BottomNavBar (Shared Component - Hidden on details but following logic for completeness if context shifts) -->
+<!-- Suppressed on this Task-Focused Details Page to prioritize the Buy Action -->
+</body></html>

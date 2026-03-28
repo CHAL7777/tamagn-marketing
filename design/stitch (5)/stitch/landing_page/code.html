@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="light" lang="am"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ታማኝ - Trusted Local Commerce</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#45e335",
+              "on-primary": "#ffffff",
+              "error-container": "#ffdad6",
+              "surface-dim": "#dadada",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed": "#1b1c1c",
+              "on-background": "#1a1c1c",
+              "on-secondary-fixed-variant": "#474746",
+              "primary": "#016e00",
+              "on-secondary-container": "#636262",
+              "inverse-on-surface": "#f1f1f1",
+              "surface-container-high": "#e8e8e8",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#5b2e00",
+              "on-primary-container": "#014400",
+              "surface": "#f9f9f9",
+              "primary-container": "#00be00",
+              "secondary-container": "#e2dfde",
+              "surface-bright": "#f9f9f9",
+              "tertiary-fixed": "#ffdcc3",
+              "inverse-surface": "#2f3131",
+              "surface-variant": "#e2e2e2",
+              "on-surface-variant": "#3d4a38",
+              "surface-tint": "#016e00",
+              "on-secondary": "#ffffff",
+              "secondary-fixed": "#e5e2e1",
+              "primary-fixed": "#77ff61",
+              "surface-container-low": "#f3f3f3",
+              "on-tertiary": "#ffffff",
+              "outline": "#6d7b66",
+              "on-primary-fixed-variant": "#015300",
+              "inverse-primary": "#45e335",
+              "on-error": "#ffffff",
+              "on-surface": "#1a1c1c",
+              "tertiary": "#904d00",
+              "on-tertiary-fixed-variant": "#6e3900",
+              "tertiary-container": "#f68700",
+              "on-primary-fixed": "#002200",
+              "on-tertiary-fixed": "#2f1500",
+              "background": "#f9f9f9",
+              "secondary": "#5f5e5e",
+              "outline-variant": "#bccbb2",
+              "secondary-fixed-dim": "#c8c6c5",
+              "surface-container-highest": "#e2e2e2",
+              "surface-container": "#eeeeee",
+              "tertiary-fixed-dim": "#ffb77d",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      .signature-gradient {
+        background: linear-gradient(135deg, #016e00 0%, #00be00 100%);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="bg-surface/80 backdrop-blur-xl docked full-width top-0 sticky z-50 no-border bg-surface-container-low">
+<nav class="flex justify-between items-center w-full px-6 py-4 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-700 text-2xl" data-icon="location_on">location_on</span>
+<span class="text-2xl font-black text-green-800 tracking-tighter font-headline">ታማኝ</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-green-700 font-semibold text-sm" href="#">Home</a>
+<a class="text-slate-500 hover:bg-green-50 transition-colors px-3 py-1 rounded-lg text-sm" href="#">Market</a>
+<a class="text-slate-500 hover:bg-green-50 transition-colors px-3 py-1 rounded-lg text-sm" href="#">Orders</a>
+<a class="text-slate-500 hover:bg-green-50 transition-colors px-3 py-1 rounded-lg text-sm" href="#">Profile</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-500 p-2 hover:bg-green-50 rounded-full transition-colors" data-icon="notifications">notifications</button>
+<button class="md:hidden material-symbols-outlined text-slate-500" data-icon="menu">menu</button>
+</div>
+</nav>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative overflow-hidden pt-12 pb-24 px-6">
+<div class="max-w-screen-xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+<div class="z-10">
+<span class="inline-block py-1 px-4 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-xs font-bold tracking-widest uppercase mb-6">Hyperlocal &amp; Secure</span>
+<h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
+                        Trusted Local <span class="text-primary">Commerce</span> in Ethiopia
+                    </h1>
+<p class="text-secondary text-lg md:text-xl mb-10 max-w-lg leading-relaxed">
+                        Connecting Addis Ababa's best merchants with secure M-Pesa escrow and lightning-fast local delivery. Digital trust, built for our community.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="signature-gradient text-on-primary px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
+                            Shop Now
+                            <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="bg-secondary-container text-on-secondary-container px-8 py-4 rounded-xl font-bold text-lg hover:bg-surface-container-high transition-colors">
+                            Become a Merchant
+                        </button>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -top-20 -right-20 w-96 h-96 bg-primary-container/20 rounded-full blur-3xl"></div>
+<div class="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+<img alt="Ethiopian local market vendor" class="w-full h-full object-cover" data-alt="Close-up of a smiling Ethiopian merchant in a vibrant local market stall surrounded by fresh colorful spices and grains, warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlf70bLiwSRC_dQiF150q4eHhqNf_suTG-VjKHYtzwDRWD8CXN4W7r8itSZrtQZmywBZDopuEFYQsrnAFlqakiP6HwUShrbjdu2Ui4TZyEU2rQ0y2gc6sgQQPM860YyQVIL7zRRzn6ZsFZ84PsAUDlmZ4GITa9cv0z4vtRDb46V52n5VIaE7ymSfGsfhTR4Xeamzq-Zo7LpPyOiF064SIBn7H68TtKHeEmIGoHjSHalx7qq1gSvX6a6d1mCF8Y7ACS-a8Mibm0By8"/>
+<div class="absolute bottom-6 left-6 right-6 glass-effect bg-white/20 p-6 rounded-2xl border border-white/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div>
+<p class="text-white font-bold">Tamagn Verified</p>
+<p class="text-white/80 text-xs">Abeba Spices - Merkato Branch</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section (Bento Grid) -->
+<section class="py-24 bg-surface-container-low px-6">
+<div class="max-w-screen-xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline text-3xl md:text-5xl font-bold mb-4">Why Ethiopia Trusts ታማኝ</h2>
+<p class="text-secondary max-w-2xl mx-auto">We've reimagined the local shopping experience with modern security and traditional values.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Feature 1 -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col justify-between group hover:bg-primary-container/10 transition-colors">
+<div>
+<div class="w-14 h-14 bg-primary-container rounded-2xl flex items-center justify-center mb-6 text-on-primary-container group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="verified_user">verified_user</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-3">Verified Merchants</h3>
+<p class="text-secondary leading-relaxed">Every merchant undergoes a rigorous multi-step background check and physical location verification.</p>
+</div>
+<div class="mt-8 flex items-center gap-2 text-primary font-bold text-sm">
+                            Learn more <span class="material-symbols-outlined text-sm" data-icon="east">east</span>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col justify-between group hover:bg-tertiary-container/10 transition-colors">
+<div>
+<div class="w-14 h-14 bg-tertiary-container rounded-2xl flex items-center justify-center mb-6 text-on-tertiary-container group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="payments">payments</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-3">M-Pesa Escrow</h3>
+<p class="text-secondary leading-relaxed">Your money is held securely. We only release payment to the merchant after you confirm receipt of goods.</p>
+</div>
+<div class="mt-8 flex items-center gap-2 text-tertiary font-bold text-sm">
+                            Security details <span class="material-symbols-outlined text-sm" data-icon="east">east</span>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col justify-between group hover:bg-primary-container/10 transition-colors">
+<div>
+<div class="w-14 h-14 bg-primary-fixed rounded-2xl flex items-center justify-center mb-6 text-on-primary-fixed group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="local_shipping">local_shipping</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-3">Fast Delivery</h3>
+<p class="text-secondary leading-relaxed">Partnered with local riders to ensure your orders reach you within 60 minutes across Addis.</p>
+</div>
+<div class="mt-8 flex items-center gap-2 text-primary font-bold text-sm">
+                            Track status <span class="material-symbols-outlined text-sm" data-icon="east">east</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works (Step UI) -->
+<section class="py-24 px-6 overflow-hidden">
+<div class="max-w-screen-xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+<div class="max-w-xl">
+<h2 class="font-headline text-3xl md:text-5xl font-bold mb-4">Commerce Simplified</h2>
+<p class="text-secondary text-lg">Getting what you need in Addis has never been easier or more secure.</p>
+</div>
+<div class="hidden md:block h-px bg-outline-variant/30 flex-grow mx-12 mb-6"></div>
+</div>
+<div class="relative grid grid-cols-1 md:grid-cols-3 gap-12">
+<!-- Step 1 -->
+<div class="relative">
+<div class="text-[120px] font-black text-surface-container absolute -top-16 -left-4 z-0 pointer-events-none select-none">1</div>
+<div class="relative z-10 pt-8">
+<h4 class="font-headline text-2xl font-bold mb-4">Discover &amp; Select</h4>
+<p class="text-secondary leading-relaxed">Browse thousands of products from verified local shops in your neighborhood or the central market.</p>
+<div class="mt-6 rounded-2xl overflow-hidden shadow-lg aspect-video bg-surface-container">
+<img alt="Mobile shopping app interface" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Modern smartphone displaying a clean marketplace app UI with product listings for Ethiopian textiles and coffee, bright clean studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHp8bA9bGkWEjLCJYsSrhpu0-tfIIowPaeJoV_Xha8cWkw6T-S30uV0Gbi2CS4murx8klo5P_x8vQd9e-s2w8xOZRbaVcJ07FpwIq0q2oSihCf_bkZl1tNfbuY7icQ4Sc2Zw1g0yJRkDaiCf290l4SeB8DZpyIr18wxQIyQskl2FmxY1OIKlkw0IUzmH0idfpY3xRI197y4fM3kGUVyd3j2JK5UXDscOKZtll66W7507Z7cfiX82BMJGnEw-ZNGTvGSftfNNTg-7U"/>
+</div>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative">
+<div class="text-[120px] font-black text-surface-container absolute -top-16 -left-4 z-0 pointer-events-none select-none">2</div>
+<div class="relative z-10 pt-8">
+<h4 class="font-headline text-2xl font-bold mb-4">Secure M-Pesa Pay</h4>
+<p class="text-secondary leading-relaxed">Pay via M-Pesa. Your funds are protected by our Tamagn Escrow system until the product is in your hands.</p>
+<div class="mt-6 rounded-2xl overflow-hidden shadow-lg aspect-video bg-surface-container">
+<img alt="Secure mobile payment" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Close up of hands using a mobile phone to complete a digital transaction, warm natural light, soft focus background of a clean store" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-S-WUyaj5r5qt55lljAtFndsr0_L5QAMIW235FdbHH7YJhQ-tVxrpwBsESc1gpou8FDV25s7MfyGrE2PRZ6G9KU_gsSN04AJ2UUnH3DPbI_zAX7LXZhWyVrEOMPBLoZJzxUPwXsXlZxhn9l1mJcOlJOnBainXV9PUmTvz5zNxI_8GkV0bESe-66CE2k5DPrlmyVN-iJY-23iQC-zQsVscKB2lIgmOPJHilEzaQ7btf45DKGHrBaNwMUn6pdAnuchNy4Ooo5zZTb0"/>
+</div>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative">
+<div class="text-[120px] font-black text-surface-container absolute -top-16 -left-4 z-0 pointer-events-none select-none">3</div>
+<div class="relative z-10 pt-8">
+<h4 class="font-headline text-2xl font-bold mb-4">Receive &amp; Confirm</h4>
+<p class="text-secondary leading-relaxed">Track your delivery in real-time. Inspect your order and confirm receipt to release the funds to the merchant.</p>
+<div class="mt-6 rounded-2xl overflow-hidden shadow-lg aspect-video bg-surface-container">
+<img alt="Quick local delivery" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Local courier on a clean green motorbike delivering a package to a modern residential area in Addis Ababa, bright midday sun" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKEG5Btmb0-oarcBbtDvAAdtrZ1eZ64nJ8JQym_gII-sB0U2GsrBalPbPIUxNvR5I6dhWhv5dgaGmhapRQ9lNchS_oTpubfOdBRBVExJPP0msMIYSftWQYyzJAfi9ZSpLN4pft3nwhZVemUjnUH7LxbYOBMAvVusI-CFbDt4_YDOmUnIcHkW7uv2IElLKi9gu51QUBYtXs6FFVU7EVRzC_hSgEfYuCbbhUyiAO6s74J4FP6OyYhDrE3L4fpGw8jtZZ-KRI75IOtes"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-24 bg-primary text-on-primary px-6 rounded-t-[3rem] -mb-12 relative z-10">
+<div class="max-w-screen-xl mx-auto">
+<div class="mb-16">
+<span class="text-primary-fixed font-bold tracking-widest uppercase text-xs">Testimonials</span>
+<h2 class="font-headline text-4xl font-bold mt-4">Voices of Trust</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-on-primary/10 backdrop-blur-md p-10 rounded-3xl border border-white/10">
+<span class="material-symbols-outlined text-4xl text-primary-fixed mb-6" data-icon="format_quote">format_quote</span>
+<p class="text-xl italic leading-relaxed mb-8">"I used to worry about sending money to merchants I didn't know. With ታማኝ, I feel safe buying high-quality Habesha Kemis from the comfort of my home in Bole."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img alt="Customer" data-alt="Portrait of a young Ethiopian professional woman smiling, soft natural lighting, outdoor urban setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXxQnE-LTSu5HZX1AQezK-UP8AoXMFYEQPzI703pyqR3jEH4OwCaYQZ6uyhDM0dIhHCy43Iq5AnWr9d8iX4M8vXyi0_trJwofyuUdCP6RkagMyFvF_oKfFl1vFHOS88yucKa5UR9uvEmKLa-4y-gO2Plw2u7okXcOIWZome3Py_C7_UjrGMSRpkqnKGf8dZAWvSLaj3R29maLrFv5kcrBMLvceR0H5JxTFwPj8hLnPZ01HhzpPSFJ8LwCx7kHVvnr3te3Gr7FMZ6Y"/>
+</div>
+<div>
+<p class="font-bold">Selamawit Tadesse</p>
+<p class="text-white/60 text-sm">Loyal Shopper</p>
+</div>
+</div>
+</div>
+<div class="bg-on-primary/10 backdrop-blur-md p-10 rounded-3xl border border-white/10">
+<span class="material-symbols-outlined text-4xl text-primary-fixed mb-6" data-icon="format_quote">format_quote</span>
+<p class="text-xl italic leading-relaxed mb-8">"Since joining as a verified merchant, my sales have increased by 40%. Customers trust me immediately because of the Tamagn verification badge."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img alt="Merchant" data-alt="Middle-aged Ethiopian man with a friendly expression in a professional setting, warm soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZOO8FhzLyfXTGRNX_tVvc4Yj32tMJVPdkCZig_alqDidvyselF3uITrm0BM6hZ9kbvkwe6ODiVV7CdiKD8yPOOKgImulCj1CM6kYsswAFu_wdBg2aa-weBjRXSKJKTVMWimOgTSFejHSFVuPl6yfcUaFi43RHz-REd-uO0GeU7-J62eY4RmCSvgLWXO4WafahQxnLNqQRXudDVxkgqns6Zl8lXQ385nCgafcQ9Byz3ESoGKcM2a8MhJeiHTnsm3zz34uvsuQT73I"/>
+</div>
+<div>
+<p class="font-bold">Dawit Kebede</p>
+<p class="text-white/60 text-sm">Owner, Kebede Electronics</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest pt-32 pb-12 px-6">
+<div class="max-w-screen-xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-1 md:col-span-2">
+<span class="text-3xl font-black text-green-800 tracking-tighter font-headline mb-6 block">ታማኝ</span>
+<p class="text-secondary max-w-sm mb-8">Building the foundation of digital trust in Ethiopia's growing economy. Empowering merchants, protecting shoppers.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-secondary hover:bg-primary hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="facebook">social_leaderboard</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-secondary hover:bg-primary hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+</a>
+</div>
+</div>
+<div>
+<h5 class="font-bold mb-6">Company</h5>
+<ul class="space-y-4 text-secondary">
+<li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Careers</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Press</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold mb-6">Support</h5>
+<ul class="space-y-4 text-secondary">
+<li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Safety Tips</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-secondary">
+<p>© 2024 ታማኝ (Tamagn) Commerce Platform. All rights reserved.</p>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    Systems Operational
+                </div>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 dark:bg-slate-950/90 backdrop-blur-lg z-50 rounded-t-[2rem] shadow-2xl">
+<a class="flex flex-col items-center justify-center bg-green-100 text-green-800 rounded-2xl px-5 py-2 scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-green-600 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-green-600 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-green-600 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

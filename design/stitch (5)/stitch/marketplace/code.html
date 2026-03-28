@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html class="light" lang="am"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ታማኝ - Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#45e335",
+              "on-primary": "#ffffff",
+              "error-container": "#ffdad6",
+              "surface-dim": "#dadada",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed": "#1b1c1c",
+              "on-background": "#1a1c1c",
+              "on-secondary-fixed-variant": "#474746",
+              "primary": "#016e00",
+              "on-secondary-container": "#636262",
+              "inverse-on-surface": "#f1f1f1",
+              "surface-container-high": "#e8e8e8",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#5b2e00",
+              "on-primary-container": "#014400",
+              "surface": "#f9f9f9",
+              "primary-container": "#00be00",
+              "secondary-container": "#e2dfde",
+              "surface-bright": "#f9f9f9",
+              "tertiary-fixed": "#ffdcc3",
+              "inverse-surface": "#2f3131",
+              "surface-variant": "#e2e2e2",
+              "on-surface-variant": "#3d4a38",
+              "surface-tint": "#016e00",
+              "on-secondary": "#ffffff",
+              "secondary-fixed": "#e5e2e1",
+              "primary-fixed": "#77ff61",
+              "surface-container-low": "#f3f3f3",
+              "on-tertiary": "#ffffff",
+              "outline": "#6d7b66",
+              "on-primary-fixed-variant": "#015300",
+              "inverse-primary": "#45e335",
+              "on-error": "#ffffff",
+              "on-surface": "#1a1c1c",
+              "tertiary": "#904d00",
+              "on-tertiary-fixed-variant": "#6e3900",
+              "tertiary-container": "#f68700",
+              "on-primary-fixed": "#002200",
+              "on-tertiary-fixed": "#2f1500",
+              "background": "#f9f9f9",
+              "secondary": "#5f5e5e",
+              "outline-variant": "#bccbb2",
+              "secondary-fixed-dim": "#c8c6c5",
+              "surface-container-highest": "#e2e2e2",
+              "surface-container": "#eeeeee",
+              "tertiary-fixed-dim": "#ffb77d",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-card {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.8);
+      }
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 sticky z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl no-border bg-surface-container-low dark:bg-surface-container-high">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-green-700 dark:text-green-400">location_on</span>
+<span class="text-2xl font-black text-green-800 dark:text-green-500 tracking-tighter">ታማኝ</span>
+</div>
+<!-- Desktop Nav Integration -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-green-700 dark:text-green-400 font-manrope font-bold tracking-tight text-headline-sm" href="#">Market</a>
+<a class="text-slate-500 dark:text-slate-400 font-manrope font-bold tracking-tight text-headline-sm hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors px-3 py-1 rounded-lg" href="#">Home</a>
+<a class="text-slate-500 dark:text-slate-400 font-manrope font-bold tracking-tight text-headline-sm hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors px-3 py-1 rounded-lg" href="#">Orders</a>
+<a class="text-slate-500 dark:text-slate-400 font-manrope font-bold tracking-tight text-headline-sm hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors px-3 py-1 rounded-lg" href="#">Profile</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-on-surface">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="User Profile" data-alt="minimalist avatar of a person with friendly features for user profile illustration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIXAartFCVa5zSoXSP6fPxsTOne1CSqHhJJ_aqIakBcQCSCUs4fGLi6u0ON4K4XpIjb2moZfr-_K0ywaCZw7L0bOL6rqH5DLLYvf99b5aEhQWrOqIDKOFcvdNeLdnO7knj591DeDH6tVdMvKERBN-l0h1MA_E8W5-2okuVYcJIUfwvszS-fGC2PKHjQqRNwMAkmalrTMnZyHLYv9mfsS9nHeMBADCzYhBSkYPY8m2lNn6BGe86llWaBP7PFns_WLQ461bkMLGibwQ"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-screen-2xl mx-auto px-6 pt-8 pb-32">
+<!-- Hero Search & Filter Section -->
+<section class="mb-12">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+<div class="flex-1">
+<h1 class="font-headline font-extrabold text-4xl md:text-5xl text-on-surface mb-4 tracking-tight">
+                        Discover trusted <span class="text-primary">local commerce</span>
+</h1>
+<div class="relative max-w-2xl">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-lowest rounded-2xl border-none ring-1 ring-outline-variant/30 focus:ring-2 focus:ring-primary/40 transition-all font-body text-lg shadow-sm" placeholder="Search for products, services, or verified sellers..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-5 py-3 bg-surface-container-lowest rounded-xl font-label font-semibold text-sm hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+                        Filters
+                    </button>
+<div class="relative group">
+<button class="flex items-center gap-2 px-5 py-3 bg-surface-container-lowest rounded-xl font-label font-semibold text-sm hover:bg-surface-container-high transition-colors">
+                            Sort by: Popularity
+                            <span class="material-symbols-outlined text-[20px]">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Chips / Quick Filters -->
+<div class="flex gap-3 mt-8 overflow-x-auto hide-scrollbar pb-2">
+<button class="px-6 py-2 bg-primary text-on-primary rounded-full font-label font-bold text-sm whitespace-nowrap">All Items</button>
+<button class="px-6 py-2 bg-surface-container-lowest text-secondary rounded-full font-label font-semibold text-sm border border-outline-variant/20 whitespace-nowrap hover:bg-surface-container transition-colors">Electronics</button>
+<button class="px-6 py-2 bg-surface-container-lowest text-secondary rounded-full font-label font-semibold text-sm border border-outline-variant/20 whitespace-nowrap hover:bg-surface-container transition-colors">Agriculture</button>
+<button class="px-6 py-2 bg-surface-container-lowest text-secondary rounded-full font-label font-semibold text-sm border border-outline-variant/20 whitespace-nowrap hover:bg-surface-container transition-colors">Handicrafts</button>
+<button class="px-6 py-2 bg-surface-container-lowest text-secondary rounded-full font-label font-semibold text-sm border border-outline-variant/20 whitespace-nowrap hover:bg-surface-container transition-colors">Services</button>
+<button class="px-6 py-2 bg-surface-container-lowest text-secondary rounded-full font-label font-semibold text-sm border border-outline-variant/20 whitespace-nowrap hover:bg-surface-container transition-colors">Fashion</button>
+</div>
+</section>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+<!-- Card 1 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 border border-transparent hover:border-outline-variant/10">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img alt="Local Coffee" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Authentic Ethiopian coffee beans in a traditional clay pot, surrounded by scattered green beans on a rustic wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHBOul0y0lxfbz8jCmmfN7j5XSAiKRlEKndbHGQyCvp7fXbaKL7j2owGDIE0y1oNZAHSovf8gBhQuo1wPGBK0m4rAbg6QisBY7wxGvnLiz4RUebP5t_iiiEOMvkhecpzNMfvPCnc-tBmDTYUdnL0-_WOBGWzqZc1mvNh1-CW18hP3-V4upHmsR2HnApoc147-tCHmXMji6eTaCtO8KcC-5N91JRGNqrCFFrpN2Y5ULXlyUKo_HA5DxUrANjQpeFlL5lZ5BWvg6nlQ"/>
+<div class="absolute top-4 left-4">
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-[10px] font-bold tracking-wider uppercase shadow-sm">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                            Verified Merchant
+                        </div>
+</div>
+<button class="absolute top-4 right-4 h-10 w-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-secondary hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline font-bold text-lg text-on-surface line-clamp-1">Sidama Specialty Coffee</h3>
+<div class="flex items-center gap-1 bg-tertiary-fixed/30 px-2 py-0.5 rounded-lg">
+<span class="material-symbols-outlined text-tertiary text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-tertiary font-bold text-xs">4.9</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4 text-secondary text-xs font-medium">
+<span class="material-symbols-outlined text-[16px]">distance</span>
+                        1.2 km away • Yeka, Addis
+                    </div>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-secondary text-[10px] uppercase font-bold tracking-widest">Price</span>
+<span class="text-primary font-black text-xl">450 ETB</span>
+</div>
+<button class="h-12 w-12 bg-primary-container text-on-primary-container rounded-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 border border-transparent hover:border-outline-variant/10">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img alt="Athletic Shoes" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Vibrant red performance athletic shoes on a clean grey studio background with professional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZPTRomsfztuSZ5_x9wF6KTzJTO_PQbs00ny5wbCYi_Qyph_6KckL2S9pYOlCYaSkkvbsZ5AXTp58oNTIv_78aYtKf3Mjug0ZU1sW6KvqOXfEvzXV5in0bil2P9TbemRxK1dmHGJ0FrNfplTijU54cCNTYbZZ0dyQy5BnXLWhGSdWlL85nwvFtc99FFXZO7POLohkOkJy7P2mcOsKD6M6iY8sL9ch5OMeQ2SbmDcwQN1yODVlLIn2E--UmcsVRTYQM1h9RHJ5G1B0"/>
+<div class="absolute top-4 left-4">
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-[10px] font-bold tracking-wider uppercase shadow-sm">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                            Verified Merchant
+                        </div>
+</div>
+<button class="absolute top-4 right-4 h-10 w-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline font-bold text-lg text-on-surface line-clamp-1">Abyssinia Pro Runners</h3>
+<div class="flex items-center gap-1 bg-tertiary-fixed/30 px-2 py-0.5 rounded-lg">
+<span class="material-symbols-outlined text-tertiary text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-tertiary font-bold text-xs">4.7</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4 text-secondary text-xs font-medium">
+<span class="material-symbols-outlined text-[16px]">distance</span>
+                        3.5 km away • Bole, Addis
+                    </div>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-secondary text-[10px] uppercase font-bold tracking-widest">Price</span>
+<span class="text-primary font-black text-xl">3,200 ETB</span>
+</div>
+<button class="h-12 w-12 bg-primary-container text-on-primary-container rounded-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 border border-transparent hover:border-outline-variant/10">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img alt="Books" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Stack of hardcover books with elegant typography on spines, placed on a minimalist white desk with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVoxmBZrZ4ZiDStQsAudfxKbfy59g1xueCbqbqYX2FC-As3evB8G19NBRssJT8IBc-3tNQOJf2M_WYGgxpVhl1Zkdh1dWcXZQgbu6Mac1V2nTT6OPWP4tJCX90pmXQ0YxqxOAA3KdgqwJma3ZQajCNmA-_j3vKvCrngXJOIuw8o8WdrnJd8_0ko2JCBx1rkSUjMSX9MnwD6JcqImm7M795dG_tSh50iaIWHGQIPmp5tjDaeiZ4boCz8_EOfGsq3KHGdjie1fZtFxg"/>
+<div class="absolute top-4 left-4">
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-[10px] font-bold tracking-wider uppercase shadow-sm">
+<span class="material-symbols-outlined text-[14px]">history</span>
+                            New Seller
+                        </div>
+</div>
+<button class="absolute top-4 right-4 h-10 w-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline font-bold text-lg text-on-surface line-clamp-1">Amharic Literature Set</h3>
+<div class="flex items-center gap-1 bg-tertiary-fixed/30 px-2 py-0.5 rounded-lg">
+<span class="material-symbols-outlined text-tertiary text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-tertiary font-bold text-xs">5.0</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4 text-secondary text-xs font-medium">
+<span class="material-symbols-outlined text-[16px]">distance</span>
+                        0.8 km away • Arat Kilo
+                    </div>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-secondary text-[10px] uppercase font-bold tracking-widest">Price</span>
+<span class="text-primary font-black text-xl">850 ETB</span>
+</div>
+<button class="h-12 w-12 bg-primary-container text-on-primary-container rounded-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 border border-transparent hover:border-outline-variant/10">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img alt="Handicrafts" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Intricately woven traditional Ethiopian baskets and textiles with colorful geometric patterns in a bright workshop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5tiMCCPIWGiHnF3wHs0HCWZFwTYnsHoYmin5jICHS2YszjTaSmfzKpIloolFuL0A8KjMVYdTTDA_KNeFSNq0-T4cV3yN6R_I6weRlm1lRS3JD8usxxxjaCWrVD9wfOcrKdQ0kyZDGEAtmV0OEeBErt1wA8GYsS4vWNiXTJ0GFvsG9hAdXd6eQb588-tfjW1abU-3hhKlNKSLXHYH8_yBgMphDTkM48ZJgwevCK8ldXO5ykTyrUBffFzFmnsRsOb2gAKQTcBn7Q5g"/>
+<div class="absolute top-4 left-4">
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-[10px] font-bold tracking-wider uppercase shadow-sm">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                            Verified Merchant
+                        </div>
+</div>
+<button class="absolute top-4 right-4 h-10 w-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline font-bold text-lg text-on-surface line-clamp-1">Handwoven Mesob Basket</h3>
+<div class="flex items-center gap-1 bg-tertiary-fixed/30 px-2 py-0.5 rounded-lg">
+<span class="material-symbols-outlined text-tertiary text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-tertiary font-bold text-xs">4.8</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4 text-secondary text-xs font-medium">
+<span class="material-symbols-outlined text-[16px]">distance</span>
+                        5.2 km away • Entoto
+                    </div>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-secondary text-[10px] uppercase font-bold tracking-widest">Price</span>
+<span class="text-primary font-black text-xl">1,100 ETB</span>
+</div>
+<button class="h-12 w-12 bg-primary-container text-on-primary-container rounded-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 5 (Repeated pattern) -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 border border-transparent hover:border-outline-variant/10">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img alt="Fresh Produce" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Selection of organic farm-fresh vegetables and fruits in a wooden crate, soft morning sunlight hitting the colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMFoHQdYpgLFbMCxk4-WQoYKzqk2HaGlicZvKoq5iXjA5hHt4rVHNQ_SoxS7cL_X9x2r1Jy9KenX31OvUZoSktLpfHMfVDpggS018AympCKDFrOPUZ3495VYmb_gzi99eBaTts9TVKH_hXbm_sthapOBIHxaRcGnq_rapaUzms81_tQiMWKg5ojZUJkzTJt2X3chARgdMWq0tz689699O-hM43iw6SF_i1kKj8jQtoyq8An10ZpHOkcxPvwUMgkDS8lrGLL7NBQyA"/>
+<div class="absolute top-4 left-4">
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-[10px] font-bold tracking-wider uppercase shadow-sm">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                            Verified Merchant
+                        </div>
+</div>
+<button class="absolute top-4 right-4 h-10 w-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline font-bold text-lg text-on-surface line-clamp-1">Farm Direct Vegetable Box</h3>
+<div class="flex items-center gap-1 bg-tertiary-fixed/30 px-2 py-0.5 rounded-lg">
+<span class="material-symbols-outlined text-tertiary text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-tertiary font-bold text-xs">4.9</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4 text-secondary text-xs font-medium">
+<span class="material-symbols-outlined text-[16px]">distance</span>
+                        2.1 km away • Sarbet
+                    </div>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-secondary text-[10px] uppercase font-bold tracking-widest">Price</span>
+<span class="text-primary font-black text-xl">350 ETB</span>
+</div>
+<button class="h-12 w-12 bg-primary-container text-on-primary-container rounded-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 border border-transparent hover:border-outline-variant/10">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img alt="Honey" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Golden organic honey dripping from a wooden honey dipper into a glass jar, warm backlit glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7sRtf1qwhRlkhl8sgoEdYC2e8wrDPSG1yIVCZ_GSy_LCGCeUyYiAUwVQzt2VR_U5nx_KT7Sn1rNba__J3k-lOqqaBBfhXA1MCFqGqH2F8UspLuJKiLTDkaRW1kVrqYp4EdM0GbXDcT1SXV49ZNKIwoIhQj0kDJj-JcaZPBJ5WYYUkH8UovIiabgozrI743dA0gIxeyMkmrnfqmj4wI2pErKBZ6nD4Kv_iIvEfBweXyn2sp-XnH_J624zbTtAA3FrMfe_5oxpp6h0"/>
+<div class="absolute top-4 left-4">
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-[10px] font-bold tracking-wider uppercase shadow-sm">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                            Verified Merchant
+                        </div>
+</div>
+<button class="absolute top-4 right-4 h-10 w-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline font-bold text-lg text-on-surface line-clamp-1">Wild Highlands Honey</h3>
+<div class="flex items-center gap-1 bg-tertiary-fixed/30 px-2 py-0.5 rounded-lg">
+<span class="material-symbols-outlined text-tertiary text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-tertiary font-bold text-xs">4.6</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4 text-secondary text-xs font-medium">
+<span class="material-symbols-outlined text-[16px]">distance</span>
+                        4.8 km away • Kolfe
+                    </div>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-secondary text-[10px] uppercase font-bold tracking-widest">Price</span>
+<span class="text-primary font-black text-xl">520 ETB</span>
+</div>
+<button class="h-12 w-12 bg-primary-container text-on-primary-container rounded-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination / Load More -->
+<div class="mt-16 flex flex-col items-center gap-6">
+<button class="group flex items-center gap-3 px-8 py-4 bg-surface-container-high rounded-2xl font-headline font-bold text-on-surface hover:bg-primary hover:text-on-primary transition-all duration-300">
+                Load More Discoveries
+                <span class="material-symbols-outlined group-hover:rotate-180 transition-transform duration-500">expand_more</span>
+</button>
+<div class="flex items-center gap-2">
+<span class="w-8 h-1.5 bg-primary rounded-full"></span>
+<span class="w-1.5 h-1.5 bg-outline-variant rounded-full"></span>
+<span class="w-1.5 h-1.5 bg-outline-variant rounded-full"></span>
+<span class="w-1.5 h-1.5 bg-outline-variant rounded-full"></span>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 dark:bg-slate-950/90 backdrop-blur-lg z-50 rounded-t-[2rem] shadow-2xl">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600 dark:hover:text-green-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-100 rounded-2xl px-5 py-2 scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600 dark:hover:text-green-300" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600 dark:hover:text-green-300" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Profile</span>
+</a>
+</nav>
+<!-- Floating Action Button -->
+<div class="fixed bottom-28 right-6 md:bottom-12 md:right-12 z-40">
+<button class="h-16 w-16 bg-gradient-to-br from-primary to-primary-container rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center text-on-primary hover:scale-110 active:scale-90 transition-transform group">
+<span class="material-symbols-outlined text-[32px]">add</span>
+<span class="absolute right-full mr-4 bg-inverse-surface text-inverse-on-surface px-4 py-2 rounded-xl text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Sell Item</span>
+</button>
+</div>
+</body></html>

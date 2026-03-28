@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ታማኝ - Buyer Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#45e335",
+              "on-primary": "#ffffff",
+              "error-container": "#ffdad6",
+              "surface-dim": "#dadada",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed": "#1b1c1c",
+              "on-background": "#1a1c1c",
+              "on-secondary-fixed-variant": "#474746",
+              "primary": "#016e00",
+              "on-secondary-container": "#636262",
+              "inverse-on-surface": "#f1f1f1",
+              "surface-container-high": "#e8e8e8",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#5b2e00",
+              "on-primary-container": "#014400",
+              "surface": "#f9f9f9",
+              "primary-container": "#00be00",
+              "secondary-container": "#e2dfde",
+              "surface-bright": "#f9f9f9",
+              "tertiary-fixed": "#ffdcc3",
+              "inverse-surface": "#2f3131",
+              "surface-variant": "#e2e2e2",
+              "on-surface-variant": "#3d4a38",
+              "surface-tint": "#016e00",
+              "on-secondary": "#ffffff",
+              "secondary-fixed": "#e5e2e1",
+              "primary-fixed": "#77ff61",
+              "surface-container-low": "#f3f3f3",
+              "on-tertiary": "#ffffff",
+              "outline": "#6d7b66",
+              "on-primary-fixed-variant": "#015300",
+              "inverse-primary": "#45e335",
+              "on-error": "#ffffff",
+              "on-surface": "#1a1c1c",
+              "tertiary": "#904d00",
+              "on-tertiary-fixed-variant": "#6e3900",
+              "tertiary-container": "#f68700",
+              "on-primary-fixed": "#002200",
+              "on-tertiary-fixed": "#2f1500",
+              "background": "#f9f9f9",
+              "secondary": "#5f5e5e",
+              "outline-variant": "#bccbb2",
+              "secondary-fixed-dim": "#c8c6c5",
+              "surface-container-highest": "#e2e2e2",
+              "surface-container": "#eeeeee",
+              "tertiary-fixed-dim": "#ffb77d",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopAppBar Shell -->
+<header class="docked full-width top-0 sticky z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl no-border bg-surface-container-low dark:bg-surface-container-high">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-700 dark:text-green-400" data-icon="location_on">location_on</span>
+<span class="font-headline font-bold tracking-tight text-headline-sm text-green-700 dark:text-green-400">ታማኝ</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors p-2 rounded-full active:scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined text-slate-500" data-icon="notifications">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-screen-2xl mx-auto px-6 pb-32 pt-4">
+<!-- Greeting & Greeting Section -->
+<section class="mb-8">
+<h1 class="font-headline text-3xl font-extrabold tracking-tight mb-2">Hello, Elias</h1>
+<p class="text-secondary font-medium">Ready to find the best deals today?</p>
+</section>
+<!-- Search Bar -->
+<div class="mb-10 relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+</div>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-high border-none rounded-2xl focus:ring-2 focus:ring-primary/40 transition-all font-medium placeholder:text-outline" placeholder="Search in Addis Ababa..." type="text"/>
+<button class="absolute right-3 top-2 bottom-2 px-4 bg-primary text-on-primary rounded-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="tune">tune</span>
+                Filter
+            </button>
+</div>
+<!-- Categories Bento Grid -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline text-xl font-bold">Explore Categories</h2>
+<button class="text-primary font-bold text-sm">View All</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-surface-container-lowest p-6 rounded-3xl flex flex-col items-center justify-center gap-3 hover:bg-primary-container/10 transition-colors group">
+<div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="restaurant">restaurant</span>
+</div>
+<span class="font-bold text-sm uppercase tracking-wider">Food</span>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-3xl flex flex-col items-center justify-center gap-3 hover:bg-tertiary-container/10 transition-colors group">
+<div class="w-14 h-14 rounded-2xl bg-tertiary-container/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-tertiary-container text-3xl" data-icon="devices">devices</span>
+</div>
+<span class="font-bold text-sm uppercase tracking-wider">Electronics</span>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-3xl flex flex-col items-center justify-center gap-3 hover:bg-secondary-container/30 transition-colors group">
+<div class="w-14 h-14 rounded-2xl bg-secondary-container flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-secondary-container text-3xl" data-icon="home_app_fill" style="font-variation-settings: 'FILL' 1;">home_filled</span>
+</div>
+<span class="font-bold text-sm uppercase tracking-wider">Home</span>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-3xl flex flex-col items-center justify-center gap-3 hover:bg-primary-fixed/20 transition-colors group">
+<div class="w-14 h-14 rounded-2xl bg-primary-fixed/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-primary-fixed-variant text-3xl" data-icon="handyman">handyman</span>
+</div>
+<span class="font-bold text-sm uppercase tracking-wider">Services</span>
+</div>
+</div>
+</section>
+<!-- Nearby Merchants Horizontal Scroll -->
+<section class="mb-12 overflow-hidden">
+<div class="flex items-center justify-between mb-6 px-1">
+<h2 class="font-headline text-xl font-bold">Trusted Merchants Nearby</h2>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center"><span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span></button>
+<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center"><span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+<div class="flex gap-6 overflow-x-auto hide-scrollbar pb-4 snap-x">
+<!-- Merchant Card 1 -->
+<div class="flex-none w-72 snap-start">
+<div class="relative rounded-3xl overflow-hidden mb-3 aspect-[4/3]">
+<img class="w-full h-full object-cover" data-alt="vibrant local market stall in Ethiopia with fresh colorful vegetables and traditional woven baskets under soft daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXEVm086EIfPxGzK81Pos7T_1GKTY32OAAqYi-MgPGXyDk_ECRy_8QwPoM2eseEfHJNqBvvj-Cv2WPFIn1kDvLPtJ1R3x3EJp3JrQ2CFXGHMGeQtjIJRqBRzj7wAB5J2LW924d-sLAloJe5NNCKNWaRJDURBByg9M_ySmrJRW4qzT2dc4lfxPwdt_DX_ITNGlCei-fN54DCEiOBvA6zMqN-MevKsEbe-d4CExEAbavc5Aesu74COO9R4mb27o5KkWBtEKWm1GlyNY"/>
+<div class="absolute top-3 left-3 bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span> Tamagn
+                        </div>
+</div>
+<h3 class="font-headline font-bold text-lg">Bole Central Grocery</h3>
+<div class="flex items-center gap-1 text-sm text-secondary">
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.8</span>
+<span>• 1.2km away</span>
+</div>
+</div>
+<!-- Merchant Card 2 -->
+<div class="flex-none w-72 snap-start">
+<div class="relative rounded-3xl overflow-hidden mb-3 aspect-[4/3]">
+<img class="w-full h-full object-cover" data-alt="modern electronics boutique shop interior with sleek glass displays and warm ambient lighting showcasing high-end devices" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFqqTii4lrsoyXQ19tbIolFpuIbnv7_xdruCXoTwbylfDoAJhYRgN3vAuhACVskhv9OvgsAeKGoK3X0-sE2SeCPCVqeJ9156orgSwdzzsMYnf6Nv8sjSOeWbv3QDZAKAE_f7sn-aDKuq7Wj7CanovwWs-ynU3r7HzUq6JA2hGHs4amziUeiANdK6qzlQRhbKDDr0tnZkKrYenJ52AHSvXCJMYM1y_9OpZcTvz67xbG2N65C8FVDAIhHyjNjFNqluxn7jbDloBXRdQ"/>
+<div class="absolute top-3 left-3 bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span> Tamagn
+                        </div>
+</div>
+<h3 class="font-headline font-bold text-lg">NextGen Electronics</h3>
+<div class="flex items-center gap-1 text-sm text-secondary">
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.9</span>
+<span>• 0.5km away</span>
+</div>
+</div>
+<!-- Merchant Card 3 -->
+<div class="flex-none w-72 snap-start">
+<div class="relative rounded-3xl overflow-hidden mb-3 aspect-[4/3]">
+<img class="w-full h-full object-cover" data-alt="stylish boutique cafe entrance with artisanal wooden decor and lush green plants in front of large glass windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaAAkeplr7x-MsmaqOPDorMR0u7dQUv-EhXMVVww1BRY9tuEUJExATuid-NO2vG9Vs7_5wtZ1_c0wPIGzP_qW8MA0OkizHRiohl7zTenW6RbigUoOOBvoYdMSQEyc3AqifogL06KSCBVNBX3VBu9sbqXkPnYdNSoaCbZ5_enEPLXBlm-rJjC0vx_d-zUxlBrsdIz61Jka26Jz6jd4BJfjyNZH5Xw-cbV7kBdJnDH85qDPU4NP7T6gaEAccPeUU-9_4wcu5DIupH9g"/>
+</div>
+<h3 class="font-headline font-bold text-lg">Ethio Roast Coffee</h3>
+<div class="flex items-center gap-1 text-sm text-secondary">
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.7</span>
+<span>• 2.3km away</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Popular Products Carousel -->
+<section class="mb-12">
+<div class="bg-inverse-surface rounded-[2.5rem] p-8 relative overflow-hidden">
+<div class="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+<div>
+<span class="inline-block px-3 py-1 bg-tertiary text-on-tertiary rounded-full text-[10px] font-bold uppercase tracking-widest mb-4">Trending Now</span>
+<h2 class="font-headline text-3xl font-black text-white leading-tight mb-4">Pure Teff <br/>Direct from Farmers</h2>
+<p class="text-secondary-fixed-dim mb-8">Premium quality, sand-free, and ethically sourced from the highlands of Ethiopia.</p>
+<button class="bg-primary-container text-on-primary-container px-8 py-4 rounded-2xl font-black flex items-center gap-3 active:scale-95 transition-transform">
+                            Shop Collection
+                            <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="relative">
+<div class="absolute inset-0 bg-primary/20 blur-[80px] rounded-full"></div>
+<img class="relative z-10 w-full aspect-square object-cover rounded-3xl transform rotate-3 scale-105" data-alt="close-up of golden teff grain falling into a traditional wooden bowl with dramatic lighting and high texture detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2M0YnZWh-kGAcJgYbgxwv0rwwE69LwXfSzVG4rJqd1mmugn803It9WRWvoe9mwhMfAG43UGrU2FpFDDB0XzLJ2iLLrz7uMExrdL01mN_17YNqyGSo8TurBuiDY5joq9P6jZ7iq0SnjgiBlcOBA6JjMjyG_HYaUPkH9eSq3-s-8qTI1tv-VDKs23Iq-raC4r1o89a-8_wyxMbI4VRhyvLmFp2G5C4rGhr2ydCD_9mS7XEtbZKV-vuO5KlYczFRDle2qdwE1xoLxb4"/>
+</div>
+</div>
+<!-- Subtle Texture -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/10 to-transparent rounded-full -translate-y-1/2 translate-x-1/2"></div>
+</div>
+</section>
+<!-- Recommended Services Grid -->
+<section class="mb-12">
+<h2 class="font-headline text-xl font-bold mb-6">Recommended Services</h2>
+<div class="grid gap-4">
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-2xl">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="professional electrician wearing a safety vest working on a modern electrical panel with precise tools" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxbjZt5tofAhzZG_Kzu2QkBP3PdLXAmzU2sXkvjCqQe6WWHoRtoeMcsmjlLGVR47VBU6HZxgngn_fQgXuur0btCUPRJCvjP1xbilQUwLK60Q_twoBZnG2nyiluqmLSf1AwAVFMqOvNT0fcBj2-onxWQT-oYzXLdzI-5M1QORb6Xy_yC5bpywOQAiLrAXv5ZQujMrHgpiYyDJ0VCsjjk-cxJ84sGUaUlpVanekCxMrbCDnDiogbiOWaB8IUMhfdU2qTW-rgZiK5eRU"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-bold">Home Electrical Repair</h4>
+<p class="text-sm text-secondary">Verified Professionals • Starts ETB 450</p>
+</div>
+<button class="p-3 bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined text-primary" data-icon="add">add</span>
+</button>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-2xl">
+<div class="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="clean and organized home laundry service setup with folded fresh white towels and natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1aUD0JW15A3J1nGXbJN4HvZTIdXA1-2TpiCe8BdvG3KhfEfNJk3Cr4fy1mhA-mw5L_aUAi0sQE4mQV6SD12heeM44WYTLzh-x8q-Indn-coIXF_gAvssHWP3QH-rb2KKehNuFGELsN2LKF9GG96TIfv9aAUro7gWwGj83_gLaMsKaOzePQMQ2Nn-TC1J_A13yOKyEKtE0DA0L6jLv0POp-JEjxsDCi7LEV8jYuKY0nM7rziGmbl6jnaKrwpVh5mj3YGcfzp552mE"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-bold">Express Laundry</h4>
+<p class="text-sm text-secondary">Next Day Delivery • ETB 25 / kg</p>
+</div>
+<button class="p-3 bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined text-primary" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-32 right-6 w-16 h-16 bg-tertiary-container text-on-tertiary-container rounded-3xl shadow-2xl flex items-center justify-center z-40 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="shopping_cart">shopping_cart</span>
+<span class="absolute -top-1 -right-1 bg-error text-on-error w-6 h-6 rounded-full text-[10px] font-bold flex items-center justify-center border-2 border-surface">2</span>
+</button>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 dark:bg-slate-950/90 backdrop-blur-lg z-50 rounded-t-[2rem] shadow-[0_-4px_20px_0_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-100 rounded-2xl px-5 py-2 scale-110 transition-transform animate-pulse-subtle" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600 dark:hover:text-green-300" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600 dark:hover:text-green-300" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600 dark:hover:text-green-300" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

@@ -1,10 +1,15 @@
+/** Matches DB enum `order_status`. */
 export type OrderStatus =
-  | "pending_payment"
+  | "awaiting_payment"
   | "paid_escrow"
-  | "shipped"
+  | "merchant_confirmed"
+  | "pickup_scheduled"
+  | "collected"
+  | "in_transit"
   | "delivered"
   | "completed"
-  | "cancelled";
+  | "cancelled"
+  | "disputed";
 
 export type Order = {
   id: string;

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="am"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#45e335",
+              "on-primary": "#ffffff",
+              "error-container": "#ffdad6",
+              "surface-dim": "#dadada",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed": "#1b1c1c",
+              "on-background": "#1a1c1c",
+              "on-secondary-fixed-variant": "#474746",
+              "primary": "#016e00",
+              "on-secondary-container": "#636262",
+              "inverse-on-surface": "#f1f1f1",
+              "surface-container-high": "#e8e8e8",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#5b2e00",
+              "on-primary-container": "#014400",
+              "surface": "#f9f9f9",
+              "primary-container": "#00be00",
+              "secondary-container": "#e2dfde",
+              "surface-bright": "#f9f9f9",
+              "tertiary-fixed": "#ffdcc3",
+              "inverse-surface": "#2f3131",
+              "surface-variant": "#e2e2e2",
+              "on-surface-variant": "#3d4a38",
+              "surface-tint": "#016e00",
+              "on-secondary": "#ffffff",
+              "secondary-fixed": "#e5e2e1",
+              "primary-fixed": "#77ff61",
+              "surface-container-low": "#f3f3f3",
+              "on-tertiary": "#ffffff",
+              "outline": "#6d7b66",
+              "on-primary-fixed-variant": "#015300",
+              "inverse-primary": "#45e335",
+              "on-error": "#ffffff",
+              "on-surface": "#1a1c1c",
+              "tertiary": "#904d00",
+              "on-tertiary-fixed-variant": "#6e3900",
+              "tertiary-container": "#f68700",
+              "on-primary-fixed": "#002200",
+              "on-tertiary-fixed": "#2f1500",
+              "background": "#f9f9f9",
+              "secondary": "#5f5e5e",
+              "outline-variant": "#bccbb2",
+              "secondary-fixed-dim": "#c8c6c5",
+              "surface-container-highest": "#e2e2e2",
+              "surface-container": "#eeeeee",
+              "tertiary-fixed-dim": "#ffb77d",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .signature-gradient {
+            background: linear-gradient(135deg, #016e00 0%, #00be00 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased pb-24">
+<!-- Top App Bar -->
+<header class="docked full-width top-0 sticky z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl no-border bg-surface-container-low dark:bg-surface-container-high">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-green-700 dark:text-green-400">location_on</span>
+<h1 class="text-2xl font-black text-green-800 dark:text-green-500 tracking-tighter">ታማኝ</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-screen-xl mx-auto px-6 pt-8 pb-12">
+<!-- Hero Profile Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-12">
+<div class="md:col-span-8 bg-surface-container-lowest rounded-xl p-8 flex flex-col md:flex-row items-center gap-8 shadow-[0_4px_20px_0_rgba(0,0,0,0.03)]">
+<div class="relative">
+<img alt="User Avatar" class="w-32 h-32 rounded-full object-cover ring-4 ring-primary-fixed" data-alt="Close-up professional portrait of a friendly Ethiopian man with a warm smile in a well-lit modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNyErUk14F9dLLxb8e4GNFmbpXO5lkutGFAhzHFpUWwdZsIhDqsEg2CkJTuV7VgfdLiZXZcfFvJTgZrcecZWss8MLGE_q0wbajyECLUkPgOM7g_OS7FptH3f1QTibxT_6AHnWpkd14FJ8EJTduEAQQBjDTSUkz_9Ezc5FMLvxAKEKTt16W5zM-fB2FYifbycuZ4tPV3v0FiBWLGKlHE8X1zkAFWhmjkYlqWCs54APa4XirlcAl7JAgqQqC1UAXEPm4tCq3jaI_xv8"/>
+<div class="absolute bottom-1 right-1 bg-primary text-white p-1.5 rounded-full ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="text-center md:text-left flex-1">
+<h2 class="font-headline text-3xl font-extrabold tracking-tight mb-1">Dawit Abraham</h2>
+<p class="text-secondary font-medium mb-4">Member since Oct 2023</p>
+<div class="flex flex-wrap justify-center md:justify-start gap-3">
+<span class="bg-primary-fixed text-on-primary-fixed px-4 py-1.5 rounded-full text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">stars</span>
+                            Trust Score: 98%
+                        </span>
+<span class="bg-surface-container-high text-on-surface-variant px-4 py-1.5 rounded-full text-sm font-semibold">Premium Member</span>
+</div>
+</div>
+<div class="hidden md:block w-px h-24 bg-surface-container"></div>
+<div class="text-center">
+<div class="text-primary text-2xl font-black font-headline tracking-tighter">24</div>
+<div class="text-[11px] font-bold uppercase tracking-widest text-secondary-container text-on-secondary-container">Total Orders</div>
+</div>
+</div>
+<div class="md:col-span-4 bg-tertiary-container text-white rounded-xl p-8 flex flex-col justify-between overflow-hidden relative shadow-lg">
+<div class="relative z-10">
+<h3 class="font-headline text-xl font-bold mb-2">Tamagn Wallet</h3>
+<p class="text-white/80 text-sm font-medium">Available Balance</p>
+<div class="text-3xl font-black mt-1">4,250.00 <span class="text-sm font-bold">ETB</span></div>
+</div>
+<div class="relative z-10 flex gap-3 mt-6">
+<button class="bg-white/20 backdrop-blur-md hover:bg-white/30 transition-all text-sm font-bold px-4 py-2 rounded-lg flex-1">Top Up</button>
+<button class="bg-white text-tertiary-container text-sm font-bold px-4 py-2 rounded-lg flex-1">Withdraw</button>
+</div>
+<!-- Abstract Texture -->
+<div class="absolute -right-12 -bottom-12 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Settings & Privacy -->
+<div class="lg:col-span-1 space-y-8">
+<div>
+<h3 class="font-headline text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">settings</span>
+                        Account Settings
+                    </h3>
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<div class="p-4 hover:bg-white transition-colors cursor-pointer flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary">person</span>
+<span class="font-semibold text-sm">Personal Information</span>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<div class="p-4 hover:bg-white transition-colors cursor-pointer flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary">security</span>
+<span class="font-semibold text-sm">Password &amp; Security</span>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<div class="p-4 hover:bg-white transition-colors cursor-pointer flex items-center justify-between group">
+<div class="flex items-center gap-4 text-error">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-semibold text-sm">Sign Out</span>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-headline text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">credit_card</span>
+                        Linked Payments
+                    </h3>
+<div class="space-y-3">
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-4 shadow-sm">
+<div class="w-12 h-12 bg-[#ec1c24] rounded-lg flex items-center justify-center">
+<span class="text-white font-black text-xs">M-PESA</span>
+</div>
+<div class="flex-1">
+<div class="font-bold text-sm">M-Pesa Wallet</div>
+<div class="text-xs text-secondary">+251 91 **** 456</div>
+</div>
+<div class="bg-primary-fixed-dim/20 text-primary font-bold text-[10px] px-2 py-1 rounded uppercase">Primary</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-4 shadow-sm">
+<div class="w-12 h-12 bg-surface-container-high rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">account_balance</span>
+</div>
+<div class="flex-1">
+<div class="font-bold text-sm">Commercial Bank (CBE)</div>
+<div class="text-xs text-secondary">**** 7890</div>
+</div>
+</div>
+<button class="w-full py-4 border-2 border-dashed border-outline-variant rounded-xl text-secondary font-bold text-sm flex items-center justify-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+                            Add Payment Method
+                        </button>
+</div>
+</div>
+</div>
+<!-- Right Column: Addresses & Orders -->
+<div class="lg:col-span-2 space-y-12">
+<!-- Addresses Bento Grid -->
+<div>
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">map</span>
+                            Saved Addresses
+                        </h3>
+<button class="text-primary font-bold text-sm hover:underline">Manage All</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-all group">
+<div class="flex items-start justify-between mb-4">
+<div class="w-10 h-10 bg-primary-container/20 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+</div>
+<span class="material-symbols-outlined text-slate-300 hover:text-error cursor-pointer">delete</span>
+</div>
+<div class="font-bold text-base mb-1">Home</div>
+<div class="text-secondary text-sm leading-relaxed">Wello Sefer, Near Ethio-Telecom Tower, Building 4A, Addis Ababa</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-all group">
+<div class="flex items-start justify-between mb-4">
+<div class="w-10 h-10 bg-tertiary-container/10 rounded-full flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">work</span>
+</div>
+<span class="material-symbols-outlined text-slate-300 hover:text-error cursor-pointer">delete</span>
+</div>
+<div class="font-bold text-base mb-1">Work</div>
+<div class="text-secondary text-sm leading-relaxed">Bole Medhanialem, Century Mall Office Suite 502, Addis Ababa</div>
+</div>
+</div>
+</div>
+<!-- Order History -->
+<div>
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+                            Recent Orders
+                        </h3>
+<div class="flex gap-2">
+<span class="bg-surface-container-high px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Filtered: Last 30 Days</span>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Order Card 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col md:flex-row md:items-center gap-6 shadow-sm border-l-4 border-primary hover:translate-x-1 transition-transform">
+<div class="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-surface-container">
+<img alt="Groceries" class="w-full h-full object-cover" data-alt="Close-up of fresh colorful vegetables including bell peppers and tomatoes in a rustic wooden basket" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBxooEUOtNkfKXHUcmTtEEjSCninzIN--p6bS-_eRGa25KUQ1VfHLdoBwoGhmWCgwOMgsHd9c3oaTwv7yWJ2g3MTvm9rCNlqozVxTD2EBffw3ULLuhX5lyLxYtEKXgO1Z10rH04kZ-x-p5203pPPZgBmR5IM-dDZz8mB8str1D9NE7ax60CMVaiqqJl1vx6DeRHYtMiD3tbX-9qdyVddnU5fHqr52WjcRfcXVsXMnNQDhe97tfRduGZ71fG8ySfkkPfKggHd5GTSk"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-bold text-sm">Weekly Grocery Haul</h4>
+<span class="text-xs font-bold text-primary bg-primary-fixed/30 px-2 py-0.5 rounded">Delivered</span>
+</div>
+<div class="text-xs text-secondary font-medium flex items-center gap-3">
+<span>#TGN-88421</span>
+<span class="w-1 h-1 rounded-full bg-slate-300"></span>
+<span>Oct 12, 2023</span>
+</div>
+</div>
+<div class="flex items-center justify-between md:justify-end gap-6 border-t md:border-t-0 border-surface-container pt-4 md:pt-0">
+<div class="text-right">
+<div class="text-sm font-black">1,850.00 ETB</div>
+<div class="text-[10px] text-secondary font-bold uppercase">Via M-Pesa</div>
+</div>
+<button class="signature-gradient text-white text-xs font-bold px-4 py-2 rounded-lg hover:shadow-lg transition-all">Reorder</button>
+</div>
+</div>
+<!-- Order Card 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col md:flex-row md:items-center gap-6 shadow-sm border-l-4 border-tertiary-container hover:translate-x-1 transition-transform">
+<div class="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-surface-container">
+<img alt="Electronics" class="w-full h-full object-cover" data-alt="High-end sleek smartphone resting on a minimalist white desk with soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQAjm-B2Gj-lH5ud4AyzD0x7EslrIXkv3veoTPla7uEClxRkP2aX9LO85x8sdmb3htIS0_hFJxW6h6l2BjEwGfCye-lcQMJN7GM_9Kr9ENzUYUpwf6xHD2jBZDffLqbD8Y2nDQku8InkCtoKqnAsGJM6bS4z-piPaGXZYAnLC2G4gjkWe_a3FH0BMs61W4gjkYGcXF02bpwDEnkYCF4KjCOnyXasIb331SDi-pcktRnQPod8K-JtXG1dBmJZhWDhsv6BQ0J57f2iY"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-bold text-sm">Samsung Galaxy Charger</h4>
+<span class="text-xs font-bold text-tertiary bg-tertiary-fixed/40 px-2 py-0.5 rounded">Processing</span>
+</div>
+<div class="text-xs text-secondary font-medium flex items-center gap-3">
+<span>#TGN-89104</span>
+<span class="w-1 h-1 rounded-full bg-slate-300"></span>
+<span>Today, 10:30 AM</span>
+</div>
+</div>
+<div class="flex items-center justify-between md:justify-end gap-6 border-t md:border-t-0 border-surface-container pt-4 md:pt-0">
+<div class="text-right">
+<div class="text-sm font-black">450.00 ETB</div>
+<div class="text-[10px] text-secondary font-bold uppercase">CBE Transfer</div>
+</div>
+<button class="bg-surface-container-high text-on-surface font-bold text-xs px-4 py-2 rounded-lg hover:bg-secondary-container transition-all">Track</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Navigation Shell (Bottom Nav for Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 dark:bg-slate-950/90 backdrop-blur-lg z-50 rounded-t-[2rem] shadow-2xl">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-100 rounded-2xl px-5 py-2 scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

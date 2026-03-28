@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ታማኝ Merchant Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#45e335",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dadada",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-background": "#1a1c1c",
+                        "on-secondary-fixed-variant": "#474746",
+                        "primary": "#016e00",
+                        "on-secondary-container": "#636262",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-container-high": "#e8e8e8",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#5b2e00",
+                        "on-primary-container": "#014400",
+                        "surface": "#f9f9f9",
+                        "primary-container": "#00be00",
+                        "secondary-container": "#e2dfde",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-fixed": "#ffdcc3",
+                        "inverse-surface": "#2f3131",
+                        "surface-variant": "#e2e2e2",
+                        "on-surface-variant": "#3d4a38",
+                        "surface-tint": "#016e00",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#e5e2e1",
+                        "primary-fixed": "#77ff61",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#6d7b66",
+                        "on-primary-fixed-variant": "#015300",
+                        "inverse-primary": "#45e335",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "tertiary": "#904d00",
+                        "on-tertiary-fixed-variant": "#6e3900",
+                        "tertiary-container": "#f68700",
+                        "on-primary-fixed": "#002200",
+                        "on-tertiary-fixed": "#2f1500",
+                        "background": "#f9f9f9",
+                        "secondary": "#5f5e5e",
+                        "outline-variant": "#bccbb2",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container": "#eeeeee",
+                        "tertiary-fixed-dim": "#ffb77d",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl docked full-width top-0 sticky z-50 no-border bg-surface-container-low dark:bg-surface-container-high">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-green-700 dark:text-green-400" data-icon="location_on">location_on</span>
+<span class="text-2xl font-black text-green-800 dark:text-green-500 tracking-tighter">ታማኝ</span>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-green-700 dark:text-green-400 font-bold tracking-tight text-headline-sm" href="#">Home</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors px-3 py-1 rounded-lg" href="#">Market</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors px-3 py-1 rounded-lg" href="#">Orders</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-primary-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a confident male merchant smiling in a bright office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_LC3Im0AZdCcHO2Y-jyNQGlK1EKw4Ocj99dFGJkqMt9uwIZ8N9rtuRzcSuf7mg2vkLpaYe5tJNbaUKORGn0ycjI0OkYVA8Q4hJkq-hnTtdCsih8prq8O2_e8krv-4143jA97KlKiHyV39TtO8eLUGof5UP4EhpnawF61h3PyJtnJVBHr9bxEbSODOYwPTE_YSXsf01SGjFAQUMEkNb3PSwkstmkFSSs9NIjCOCNbSYGUGPRauctieK-oRXa9_gYZP4j1qOj_WsoI"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-screen-2xl mx-auto px-6 py-8 pb-32">
+<!-- Dashboard Hero / Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+<div class="md:col-span-2 bg-surface-container-lowest p-8 rounded-[2rem] flex flex-col justify-between relative overflow-hidden group">
+<div class="z-10">
+<p class="text-sm font-semibold tracking-wider text-on-surface-variant uppercase mb-2">Total Sales</p>
+<h2 class="text-5xl font-extrabold tracking-tighter mb-4">ETB 142,500</h2>
+<div class="inline-flex items-center gap-2 bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-xs font-bold">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+                        +12.5% this month
+                    </div>
+</div>
+<div class="absolute -right-12 -bottom-12 opacity-10 group-hover:scale-110 transition-transform duration-700">
+<span class="material-symbols-outlined text-[240px]" data-icon="payments">payments</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-[2rem] flex flex-col justify-between">
+<div>
+<p class="text-sm font-semibold tracking-wider text-on-surface-variant uppercase mb-2">Active Orders</p>
+<h2 class="text-4xl font-bold tracking-tight">28</h2>
+</div>
+<div class="flex -space-x-3 mt-4">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-slate-200 overflow-hidden"><img class="w-full h-full object-cover" data-alt="close up of customer profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7utleQh9EEZstdFeqJpi5atK25eAexAL8pxTNAAxkVOZ2pJoHjpXB4s1Nz-LsYzEHTAr_BttiMlVryCYJd9WedXUsjvLnre2B91PzdzDx4qFrA6FRTrk0F0TPWVUJi7VftK42wlKJPQCyuyZ1iZSvP91m9T6xQsbDdrZvBAcotUZtuQy1sR2g2XtQRyIrJvVtEkoUOzyCGWGOeXGr3SpI1WKknb_hw82Z_CWRN9QtvqijI1sGdCuVa_M7mvDqrWDkpQkG48GnMzU"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-slate-200 overflow-hidden"><img class="w-full h-full object-cover" data-alt="close up of customer profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiaRSlgDZf48x74PUyx1IgXoILYdlP69GIe3dRQPMuhvMBZnMpb0bDgWHt2OncTy7ANYyY74BI-D0C-eq8Zvg647VHFjZaS7vwoHm4ICoCjoMwhua6hR3OR1Ltt1he_q7Upw9HQXUAq3YuOA2sbUk2dH2W_0uT6lIKk_wsXK-khhQ_sfvRavbrCYHqXcmwwE2HpqUG6QvQ7yzOr66lMItQdO4pKnCLENnwcjEY5gXKRvLfd2V0-v9BHNgoTc-ZRWXf-JQ8tCMmxpU"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-slate-200 overflow-hidden flex items-center justify-center text-[10px] font-bold bg-surface-container-high">+25</div>
+</div>
+</div>
+<div class="bg-tertiary-container/10 p-8 rounded-[2rem] flex flex-col justify-between border border-tertiary-container/20">
+<div>
+<p class="text-sm font-semibold tracking-wider text-on-tertiary-container uppercase mb-2">Store Rating</p>
+<div class="flex items-center gap-1 mb-1">
+<h2 class="text-4xl font-bold tracking-tight">4.9</h2>
+<span class="material-symbols-outlined text-tertiary-container" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-xs text-on-tertiary-container/60">Based on 1.2k reviews</p>
+</div>
+<div class="mt-4">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Tamagn Verified</span>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+<!-- Left Column: Products & Orders -->
+<div class="lg:col-span-2 space-y-12">
+<!-- Manage Products Section -->
+<section>
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="text-2xl font-bold tracking-tight mb-1">Your Inventory</h3>
+<p class="text-on-surface-variant text-sm">Managing 124 active products</p>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                            Add Product
+                        </button>
+</div>
+<div class="bg-surface-container-lowest rounded-[2rem] overflow-hidden">
+<div class="p-4 overflow-x-auto">
+<table class="w-full text-left border-separate border-spacing-y-3">
+<thead>
+<tr class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">
+<th class="px-6 py-2">Product</th>
+<th class="px-6 py-2">Category</th>
+<th class="px-6 py-2">Stock</th>
+<th class="px-6 py-2 text-right">Price</th>
+<th class="px-6 py-2"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="bg-surface-container-low/40 hover:bg-surface-container-low transition-colors rounded-2xl group">
+<td class="px-6 py-4 rounded-l-2xl">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="vibrant red athletic sneaker on a clean white studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMXr74G5KQAnOGvzQAoJsfm-oeUr9ynBBqJ0a4ZRxo6XzHWwt_zJ-eUZSUMvmrW9g5rFN5LjxWiN_kfX4MCmyvKNdB-eGHLHL1gzOR8k2LY9XIaauxPpQFyAMAeLfTX5ohDd9lhJMgclH706_kdagrj817p54ZWnMUrFK0V3VgdgjvWv55dA_j0RMBxUkzWO8qiR_FN_BKqQgmxiHuF9Tm-zYyOHM-S-p-VpehMzSBrxFYDxWffQhi-W7JGZ2HFqO5__hFGJ_MBtk"/>
+</div>
+<span class="font-bold text-sm">Speed Runner X1</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Footwear</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[80%]"></div>
+</div>
+<span class="text-xs font-bold">42 left</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right font-bold text-sm">ETB 2,400</td>
+<td class="px-6 py-4 rounded-r-2xl text-right">
+<button class="p-2 rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="bg-surface-container-low/40 hover:bg-surface-container-low transition-colors rounded-2xl">
+<td class="px-6 py-4 rounded-l-2xl">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="minimalist white wristwatch with silver accents on a soft grey textured surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEYRshO4rmmpQMsYQLabPOTcwEB5j7v-MVc7EePCr6xnuY3Q1j1E6C5tEwuJLs5jm6Gm_eqfb0TvulM8Zq50n3GoHd6u_G5s0WZL-WzJy-xQVBez83wUKznKqu_T426AqB6rUVUd3yFcp7HyFJdq2QweL2l-HUAcdIb_JDGOSGhmYo-OeCkKSsoHXOX3rUfJntMt8nm-dQ71U7HXxdGJQhI7V6N1qoO4qGDmV1eHOsXtZ1etyg7hbHuo6mkU6g19zp4uXNjujL85E"/>
+</div>
+<span class="font-bold text-sm">Minimalist Watch</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Accessories</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-error w-[10%]"></div>
+</div>
+<span class="text-xs font-bold text-error">3 left</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right font-bold text-sm">ETB 1,850</td>
+<td class="px-6 py-4 rounded-r-2xl text-right">
+<button class="p-2 rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Orders Section -->
+<section>
+<h3 class="text-2xl font-bold tracking-tight mb-8">Recent Orders</h3>
+<div class="space-y-4">
+<!-- Order Card -->
+<div class="bg-surface-container-lowest p-6 rounded-[2rem] flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+<div class="flex gap-4">
+<div class="p-4 bg-surface-container-low rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<div>
+<h4 class="font-bold text-sm">Order #TM-8821</h4>
+<p class="text-xs text-on-surface-variant">2 items • ETB 4,250 • Just now</p>
+<div class="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-tertiary-fixed/30 text-on-tertiary-fixed text-[10px] font-bold uppercase tracking-wider">
+                                        Pending Confirmation
+                                    </div>
+</div>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto">
+<button class="flex-1 md:flex-none border border-outline/20 hover:bg-surface-container-low px-5 py-2.5 rounded-xl text-sm font-bold transition-all">Reject</button>
+<button class="flex-1 md:flex-none bg-primary text-on-primary px-5 py-2.5 rounded-xl text-sm font-bold transition-all hover:bg-primary-container active:scale-95">Confirm</button>
+</div>
+</div>
+<!-- Order Card -->
+<div class="bg-surface-container-lowest p-6 rounded-[2rem] flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+<div class="flex gap-4">
+<div class="p-4 bg-surface-container-low rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="local_shipping">local_shipping</span>
+</div>
+<div>
+<h4 class="font-bold text-sm">Order #TM-8819</h4>
+<p class="text-xs text-on-surface-variant">1 item • ETB 900 • 2 hours ago</p>
+<div class="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-primary-fixed/30 text-on-primary-fixed text-[10px] font-bold uppercase tracking-wider">
+                                        Processing
+                                    </div>
+</div>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto">
+<button class="flex-1 md:flex-none bg-surface-container text-on-surface-variant px-5 py-2.5 rounded-xl text-sm font-bold transition-all hover:bg-surface-container-high flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="print">print</span>
+                                    Label
+                                </button>
+<button class="flex-1 md:flex-none bg-primary-container text-on-primary-container px-5 py-2.5 rounded-xl text-sm font-bold transition-all hover:bg-primary active:scale-95">Ship Order</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Boost & Quick Actions -->
+<div class="space-y-10">
+<!-- Boost Section -->
+<section class="bg-primary text-on-primary p-8 rounded-[2.5rem] relative overflow-hidden shadow-2xl shadow-primary/20">
+<div class="relative z-10">
+<div class="bg-white/20 w-12 h-12 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-white" data-icon="bolt" data-weight="fill" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<h3 class="text-2xl font-black mb-2 tracking-tight">Boost Visibility</h3>
+<p class="text-on-primary/80 text-sm leading-relaxed mb-8">Get 3x more views by featuring your products in the daily "Tamagn Pick" collection.</p>
+<button class="w-full bg-white text-primary px-6 py-4 rounded-2xl font-bold tracking-tight hover:bg-primary-fixed transition-colors">Start Promoting</button>
+</div>
+<div class="absolute -bottom-8 -right-8 opacity-20">
+<span class="material-symbols-outlined text-[160px]" data-icon="rocket_launch">rocket_launch</span>
+</div>
+</section>
+<!-- Quick Form: Quick Edit -->
+<section class="bg-surface-container-low p-8 rounded-[2rem]">
+<h3 class="text-xl font-bold mb-6 tracking-tight">Quick Stock Update</h3>
+<form class="space-y-5">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Select Product</label>
+<select class="w-full bg-surface-container-lowest border-none rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-primary/40 appearance-none">
+<option>Speed Runner X1</option>
+<option>Minimalist Watch</option>
+<option>Leather Wallet</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Current Stock</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-primary/40" type="number" value="42"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Price (ETB)</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-primary/40" type="number" value="2400"/>
+</div>
+</div>
+<button class="w-full bg-surface-container-high text-on-surface font-bold py-4 rounded-2xl hover:bg-surface-container-highest transition-colors active:scale-95" type="button">Save Changes</button>
+</form>
+</section>
+<!-- Trust Score Card -->
+<section class="bg-surface-container-highest/30 p-8 rounded-[2rem] border border-surface-container-highest">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-primary-fixed rounded-lg">
+<span class="material-symbols-outlined text-on-primary-fixed text-lg" data-icon="verified_user">verified_user</span>
+</div>
+<h4 class="font-bold">Trust Score</h4>
+</div>
+<p class="text-xs text-on-surface-variant mb-6 leading-relaxed">Your merchant reliability score is based on delivery speed and customer disputes.</p>
+<div class="relative h-2 w-full bg-surface-container rounded-full overflow-hidden mb-2">
+<div class="absolute h-full bg-primary w-[94%]"></div>
+</div>
+<div class="flex justify-between text-[10px] font-bold text-primary uppercase">
+<span>Elite Merchant</span>
+<span>94/100</span>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 dark:bg-slate-950/90 backdrop-blur-lg z-50 rounded-t-[2rem] shadow-2xl">
+<a class="flex flex-col items-center justify-center bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-100 rounded-2xl px-5 py-2 scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600 dark:hover:text-green-300" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Market</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600 dark:hover:text-green-300" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-green-600 dark:hover:text-green-300" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-inter text-[11px] font-semibold tracking-wide uppercase mt-1">Profile</span>
+</a>
+</nav>
+<!-- FAB (Contextual for Adding Product on Mobile) -->
+<button class="md:hidden fixed bottom-24 right-6 w-14 h-14 bg-tertiary-container text-on-tertiary-container rounded-2xl shadow-xl flex items-center justify-center z-40 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</body></html>
