@@ -6,16 +6,24 @@ import { createClient } from "@/lib/supabase/server";
 import { getUser } from "@/lib/auth";
 import { deliveryFeeKm, haversineKm } from "@/lib/geo";
 import { platformFeeAmount } from "@/lib/constants/commerce";
+import { parseCheckoutProductForm } from "@/lib/validations/checkout";
+import { fdString } from "@/lib/validations/form-data";
 
 export async function createProductOrder(formData: FormData): Promise<void> {
   const user = await getUser();
   if (!user) redirect("/login");
 
-  const productId = String(formData.get("product_id") ?? "").trim();
-  const quantity = Math.max(1, Number(formData.get("quantity") ?? 1));
-  const addressId = String(formData.get("address_id") ?? "").trim();
+  const parsed = parseCheckoutProductForm(formData);
+  if (!parsed.success) {
+    const fallback = fdString(formData, "product_id");
+    redirect(
+      fallback
+        ? `/checkout?productId=${encodeURIComponent(fallback)}`
+        : "/products"
+    );
+  }
 
-  if (!productId || !addressId) redirect("/checkout?productId=" + encodeURIComponent(productId));
+  const { product_id: productId, quantity, address_id: addressId } = parsed.data;
 
   const supabase = await createClient();
 

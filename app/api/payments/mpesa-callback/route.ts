@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { parseStkCallbackResult } from "@/lib/mpesa";
 import { recordStkCallbackForEscrow } from "@/lib/escrow";
+import { recordStkCallbackForPromotion } from "@/lib/escrow-promotions";
 
 /**
  * Safaricom posts STK callback here. Acknowledge quickly; persist via Supabase async/queue if needed.
@@ -28,6 +29,7 @@ export async function POST(request: Request) {
   }
 
   await recordStkCallbackForEscrow(parsed);
+  await recordStkCallbackForPromotion(parsed);
 
   return NextResponse.json({
     ResultCode: 0,

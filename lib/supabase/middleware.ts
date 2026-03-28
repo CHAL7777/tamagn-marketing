@@ -13,6 +13,7 @@ const ROLE_BY_PREFIX: { prefix: string; roles: UserRole[] }[] = [
   { prefix: "/buyer", roles: ["buyer", "admin"] },
   { prefix: "/merchant", roles: ["merchant", "admin"] },
   { prefix: "/service-provider", roles: ["service_provider", "admin"] },
+  { prefix: "/courier", roles: ["courier", "admin"] },
   { prefix: "/admin", roles: ["admin"] },
 ];
 

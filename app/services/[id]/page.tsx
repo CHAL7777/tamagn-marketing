@@ -4,6 +4,8 @@ import { getServiceListingById } from "@/lib/queries/services";
 import { publicStorageUrl } from "@/lib/storage-url";
 import Image from "next/image";
 import { RequestServiceForm } from "@/components/service/RequestServiceForm";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -22,6 +24,9 @@ export default async function ServiceDetailPage({ params }: Props) {
   const areas = (listing.service_areas as { area_label: string }[]) ?? [];
   const portfolio =
     (listing.service_portfolio as { storage_path: string }[]) ?? [];
+
+  const prepaid = Boolean(listing.prepaid_escrow);
+  const minPrice = listing.price_min != null ? Number(listing.price_min) : null;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
@@ -52,7 +57,24 @@ export default async function ServiceDetailPage({ params }: Props) {
           );
         })}
       </div>
+      {prepaid && minPrice != null && minPrice > 0 ? (
+        <div className="mt-8 rounded-lg border border-primary/30 bg-primary/5 p-4">
+          <p className="text-sm font-medium">Prepaid booking (M-Pesa escrow)</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Pay approx. {minPrice.toLocaleString()} ETB + platform fee, then your
+            provider completes the work.
+          </p>
+          <Link
+            href={`/checkout/service/${listing.id}`}
+            className={cn(buttonVariants(), "mt-3 inline-flex")}
+          >
+            Book &amp; pay
+          </Link>
+        </div>
+      ) : null}
+
       <div className="mt-8 rounded-lg border p-4">
+        <h2 className="text-sm font-medium">Request a quote</h2>
         <RequestServiceForm serviceListingId={listing.id} />
       </div>
       <p className="mt-6">

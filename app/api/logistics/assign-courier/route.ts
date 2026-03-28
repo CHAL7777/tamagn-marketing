@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { assignCourierToOrder } from "@/lib/logistics-core";
 
 /** Admin: assign courier to order. */
 export async function POST(request: Request) {
@@ -44,51 +45,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Server config" }, { status: 500 });
   }
 
-  let { data: courier } = await admin
-    .from("couriers")
-    .select("id")
-    .eq("user_id", courierUserId)
-    .maybeSingle();
-
-  if (!courier) {
-    const { data: created, error: ce } = await admin
-      .from("couriers")
-      .insert({ user_id: courierUserId, is_active: true })
-      .select("id")
-      .single();
-    if (ce || !created) {
-      return NextResponse.json(
-        { ok: false, error: ce?.message ?? "Courier create failed" },
-        { status: 400 }
-      );
-    }
-    courier = created;
+  const result = await assignCourierToOrder(admin, orderId, courierUserId);
+  if (!result.ok) {
+    return NextResponse.json({ ok: false, error: result.error }, { status: 400 });
   }
 
-  const { data: da, error: ae } = await admin
-    .from("delivery_assignments")
-    .upsert(
-      {
-        order_id: orderId,
-        courier_id: courier.id,
-        status: "assigned",
-      },
-      { onConflict: "order_id" }
-    )
-    .select("id")
-    .single();
-
-  if (ae || !da) {
-    return NextResponse.json(
-      { ok: false, error: ae?.message ?? "Assignment failed" },
-      { status: 400 }
-    );
-  }
-
-  await admin.from("delivery_events").insert({
-    assignment_id: da.id,
-    event_type: "assigned",
-  });
-
-  return NextResponse.json({ ok: true, assignmentId: da.id });
+  return NextResponse.json({ ok: true, assignmentId: result.assignmentId });
 }

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
+import { tryAutoReleaseEscrow } from "@/lib/escrow-release";
 
 async function ensureAdmin() {
   const supabase = await createClient();
@@ -14,7 +15,7 @@ async function ensureAdmin() {
     .from("profiles")
     .select("role")
     .eq("id", user.id)
-    .single();
+    .maybeSingle();
   if (profile?.role !== "admin") throw new Error("Forbidden");
   return { user, userId: user.id };
 }
@@ -84,5 +85,105 @@ export async function rejectMerchantApplication(
     .eq("id", applicationId);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/merchants");
+  return { ok: true as const };
+}
+
+type DisputeOutcome =
+  | "release_to_merchant"
+  | "refund_buyer"
+  | "partial_refund";
+
+export async function resolveDispute(
+  disputeId: string,
+  outcome: DisputeOutcome,
+  resolutionNote: string
+) {
+  const { userId } = await ensureAdmin();
+  const admin = createAdminClient();
+
+  const { data: dispute, error: de } = await admin
+    .from("disputes")
+    .select("id, order_id, status")
+    .eq("id", disputeId)
+    .maybeSingle();
+  if (de || !dispute) throw new Error("Dispute not found");
+  if (dispute.status === "resolved" || dispute.status === "closed") {
+    throw new Error("Already resolved");
+  }
+
+  const orderId = dispute.order_id;
+
+  await admin
+    .from("disputes")
+    .update({
+      status: "resolved",
+      outcome,
+      resolution_note: resolutionNote || null,
+      resolved_by: userId,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", disputeId);
+
+  if (outcome === "release_to_merchant") {
+    await admin
+      .from("orders")
+      .update({ status: "completed" })
+      .eq("id", orderId);
+    await admin.from("order_status_history").insert({
+      order_id: orderId,
+      status: "completed",
+      note: "Dispute resolved: release to seller",
+      created_by: userId,
+    });
+    await tryAutoReleaseEscrow(orderId);
+  } else if (outcome === "partial_refund") {
+    await admin
+      .from("orders")
+      .update({ status: "completed" })
+      .eq("id", orderId);
+    await admin.from("order_status_history").insert({
+      order_id: orderId,
+      status: "completed",
+      note: "Dispute resolved: partial refund (settle payout manually)",
+      created_by: userId,
+    });
+  } else if (outcome === "refund_buyer") {
+    await admin.from("orders").update({ status: "cancelled" }).eq("id", orderId);
+    await admin.from("order_status_history").insert({
+      order_id: orderId,
+      status: "cancelled",
+      note: "Dispute: refund buyer",
+      created_by: userId,
+    });
+  }
+
+  revalidatePath("/admin/disputes");
+  revalidatePath(`/buyer/order/${orderId}`);
+  return { ok: true as const };
+}
+
+export async function setProductModerationStatus(
+  productId: string,
+  status: "active" | "suspended",
+  reason?: string
+) {
+  const { userId } = await ensureAdmin();
+  const supabase = await createClient();
+
+  const { error: ue } = await supabase
+    .from("products")
+    .update({ status })
+    .eq("id", productId);
+  if (ue) throw new Error(ue.message);
+
+  await supabase.from("moderation_actions").insert({
+    product_id: productId,
+    admin_id: userId,
+    action: status === "suspended" ? "suspend" : "restore",
+    reason: reason ?? null,
+  });
+
+  revalidatePath("/admin/products");
+  revalidatePath("/products");
   return { ok: true as const };
 }

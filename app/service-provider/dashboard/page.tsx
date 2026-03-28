@@ -32,6 +32,12 @@ export default async function ServiceProviderDashboardPage() {
           Add service
         </Link>
         <Link
+          href="/service-provider/bookings"
+          className={cn(buttonVariants({ variant: "outline" }), "h-auto py-6")}
+        >
+          Prepaid bookings
+        </Link>
+        <Link
           href="/service-provider/requests"
           className={cn(buttonVariants({ variant: "outline" }), "h-auto py-6")}
         >

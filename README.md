@@ -1,12 +1,51 @@
-# Ecommerce Platform
+# ታማኝ (Liger) — Ecommerce Platform
 
-Multi-role marketplace (buyer, merchant, service provider, admin) on Next.js.
+Multi-role marketplace (buyer, merchant, service provider, admin, courier) on **Next.js 16** (App Router).
+
+## Commands
+
+```bash
+npm install
+cp .env.example .env.local   # fill in secrets
+npm run dev                  # Turbopack dev server
+npm run build
+npm run start
+npm run lint                 # ESLint 9 flat config
+npm run typecheck
+npm run test                 # Vitest (validation & critical logic)
+```
+
+## Architecture (why this shape)
+
+| Decision | Rationale |
+|----------|-----------|
+| **App Router only** | Server Components by default, nested layouts, and native `loading.tsx` / `error.tsx` streaming boundaries. |
+| **Server-first data** | `async` RSC pages + `createClient()` from `@supabase/ssr` keep secrets off the client and reduce bundle size. |
+| **`use client` sparingly** | Only for hooks, browser APIs, and interactive islands (forms with `useActionState`, payment buttons, etc.). |
+| **Server Actions** | Mutations colocated with forms (`app/actions/*`); pair with **Zod** in `lib/validations/*` for typed, safe input. |
+| **Tailwind v4 + `@theme`** | Single CSS pipeline via `@import "tailwindcss"` and design tokens in `styles/globals.css`. |
+| **ESLint flat config** | `eslint.config.mjs` + `eslint-config-next` — official path for ESLint 9 + Next 16. |
+| **Turbopack in dev** | `next dev --turbopack` for fast local iteration (stable in Next 16). |
+| **Vitest** | Fast unit tests for schemas and pure logic without spinning up Playwright for every change. |
+
+### Folder structure (high level)
+
+```
+app/           # routes, route handlers, loading/error boundaries
+app/actions/   # Server Actions (mutations)
+components/    # UI (prefer Server Components; client where needed)
+lib/           # supabase, mpesa, validations (zod), queries
+hooks/         # client-only hooks
+types/         # shared TS types + Supabase-shaped database types
+tests/         # Vitest specs
+supabase/      # SQL migrations & ops notes
+```
 
 ## Stack
 
 | Layer | Choice |
 |--------|--------|
-| **Frontend** | [Next.js](https://nextjs.org/) (App Router, SSR + static pages, React Server Components where useful) |
+| **Frontend** | [Next.js 16](https://nextjs.org/) (App Router, RSC, Turbopack dev) |
 | **Styling** | [Tailwind CSS](https://tailwindcss.com/) v4 (utility-first, responsive) |
 | **Backend / DB / Auth** | [Supabase](https://supabase.com/) — PostgreSQL, Auth, Realtime, Storage |
 | **Payments** | Safaricom M-Pesa (STK / C2B, B2C payout, reversal) + **escrow** (`lib/mpesa.ts`, `lib/escrow.ts`) — Kenya [Daraja](https://developer.safaricom.co.ke/) or **Ethiopia** sandbox (`apisandbox.safaricom.et`) |

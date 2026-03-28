@@ -1,7 +1,7 @@
 # Supabase (Liger schema)
 
 1. Open the [SQL Editor](https://supabase.com/dashboard) for your project.
-2. Paste and run [`migrations/20250328120000_init_liger.sql`](./migrations/20250328120000_init_liger.sql) **once** (or use the Supabase CLI: `supabase db push` if linked).
+2. Paste and run migrations **once** in order: [`migrations/20250328120000_init_liger.sql`](./migrations/20250328120000_init_liger.sql) then [`migrations/20250329120000_rls_service_provider_orders.sql`](./migrations/20250329120000_rls_service_provider_orders.sql) (service-provider order updates), or use `supabase db push` if linked.
 3. Enable **Realtime** replication for `orders`, `delivery_assignments`, and `order_status_history` if you want live updates (Database → Replication).
 4. Set `SUPABASE_SERVICE_ROLE_KEY` in `.env.local` for server routes that call `createAdminClient()` (M-Pesa callback, admin APIs).
 5. Optional: run [`seed.sql`](./seed.sql) for baseline categories.

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { ProductModerationButtons } from "@/components/admin/ProductModerationButtons";
 
 export default async function AdminProductsPage() {
   const supabase = await createClient();
@@ -29,9 +30,15 @@ export default async function AdminProductsPage() {
       <ul className="mt-6 divide-y rounded-lg border text-sm">
         {(products ?? []).map(
           (p: { id: string; title: string; status: string }) => (
-            <li key={p.id} className="flex justify-between px-4 py-3">
+            <li
+              key={p.id}
+              className="flex flex-wrap items-center justify-between gap-3 px-4 py-3"
+            >
               <span>{p.title}</span>
-              <span className="text-muted-foreground">{p.status}</span>
+              <div className="flex items-center gap-3">
+                <span className="text-muted-foreground">{p.status}</span>
+                <ProductModerationButtons productId={p.id} currentStatus={p.status} />
+              </div>
             </li>
           )
         )}

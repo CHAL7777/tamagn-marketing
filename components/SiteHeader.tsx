@@ -60,6 +60,14 @@ export async function SiteHeader() {
                   Services
                 </Link>
               ) : null}
+              {role === "courier" ? (
+                <Link
+                  href="/courier/deliveries"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  Courier
+                </Link>
+              ) : null}
               {role === "admin" ? (
                 <Link
                   href="/admin/dashboard"

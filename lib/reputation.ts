@@ -37,3 +37,43 @@ export async function recomputeMerchantTrust(merchantId: string) {
     .update({ trust_score: trust.toFixed(2) })
     .eq("id", merchantId);
 }
+
+export async function recomputeServiceProviderTrust(serviceProviderId: string) {
+  let admin;
+  try {
+    admin = createAdminClient();
+  } catch {
+    return;
+  }
+
+  const { data: reviews } = await admin
+    .from("reviews")
+    .select("rating")
+    .eq("service_provider_id", serviceProviderId);
+
+  const ratings = (reviews ?? []).map((r: { rating: number }) => r.rating);
+  const avg = scoreFromRatings(ratings);
+
+  const { data: listings } = await admin
+    .from("service_listings")
+    .select("id")
+    .eq("service_provider_id", serviceProviderId);
+  const listingIds = (listings ?? []).map((l: { id: string }) => l.id);
+  const { count: completed } =
+    listingIds.length > 0
+      ? await admin
+          .from("orders")
+          .select("*", { count: "exact", head: true })
+          .eq("status", "completed")
+          .in("service_listing_id", listingIds)
+      : { count: 0 };
+
+  const n = completed ?? 0;
+  const completionBoost = Math.min(1, n / 30);
+  const trust = Math.min(5, avg + completionBoost * 0.5);
+
+  await admin
+    .from("service_providers")
+    .update({ trust_score: trust.toFixed(2) })
+    .eq("id", serviceProviderId);
+}

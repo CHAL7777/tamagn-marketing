@@ -59,6 +59,16 @@ export default async function AdminDashboardPage() {
             Analytics
           </Link>
         </li>
+        <li>
+          <Link href="/admin/disputes" className="text-primary underline">
+            Disputes
+          </Link>
+        </li>
+        <li>
+          <Link href="/admin/logistics" className="text-primary underline">
+            Logistics (assign courier)
+          </Link>
+        </li>
       </ul>
     </div>
   );

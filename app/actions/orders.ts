@@ -3,7 +3,10 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { getUser } from "@/lib/auth";
-import { recomputeMerchantTrust } from "@/lib/reputation";
+import {
+  recomputeMerchantTrust,
+  recomputeServiceProviderTrust,
+} from "@/lib/reputation";
 import { tryAutoReleaseEscrow } from "@/lib/escrow-release";
 
 const MERCHANT_FLOW: Record<string, string> = {
@@ -112,7 +115,7 @@ export async function buyerConfirmDelivery(orderId: string) {
 
   const { data: order } = await supabase
     .from("orders")
-    .select("id, status, buyer_id, merchant_id")
+    .select("id, status, buyer_id, merchant_id, service_listing_id")
     .eq("id", orderId)
     .maybeSingle();
   if (!order || order.buyer_id !== user.id) throw new Error("Forbidden");
@@ -135,6 +138,16 @@ export async function buyerConfirmDelivery(orderId: string) {
 
   if (order.merchant_id) {
     await recomputeMerchantTrust(order.merchant_id);
+  }
+  if (order.service_listing_id) {
+    const { data: sl } = await supabase
+      .from("service_listings")
+      .select("service_provider_id")
+      .eq("id", order.service_listing_id)
+      .maybeSingle();
+    if (sl?.service_provider_id) {
+      await recomputeServiceProviderTrust(sl.service_provider_id);
+    }
   }
 
   await tryAutoReleaseEscrow(orderId);
@@ -189,17 +202,30 @@ export async function submitReview(
   if (!order || order.buyer_id !== user.id) throw new Error("Forbidden");
   if (order.status !== "completed") throw new Error("Order not completed");
 
+  let serviceProviderId: string | null = null;
+  if (order.service_listing_id) {
+    const { data: sl } = await supabase
+      .from("service_listings")
+      .select("service_provider_id")
+      .eq("id", order.service_listing_id)
+      .maybeSingle();
+    serviceProviderId = sl?.service_provider_id ?? null;
+  }
+
   await supabase.from("reviews").insert({
     order_id: orderId,
     reviewer_id: user.id,
     merchant_id: order.merchant_id,
-    service_provider_id: null,
+    service_provider_id: serviceProviderId,
     rating,
     body: body || null,
   });
 
   if (order.merchant_id) {
     await recomputeMerchantTrust(order.merchant_id);
+  }
+  if (serviceProviderId) {
+    await recomputeServiceProviderTrust(serviceProviderId);
   }
 
   revalidatePath(`/buyer/order/${orderId}`);

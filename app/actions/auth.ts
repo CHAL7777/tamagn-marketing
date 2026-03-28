@@ -3,6 +3,10 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import {
+  parseSignInForm,
+  parseSignUpForm,
+} from "@/lib/validations/auth";
 
 export type AuthFormState = { error?: string; ok?: boolean } | null;
 
@@ -10,42 +14,43 @@ export async function signInWithEmail(
   _prev: AuthFormState,
   formData: FormData
 ): Promise<AuthFormState> {
-  const email = String(formData.get("email") ?? "").trim();
-  const password = String(formData.get("password") ?? "");
-  const next = String(formData.get("next") ?? "").trim() || "/";
-
-  if (!email || !password) {
-    return { error: "Email and password required" };
+  const parsed = parseSignInForm(formData);
+  if (!parsed.success) {
+    const msg = parsed.error.flatten().fieldErrors;
+    const first =
+      msg.email?.[0] ?? msg.password?.[0] ?? msg.next?.[0] ?? "Invalid input";
+    return { error: first };
   }
+
+  const { email, password, next } = parsed.data;
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return { error: error.message };
 
   revalidatePath("/", "layout");
-  redirect(next.startsWith("/") ? next : "/");
+  redirect(next);
 }
 
 export async function signUpWithEmail(
   _prev: AuthFormState,
   formData: FormData
 ): Promise<AuthFormState> {
-  const email = String(formData.get("email") ?? "").trim();
-  const password = String(formData.get("password") ?? "");
-  const fullName = String(formData.get("full_name") ?? "").trim();
+  const parsed = parseSignUpForm(formData);
+  if (!parsed.success) {
+    const msg = parsed.error.flatten().fieldErrors;
+    const first =
+      msg.email?.[0] ?? msg.password?.[0] ?? msg.full_name?.[0] ?? "Invalid input";
+    return { error: first };
+  }
 
-  if (!email || !password) {
-    return { error: "Email and password required" };
-  }
-  if (password.length < 6) {
-    return { error: "Password must be at least 6 characters" };
-  }
+  const { email, password, full_name: fullName } = parsed.data;
 
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { full_name: fullName } },
+    options: { data: { full_name: fullName || undefined } },
   });
   if (error) return { error: error.message };
 
