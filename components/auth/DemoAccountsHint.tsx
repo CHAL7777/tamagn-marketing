@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { UserCircle } from "lucide-react";
-import { MaterialIconImage } from "@/components/marketing/MaterialIconImage";
 
 const DEFAULT_DEMO_PASSWORD = "TamagnDemo123!";
 
@@ -34,13 +34,16 @@ export function DemoAccountsHint({ labels }: Props) {
         </span>
       </summary>
       <div className="mt-3 space-y-3 text-sm leading-6 text-secondary">
-        <div
-          className="flex flex-wrap items-center justify-center gap-4 rounded-2xl bg-surface-container-low/80 py-4"
-          aria-hidden
-        >
-          <MaterialIconImage icon="terminal" alt="" size={48} className="opacity-80" />
-          <MaterialIconImage icon="person" alt="" size={48} className="opacity-80" />
-          <MaterialIconImage icon="shoppingCart" alt="" size={48} className="opacity-80" />
+        <div className="overflow-hidden rounded-2xl border border-border/60 bg-surface-container-low/80">
+          <div className="relative mx-auto aspect-square max-w-[220px]">
+            <Image
+              src="/images/power-bank.jpg"
+              alt="Sample product: power bank (demo listing)"
+              fill
+              className="object-cover"
+              sizes="220px"
+            />
+          </div>
         </div>
         <p>{labels.intro}</p>
         <ol className="list-decimal space-y-1 pl-5">

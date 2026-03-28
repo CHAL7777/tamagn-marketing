@@ -4,7 +4,21 @@ import { useActionState } from "react";
 import { submitMerchantApplication } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 
-export function MerchantApplyForm() {
+type Props = {
+  labels: {
+    successTitle: string;
+    successBody: string;
+    businessName: string;
+    description: string;
+    location: string;
+    locationPlaceholder: string;
+    phone: string;
+    submit: string;
+    submitting: string;
+  };
+};
+
+export function MerchantApplyForm({ labels }: Props) {
   const [state, formAction, pending] = useActionState(
     submitMerchantApplication,
     null
@@ -13,10 +27,9 @@ export function MerchantApplyForm() {
   if (state?.ok) {
     return (
       <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 text-sm">
-        <p className="font-medium text-foreground">Application submitted</p>
+        <p className="font-medium text-foreground">{labels.successTitle}</p>
         <p className="mt-1 text-muted-foreground">
-          An administrator will review your business. You will get access to the
-          merchant dashboard after approval.
+          {labels.successBody}
         </p>
       </div>
     );
@@ -31,7 +44,7 @@ export function MerchantApplyForm() {
       ) : null}
       <div className="space-y-2">
         <label htmlFor="business_name" className="text-sm font-medium">
-          Business name
+          {labels.businessName}
         </label>
         <input
           id="business_name"
@@ -42,7 +55,7 @@ export function MerchantApplyForm() {
       </div>
       <div className="space-y-2">
         <label htmlFor="description" className="text-sm font-medium">
-          Description
+          {labels.description}
         </label>
         <textarea
           id="description"
@@ -53,18 +66,18 @@ export function MerchantApplyForm() {
       </div>
       <div className="space-y-2">
         <label htmlFor="location_label" className="text-sm font-medium">
-          Location
+          {labels.location}
         </label>
         <input
           id="location_label"
           name="location_label"
-          placeholder="City / area"
+          placeholder={labels.locationPlaceholder}
           className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
         />
       </div>
       <div className="space-y-2">
         <label htmlFor="phone" className="text-sm font-medium">
-          Business phone
+          {labels.phone}
         </label>
         <input
           id="phone"
@@ -74,7 +87,7 @@ export function MerchantApplyForm() {
         />
       </div>
       <Button type="submit" disabled={pending}>
-        {pending ? "Submitting…" : "Submit application"}
+        {pending ? labels.submitting : labels.submit}
       </Button>
     </form>
   );

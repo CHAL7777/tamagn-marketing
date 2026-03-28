@@ -3,7 +3,20 @@
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 
-export function AssignCourierForm() {
+type Suggestion = {
+  id: string;
+  label: string;
+};
+
+type Props = {
+  suggestedOrders?: Suggestion[];
+  suggestedCouriers?: Suggestion[];
+};
+
+export function AssignCourierForm({
+  suggestedOrders = [],
+  suggestedCouriers = [],
+}: Props) {
   const [orderId, setOrderId] = useState("");
   const [courierUserId, setCourierUserId] = useState("");
   const [msg, setMsg] = useState<string | null>(null);
@@ -37,14 +50,30 @@ export function AssignCourierForm() {
         value={orderId}
         onChange={(e) => setOrderId(e.target.value)}
         placeholder="Order UUID"
+        list={suggestedOrders.length > 0 ? "assign-courier-orders" : undefined}
         className="w-full rounded border px-3 py-2 font-mono text-xs"
       />
       <input
         value={courierUserId}
         onChange={(e) => setCourierUserId(e.target.value)}
         placeholder="Courier user UUID"
+        list={suggestedCouriers.length > 0 ? "assign-courier-couriers" : undefined}
         className="w-full rounded border px-3 py-2 font-mono text-xs"
       />
+      {suggestedOrders.length > 0 ? (
+        <datalist id="assign-courier-orders">
+          {suggestedOrders.map((order) => (
+            <option key={order.id} value={order.id} label={order.label} />
+          ))}
+        </datalist>
+      ) : null}
+      {suggestedCouriers.length > 0 ? (
+        <datalist id="assign-courier-couriers">
+          {suggestedCouriers.map((courier) => (
+            <option key={courier.id} value={courier.id} label={courier.label} />
+          ))}
+        </datalist>
+      ) : null}
       <Button type="button" size="sm" disabled={p} onClick={() => submit()}>
         {p ? "Saving…" : "Assign"}
       </Button>

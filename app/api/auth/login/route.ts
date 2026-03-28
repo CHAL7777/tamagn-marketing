@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { formatAuthErrorMessage } from "@/lib/auth/format-auth-error";
+import { isEmailNotConfirmedError } from "@/lib/auth/sign-in-errors";
 import { nextPathSchema, signInSchema } from "@/lib/validations/auth";
 
 const loginPayloadSchema = signInSchema.extend({
@@ -29,8 +31,25 @@ export async function POST(request: Request) {
   });
 
   if (error || !data.user) {
+    if (error && isEmailNotConfirmedError(error)) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error:
+            "This account is not confirmed yet. Open the link in the email we sent you, or request another confirmation email.",
+          code: "email_not_confirmed",
+        },
+        { status: 401 }
+      );
+    }
+
     return NextResponse.json(
-      { ok: false, error: error?.message ?? "Login failed" },
+      {
+        ok: false,
+        error: formatAuthErrorMessage(error ?? { message: "Login failed" }, {
+          suggestLocalDemo: process.env.NODE_ENV === "development",
+        }),
+      },
       { status: 401 }
     );
   }
